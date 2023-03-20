@@ -1,10 +1,10 @@
-import { Box, Button, Flex, Heading, Img, Stack, Text, Wrap, WrapItem } from '@chakra-ui/react';
-import { Location } from 'history';
-import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Box, Button, Flex, Heading, Img, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react";
+import { Location } from "history";
+import * as React from "react";
+import { Link } from "react-router-dom";
 
-import { ShowTimesListByDate, ShowTimesDetail, screenDetail } from '@/features/showtimes';
-import { formatDate } from '@/utils/format';
+import { ShowTimesListByDate, ShowTimesDetail, screenDetail } from "@/features/showtimes";
+import { formatDate } from "@/utils/format";
 
 interface IShowTimesItem extends ShowTimesListByDate {
   isMineCinema: boolean;

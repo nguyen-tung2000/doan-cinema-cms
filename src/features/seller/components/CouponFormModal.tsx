@@ -9,14 +9,14 @@ import {
   ModalFooter,
   Button,
   useToast,
-} from '@chakra-ui/react';
-import * as React from 'react';
-import * as z from 'zod';
-import shallow from 'zustand/shallow';
+} from "@chakra-ui/react";
+import * as React from "react";
+import * as z from "zod";
+import shallow from "zustand/shallow";
 
-import { Form, InputField } from '@/components';
-import { getCouponGift } from '@/features/seller';
-import { useSellerStore } from '@/stores/seller';
+import { Form, InputField } from "@/components";
+import { getCouponGift } from "@/features/seller";
+import { useSellerStore } from "@/stores/seller";
 
 type CouponValues = {
   code: string;
@@ -24,7 +24,7 @@ type CouponValues = {
 };
 
 const schema = z.object({
-  code: z.string().nonempty({ message: 'Code là bắt buộc' }),
+  code: z.string().nonempty({ message: "Code là bắt buộc" }),
   //   .regex(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g, 'code không hợp lệ'),
 });
 
@@ -56,9 +56,9 @@ export const CouponFormModal = () => {
               const data = { code, userId: member._id };
               const { values } = await getCouponGift(data);
               toast({
-                position: 'top-right',
-                status: 'success',
-                title: 'Lấy coupon thành công',
+                position: "top-right",
+                status: "success",
+                title: "Lấy coupon thành công",
                 isClosable: true,
               });
               fetchCoupon(values.coupon);
@@ -78,8 +78,8 @@ export const CouponFormModal = () => {
                   <InputField
                     type="text"
                     label="Nhập code"
-                    registration={register('code')}
-                    error={formState.errors['code']}
+                    registration={register("code")}
+                    error={formState.errors["code"]}
                   />
                 </Stack>
               </ModalBody>

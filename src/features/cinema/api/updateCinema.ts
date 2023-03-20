@@ -1,10 +1,10 @@
-import { createStandaloneToast } from '@chakra-ui/toast';
-import { useMutation } from 'react-query';
+import { createStandaloneToast } from "@chakra-ui/toast";
+import { useMutation } from "react-query";
 
-import { CinemaRespone } from '../type';
+import { CinemaRespone } from "../type";
 
-import { axios } from '@/lib/axios';
-import { MutationConfig, queryClient } from '@/lib/react-query';
+import { axios } from "@/lib/axios";
+import { MutationConfig, queryClient } from "@/lib/react-query";
 
 export type UpdateCommentDTO = {
   data: {
@@ -32,14 +32,14 @@ export const useUpdateCinema = ({ config }: UseUpdateCinematOptions = {}) => {
 
   return useMutation({
     onMutate: async (updateCinema) => {
-      await queryClient.cancelQueries(['cinemas', updateCinema?.cinemaId]);
+      await queryClient.cancelQueries(["cinemas", updateCinema?.cinemaId]);
 
       const previousCinemas = queryClient.getQueryData<CinemaRespone>([
-        'cinemas',
+        "cinemas",
         updateCinema.cinemaId,
       ]);
 
-      queryClient.setQueryData(['cinemas', updateCinema.cinemaId], {
+      queryClient.setQueryData(["cinemas", updateCinema.cinemaId], {
         ...previousCinemas,
         values: { cinemas: { ...updateCinema.data, _id: updateCinema.cinemaId } },
       });
@@ -48,16 +48,16 @@ export const useUpdateCinema = ({ config }: UseUpdateCinematOptions = {}) => {
     },
     onError: (_, __, context: any) => {
       if (context?.previousCinemas) {
-        queryClient.setQueryData('cinemas', context.previousCinemas);
+        queryClient.setQueryData("cinemas", context.previousCinemas);
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries('cinemas');
+      queryClient.invalidateQueries("cinemas");
       toast({
-        title: 'Updated Cinema',
-        status: 'success',
+        title: "Updated Cinema",
+        status: "success",
         isClosable: true,
-        position: 'top-right',
+        position: "top-right",
       });
     },
     ...config,

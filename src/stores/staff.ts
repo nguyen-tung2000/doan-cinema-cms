@@ -1,6 +1,6 @@
-import create from 'zustand';
+import create from "zustand";
 
-import { StaffValues } from '@/features/staff';
+import { StaffValues } from "@/features/staff";
 
 type StaffDTO = {
   type: string;
@@ -22,11 +22,11 @@ type useStaffStoreType = {
 };
 
 export const useStaffStore = create<useStaffStoreType>((set) => ({
-  type: '',
+  type: "",
   isOpen: false,
   data: {} as StaffValues,
-  imageSource: '',
-  staffId: '',
+  imageSource: "",
+  staffId: "",
   onOpen: () =>
     set(() => ({
       isOpen: true,

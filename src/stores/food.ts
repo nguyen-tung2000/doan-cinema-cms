@@ -1,7 +1,7 @@
-import create from 'zustand';
+import create from "zustand";
 
-import { FOOD_FORM } from '@/constants';
-import { IFood } from '@/features/foods';
+import { FOOD_FORM } from "@/constants";
+import { IFood } from "@/features/foods";
 
 type useFoodStoreType = {
   type: string;
@@ -14,30 +14,30 @@ type useFoodStoreType = {
 };
 
 const defaultFood = {
-  _id: '',
-  name: '',
-  price: '',
-  unit: '',
-  image: '',
+  _id: "",
+  name: "",
+  price: "",
+  unit: "",
+  image: "",
 };
 
 export const useFoodStore = create<useFoodStoreType>((set) => ({
-  type: '',
+  type: "",
   isOpen: false,
   data: {
-    _id: '',
-    name: '',
-    price: '',
-    unit: '',
-    image: '',
+    _id: "",
+    name: "",
+    price: "",
+    unit: "",
+    image: "",
   },
-  imageSource: '',
+  imageSource: "",
   onOpen: (type: string, data?: any) =>
     set(() => ({
       isOpen: true,
       type,
       data: type === FOOD_FORM.EDIT ? data : defaultFood,
-      imageSource: type === FOOD_FORM.EDIT ? data.image : '',
+      imageSource: type === FOOD_FORM.EDIT ? data.image : "",
     })),
   onClose: () => set(() => ({ isOpen: false })),
 

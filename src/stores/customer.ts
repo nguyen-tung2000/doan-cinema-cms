@@ -1,6 +1,6 @@
-import create from 'zustand';
+import create from "zustand";
 
-import { CUSTOMER_FORM } from '@/constants';
+import { CUSTOMER_FORM } from "@/constants";
 
 type useCustomerStoreType = {
   type: string;
@@ -26,16 +26,16 @@ type useCustomerStoreType = {
 };
 
 const defaultCustomer = {
-  _id: '',
-  email: '',
-  phoneNumber: '',
-  fullName: '',
-  dateOfBirth: '',
+  _id: "",
+  email: "",
+  phoneNumber: "",
+  fullName: "",
+  dateOfBirth: "",
   male: true,
 };
 
 export const useCustomerStore = create<useCustomerStoreType>((set) => ({
-  type: '',
+  type: "",
   isOpen: false,
   initialValues: defaultCustomer,
   onOpen: (type: string, data?: any) =>

@@ -9,13 +9,13 @@ import {
   ModalFooter,
   Button,
   useToast,
-} from '@chakra-ui/react';
-import React from 'react';
-import * as z from 'zod';
-import shallow from 'zustand/shallow';
+} from "@chakra-ui/react";
+import React from "react";
+import * as z from "zod";
+import shallow from "zustand/shallow";
 
-import { Form, InputField } from '@/components';
-import { useSellerStore } from '@/stores/seller';
+import { Form, InputField } from "@/components";
+import { useSellerStore } from "@/stores/seller";
 
 type PhoneValue = {
   phoneNumber: string;
@@ -24,8 +24,8 @@ type PhoneValue = {
 const schema = z.object({
   phoneNumber: z
     .string()
-    .nonempty({ message: 'số điện thoại là bắt buộc' })
-    .regex(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g, 'số điện thoại không đúng định dạng'),
+    .nonempty({ message: "số điện thoại là bắt buộc" })
+    .regex(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g, "số điện thoại không đúng định dạng"),
 });
 
 export const MemberFormModal = () => {
@@ -48,9 +48,9 @@ export const MemberFormModal = () => {
             const hasMember = await fetchMember(phoneNumber);
             if (hasMember) {
               toast({
-                position: 'top-right',
-                status: 'success',
-                title: 'Lấy thông tin khách hàng thành công',
+                position: "top-right",
+                status: "success",
+                title: "Lấy thông tin khách hàng thành công",
                 isClosable: true,
               });
 
@@ -68,8 +68,8 @@ export const MemberFormModal = () => {
                   <InputField
                     type="text"
                     label="Nhập số điện thoại khách hàng"
-                    registration={register('phoneNumber')}
-                    error={formState.errors['phoneNumber']}
+                    registration={register("phoneNumber")}
+                    error={formState.errors["phoneNumber"]}
                   />
                 </Stack>
               </ModalBody>

@@ -1,4 +1,4 @@
-import { ComboItem } from '@/features/seller';
+import { ComboItem } from "@/features/seller";
 
 export interface ComBosResponse {
   success: boolean;

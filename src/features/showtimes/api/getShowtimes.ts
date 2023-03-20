@@ -1,9 +1,9 @@
-import { useQuery } from 'react-query';
+import { useQuery } from "react-query";
 
-import { ShowTimesListByDayRangeResponse } from '..';
+import { ShowTimesListByDayRangeResponse } from "..";
 
-import { axios } from '@/lib/axios';
-import { QueryConfig } from '@/lib/react-query';
+import { axios } from "@/lib/axios";
+import { QueryConfig } from "@/lib/react-query";
 
 interface ShowTimesDTO {
   dateStart: string;
@@ -23,7 +23,7 @@ type UseShowTimesOptions = {
 export const useShowTimes = ({ config, data }: UseShowTimesOptions) => {
   return useQuery({
     ...config,
-    queryKey: ['showTimes', data.dateStart, data.dateEnd],
+    queryKey: ["showTimes", data.dateStart, data.dateEnd],
     queryFn: () => getShowTimes(data),
   });
 };

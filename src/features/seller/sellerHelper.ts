@@ -1,6 +1,6 @@
-import { ComboItem, SeatType, TicketType, IGift } from '@/features/seller';
-import { ShowTimesDetail } from '@/features/showtimes';
-import { getDay, getEachDayOfInterval } from '@/utils/format';
+import { ComboItem, SeatType, TicketType, IGift } from "@/features/seller";
+import { ShowTimesDetail } from "@/features/showtimes";
+import { getDay, getEachDayOfInterval } from "@/utils/format";
 
 export const getRangeDate = () => {
   const today = new Date();
@@ -51,13 +51,13 @@ export const getInvoiceTotal = (seats: SeatType[]) =>
 export const getComboTotal = (combos: ComboItem[]) =>
   combos.reduce((sum, crItem) => sum + crItem.price * crItem.quantity, 0);
 
-export const getNameSeats = (seats: SeatType[]) => seats.map((seat) => seat.seatName).join(', ');
+export const getNameSeats = (seats: SeatType[]) => seats.map((seat) => seat.seatName).join(", ");
 
 export const getNameCombo = (combos: ComboItem[]) =>
-  combos.map((combo) => `${combo.name} (${combo.quantity})`).join(', ');
+  combos.map((combo) => `${combo.name} (${combo.quantity})`).join(", ");
 
 export const getNameGift = (gifts: IGift[]) =>
-  gifts.map((gifts) => `${gifts.name} (${gifts.quantity})`).join(', ');
+  gifts.map((gifts) => `${gifts.name} (${gifts.quantity})`).join(", ");
 
 export const getNewPoint = (combos: ComboItem[], seats: SeatType[]) =>
   Math.floor((getInvoiceTotal(seats) + getComboTotal(combos)) / 10000);

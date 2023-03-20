@@ -1,9 +1,9 @@
-import { useMutation } from 'react-query';
+import { useMutation } from "react-query";
 
-import { StaffRespon } from '@/features/staff';
-import { axios } from '@/lib/axios';
-import { MutationConfig, queryClient } from '@/lib/react-query';
-import { Toast } from '@/utils/Toast';
+import { StaffRespon } from "@/features/staff";
+import { axios } from "@/lib/axios";
+import { MutationConfig, queryClient } from "@/lib/react-query";
+import { Toast } from "@/utils/Toast";
 
 export type UpdateStaffDTO = {
   data: {
@@ -30,14 +30,14 @@ type UseUpdateStaffOptions = {
 export const useEditStaff = ({ config }: UseUpdateStaffOptions = {}) => {
   return useMutation({
     onMutate: async (updatingStaff) => {
-      await queryClient.cancelQueries(['staffs', updatingStaff.staffId]);
+      await queryClient.cancelQueries(["staffs", updatingStaff.staffId]);
 
       const previousStaff = queryClient.getQueryData<StaffRespon>([
-        'staffs',
+        "staffs",
         updatingStaff.staffId,
       ]);
 
-      queryClient.setQueryData(['staffs', updatingStaff.staffId], {
+      queryClient.setQueryData(["staffs", updatingStaff.staffId], {
         ...previousStaff,
         staffs: { ...updatingStaff.data, _id: updatingStaff.staffId },
       });
@@ -46,16 +46,16 @@ export const useEditStaff = ({ config }: UseUpdateStaffOptions = {}) => {
     },
     onError: (_, __, context: any) => {
       if (context?.previousStaff) {
-        queryClient.setQueryData('staffs', context.previousStaff);
+        queryClient.setQueryData("staffs", context.previousStaff);
       }
     },
     onSuccess: (res) => {
       if (res.success) {
-        queryClient.invalidateQueries('auth-user');
-        queryClient.invalidateQueries('staffs');
-        Toast('Updated Staff');
+        queryClient.invalidateQueries("auth-user");
+        queryClient.invalidateQueries("staffs");
+        Toast("Updated Staff");
       } else {
-        queryClient.invalidateQueries('staffs');
+        queryClient.invalidateQueries("staffs");
       }
     },
     ...config,

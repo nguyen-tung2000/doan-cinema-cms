@@ -14,7 +14,7 @@ import {
   PopoverTrigger,
   Text,
   useMultiStyleConfig,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 import {
   addDays,
   endOfMonth,
@@ -29,14 +29,14 @@ import {
   nextMonday,
   parse,
   startOfMonth,
-} from 'date-fns';
-import React, { useEffect, useRef, useState } from 'react';
-import FocusLock from 'react-focus-lock';
-import { UseFormRegisterReturn } from 'react-hook-form';
-import { IoCalendarClearSharp, IoChevronBackSharp, IoChevronForwardSharp } from 'react-icons/io5';
-import { useLilius } from 'use-lilius';
+} from "date-fns";
+import React, { useEffect, useRef, useState } from "react";
+import FocusLock from "react-focus-lock";
+import { UseFormRegisterReturn } from "react-hook-form";
+import { IoCalendarClearSharp, IoChevronBackSharp, IoChevronForwardSharp } from "react-icons/io5";
+import { useLilius } from "use-lilius";
 
-import { FieldWrapperPassThroughProps, FieldWrapper } from '..';
+import { FieldWrapperPassThroughProps, FieldWrapper } from "..";
 
 interface RangeSelectProps extends FieldWrapperPassThroughProps, FormControlProps {
   registration: Partial<UseFormRegisterReturn>;
@@ -63,15 +63,15 @@ export const SingleSelect: React.FC<RangeSelectProps> = (props) => {
   } = useLilius();
   const { registration, label, error, setValues, nameToSet, sizeOfTimeStamp, defaultValue } = props;
 
-  const styles = useMultiStyleConfig('Datepicker', {});
+  const styles = useMultiStyleConfig("Datepicker", {});
 
   const [isOpen, setIsOpen] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const inputRef: any = useRef(null);
   // Only accept digits and forward slash as input.
   const onInputChange = (input: string) => {
-    setInputValue(input.trim().replace(/[^\d/]+/g, ''));
-    setDate(new Date(), input.trim().replace(/[^\d/]+/g, ''));
+    setInputValue(input.trim().replace(/[^\d/]+/g, ""));
+    setDate(new Date(), input.trim().replace(/[^\d/]+/g, ""));
   };
 
   // When the input field loses focus, we need to parse
@@ -80,12 +80,12 @@ export const SingleSelect: React.FC<RangeSelectProps> = (props) => {
   const onInputBlur = () => {
     // If the input is empty, we should just go ahead and
     // clear the current selection.
-    if (inputValue === '') {
+    if (inputValue === "") {
       clearSelected();
       return;
     }
 
-    const parts = inputValue.split('/');
+    const parts = inputValue.split("/");
     const partsAsNumber = parts.map((p) => parseInt(p, 10));
 
     // Make sure the month is within the valid range
@@ -94,18 +94,18 @@ export const SingleSelect: React.FC<RangeSelectProps> = (props) => {
     if (parts.length < 1) {
       parts[0] = `${getMonth(viewing)}`;
     } else if (partsAsNumber[0] < 1) {
-      parts[0] = '1';
+      parts[0] = "1";
     } else if (partsAsNumber[0] > 12) {
-      parts[0] = '12';
+      parts[0] = "12";
     }
 
     // Make sure the day is within the valid range
     // of days (1 - last day of the given month). If no
     // day is given, default to the first day.
     if (parts.length < 2) {
-      parts[1] = '1';
+      parts[1] = "1";
     } else if (partsAsNumber[1] < 1) {
-      parts[1] = '1';
+      parts[1] = "1";
     } else if (partsAsNumber[1] > getDate(lastDayOfMonth(viewing))) {
       parts[1] = `${getDate(lastDayOfMonth(viewing))}`;
     }
@@ -120,23 +120,23 @@ export const SingleSelect: React.FC<RangeSelectProps> = (props) => {
       parts[2] = `${Math.round(getYear(viewing) / 1000) * 1000 + partsAsNumber[2]}`;
     }
 
-    const parsed = parse(parts.join('/'), 'MM/dd/yyyy', new Date());
+    const parsed = parse(parts.join("/"), "MM/dd/yyyy", new Date());
 
     if (isValid(parsed)) {
       select(parsed, true);
     } else if (selected.length > 0) {
-      setInputValue(format(selected[0], 'MM/dd/yyyy'));
+      setInputValue(format(selected[0], "MM/dd/yyyy"));
     } else {
-      setInputValue('');
+      setInputValue("");
     }
   };
 
   const setDate = (value: Date, valueString?: string) => {
     if (setValues) {
-      const valueFormat = !valueString ? format(value, 'MM/dd/yyyy') : valueString;
+      const valueFormat = !valueString ? format(value, "MM/dd/yyyy") : valueString;
       if (sizeOfTimeStamp && sizeOfTimeStamp > 0) {
         for (let i = 0; i < (sizeOfTimeStamp as number); i++) {
-          if (nameToSet == 'dateStart') {
+          if (nameToSet == "dateStart") {
             setValues(`showTimes.${i}.dateStart`, valueFormat);
           } else {
             setValues(`showTimes.${i}.dateEnd`, valueFormat);
@@ -150,9 +150,9 @@ export const SingleSelect: React.FC<RangeSelectProps> = (props) => {
   // and the currently viewed month to match.
 
   useEffect(() => {
-    setInputValue(defaultValue ? (defaultValue as string) : '');
+    setInputValue(defaultValue ? (defaultValue as string) : "");
     if (selected.length > 0) {
-      setInputValue(format(selected[0], 'MM/dd/yyyy'));
+      setInputValue(format(selected[0], "MM/dd/yyyy"));
     }
     setViewing(selected.length > 0 ? selected[0] : new Date());
     if (selected.length > 0) {
@@ -187,12 +187,12 @@ export const SingleSelect: React.FC<RangeSelectProps> = (props) => {
             <InputRightElement>
               <IconButton
                 aria-label="Open Calendar"
-                colorScheme={isOpen ? 'blue' : 'gray'}
+                colorScheme={isOpen ? "blue" : "gray"}
                 icon={<IoCalendarClearSharp />}
                 minWidth="auto"
                 variant="link"
                 _focus={{
-                  outline: 'none',
+                  outline: "none",
                 }}
                 onClick={() => {
                   setIsOpen(!isOpen);
@@ -241,7 +241,7 @@ export const SingleSelect: React.FC<RangeSelectProps> = (props) => {
                     sx={styles.navigationButton}
                   />
 
-                  <Text sx={styles.navigationLabel}>{format(viewing, 'MMMM yyyy')}</Text>
+                  <Text sx={styles.navigationLabel}>{format(viewing, "MMMM yyyy")}</Text>
 
                   <IconButton
                     aria-label="Next Month"
@@ -256,7 +256,7 @@ export const SingleSelect: React.FC<RangeSelectProps> = (props) => {
                   <Box sx={styles.dayLabelContainer}>
                     {calendar[0][0].map((day) => (
                       <Box key={`${day}`} sx={styles.dayLabel}>
-                        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][getDay(day)]}
+                        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][getDay(day)]}
                       </Box>
                     ))}
                   </Box>
@@ -272,7 +272,7 @@ export const SingleSelect: React.FC<RangeSelectProps> = (props) => {
                           onClick={() => toggle(day, true)}
                           sx={styles.calendarMatrixDay}
                         >
-                          <Text>{format(day, 'dd')}</Text>
+                          <Text>{format(day, "dd")}</Text>
                         </Box>
                       ))}
                     </Box>

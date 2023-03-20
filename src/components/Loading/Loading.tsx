@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import * as S from './Loading.style';
+import * as S from "./Loading.style";
 
 export const Loading = () => {
   return (

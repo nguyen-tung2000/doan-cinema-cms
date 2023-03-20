@@ -1,8 +1,8 @@
-import { useQuery } from 'react-query';
+import { useQuery } from "react-query";
 
-import { AuthResponse } from '@/features/seller';
-import { axios } from '@/lib/axios';
-import { QueryConfig } from '@/lib/react-query';
+import { AuthResponse } from "@/features/seller";
+import { axios } from "@/lib/axios";
+import { QueryConfig } from "@/lib/react-query";
 
 interface PhoneDTO {
   phoneNumber: string;
@@ -24,7 +24,7 @@ type UseUserProfileOptions = {
 export const useUserProfileByPhone = ({ config, phoneNumber }: UseUserProfileOptions) => {
   return useQuery({
     ...config,
-    queryKey: ['userProfileByPhone', phoneNumber],
+    queryKey: ["userProfileByPhone", phoneNumber],
     queryFn: () => getUserProfile({ phoneNumber }),
   });
 };

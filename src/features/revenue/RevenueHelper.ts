@@ -1,7 +1,7 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-import { IRevenueData, IRevenueAllByMonth } from '@/features/revenue';
-import { formatNumber } from '@/utils/format';
+import { IRevenueData, IRevenueAllByMonth } from "@/features/revenue";
+import { formatNumber } from "@/utils/format";
 
 export const getTotalMovie = (data: IRevenueData[], groupName: string) => {
   const isGroupName = (n: IRevenueData) => n.movieName === groupName;
@@ -10,7 +10,7 @@ export const getTotalMovie = (data: IRevenueData[], groupName: string) => {
   return R.sum(R.map(getTotalEachMovie, R.filter(isGroupName, data)));
 };
 
-export const sortByDate = R.sortBy(R.prop('date'));
+export const sortByDate = R.sortBy(R.prop("date"));
 
 const getTotalMovieInRangeDate = (movieName: string, data: IRevenueData[]) => {
   const lstDate = R.uniq(sortByDate(data).map((d) => d.date));
@@ -70,6 +70,6 @@ export const mapDataInfo = (data: IRevenueData) => ({
   total: formatNumber(data.total),
   type: data.type,
   date: data.date,
-  staffFullName: data.staff.profile?.fullName || '',
-  userName: data.user.profile?.fullName || '',
+  staffFullName: data.staff.profile?.fullName || "",
+  userName: data.user.profile?.fullName || "",
 });

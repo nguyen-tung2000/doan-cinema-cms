@@ -1,63 +1,63 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { useAuth } from './auth';
+import { useAuth } from "./auth";
 
-import { AuthUser } from '@/features/auth';
+import { AuthUser } from "@/features/auth";
 
 export const ROLES = {
-  ADMIN: '0',
-  MANAGER: '1',
-  USER: '2',
+  ADMIN: "0",
+  MANAGER: "1",
+  USER: "2",
 };
 
 type RoleKeys = keyof typeof ROLES;
 type RoleTypes = typeof ROLES[RoleKeys];
 
 export const POLICIES = {
-  'movie:create': (user: AuthUser) => {
-    if (user.permission.type === '0') {
+  "movie:create": (user: AuthUser) => {
+    if (user.permission.type === "0") {
       return true;
     }
 
     return false;
   },
-  'cinema:create': (user: AuthUser) => {
-    if (user.permission.type === '0') {
+  "cinema:create": (user: AuthUser) => {
+    if (user.permission.type === "0") {
       return true;
     }
 
     return false;
   },
-  'cinema:delete': (user: AuthUser) => {
-    if (user.permission.type === '0') {
+  "cinema:delete": (user: AuthUser) => {
+    if (user.permission.type === "0") {
       return true;
     }
 
     return false;
   },
-  'cinema:update': (user: AuthUser) => {
-    if (user.permission.type === '0') {
+  "cinema:update": (user: AuthUser) => {
+    if (user.permission.type === "0") {
       return true;
     }
 
     return false;
   },
-  'customer:save': (user: AuthUser) => {
-    if (user.permission.type === '1') {
+  "customer:save": (user: AuthUser) => {
+    if (user.permission.type === "1") {
       return true;
     }
 
     return false;
   },
-  'food:create': (user: AuthUser) => {
-    if (user.permission.type === '1') {
+  "food:create": (user: AuthUser) => {
+    if (user.permission.type === "1") {
       return true;
     }
 
     return false;
   },
-  'food:action': (user: AuthUser) => {
-    if (user.permission.type === '1') {
+  "food:action": (user: AuthUser) => {
+    if (user.permission.type === "1") {
       return true;
     }
 
@@ -69,7 +69,7 @@ export const useAuthorization = () => {
   const { user } = useAuth();
 
   if (!user) {
-    throw Error('User does not exist!');
+    throw Error("User does not exist!");
   }
 
   const checkAccess = React.useCallback(
@@ -85,12 +85,12 @@ export const useAuthorization = () => {
 
   const getRoles = (user: AuthUser) => {
     switch (user.permission.type) {
-      case '0':
-        return 'Admin';
-      case '1':
-        return 'Manager';
+      case "0":
+        return "Admin";
+      case "1":
+        return "Manager";
       default:
-        return 'User';
+        return "User";
     }
   };
 
@@ -125,7 +125,7 @@ export const Authorization = ({
     canAccess = checkAccess({ allowedRoles });
   }
 
-  if (typeof policyCheck !== 'undefined') {
+  if (typeof policyCheck !== "undefined") {
     canAccess = policyCheck;
   }
 

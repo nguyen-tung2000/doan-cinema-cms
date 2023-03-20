@@ -1,5 +1,5 @@
-import { AuthUser as Staff } from '@/features/auth';
-import { ShowTimesDetail } from '@/features/showtimes';
+import { AuthUser as Staff } from "@/features/auth";
+import { ShowTimesDetail } from "@/features/showtimes";
 
 export interface SeatType {
   idSeat: string;
@@ -35,9 +35,9 @@ export interface ComboItem {
 }
 
 export enum UserType {
-  Adult = 'Adult',
-  Student = 'Student',
-  Member = 'Member',
+  Adult = "Adult",
+  Student = "Student",
+  Member = "Member",
 }
 
 interface IBill {

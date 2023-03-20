@@ -1,5 +1,5 @@
-import { MovieType } from '@/features/manageMovie';
-import { ScreenType, Room, TimeSlot } from '@/features/room';
+import { MovieType } from "@/features/manageMovie";
+import { ScreenType, Room, TimeSlot } from "@/features/room";
 
 export interface showTime {
   _id: string;

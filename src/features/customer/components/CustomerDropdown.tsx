@@ -1,11 +1,11 @@
-import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/menu';
-import { IconButton } from '@chakra-ui/react';
-import * as React from 'react';
-import { FiMoreHorizontal, FiEdit2, FiTrash2, FiInfo } from 'react-icons/fi';
+import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/menu";
+import { IconButton } from "@chakra-ui/react";
+import * as React from "react";
+import { FiMoreHorizontal, FiEdit2, FiTrash2, FiInfo } from "react-icons/fi";
 
-import { CUSTOMER_FORM } from '@/constants';
-import { Customer } from '@/features/auth';
-import { useCustomerStore } from '@/stores/customer';
+import { CUSTOMER_FORM } from "@/constants";
+import { Customer } from "@/features/auth";
+import { useCustomerStore } from "@/stores/customer";
 
 interface CustomerDropdownProps {
   customer: Customer;

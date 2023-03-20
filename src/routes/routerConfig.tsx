@@ -1,4 +1,4 @@
-import { Route, useLocation } from 'react-router-dom';
+import { Route, useLocation } from "react-router-dom";
 
 export function RouteWithSubRoutes(route: any) {
   return (

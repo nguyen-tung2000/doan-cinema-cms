@@ -1,4 +1,4 @@
-import { useDisclosure } from '@chakra-ui/hooks';
+import { useDisclosure } from "@chakra-ui/hooks";
 import {
   Modal,
   ModalOverlay,
@@ -6,12 +6,12 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-} from '@chakra-ui/modal';
-import { IconButton, Text, SimpleGrid, Box, Heading, Stack } from '@chakra-ui/react';
-import React from 'react';
-import { FiInfo } from 'react-icons/fi';
+} from "@chakra-ui/modal";
+import { IconButton, Text, SimpleGrid, Box, Heading, Stack } from "@chakra-ui/react";
+import React from "react";
+import { FiInfo } from "react-icons/fi";
 
-import { IRevenueData } from '@/features/revenue';
+import { IRevenueData } from "@/features/revenue";
 
 interface RevenueInfoProps {
   revenueData: IRevenueData;
@@ -43,7 +43,7 @@ export const RevenueInfo: React.FC<RevenueInfoProps> = ({ revenueData }) => {
                   <Heading as="h4" size="md">
                     Mã hoá đơn
                   </Heading>
-                  <Text>{revenueData?.billId || ''}</Text>
+                  <Text>{revenueData?.billId || ""}</Text>
                 </Stack>
               </Box>
               <Box>
@@ -140,7 +140,7 @@ export const RevenueInfo: React.FC<RevenueInfoProps> = ({ revenueData }) => {
                   <Heading as="h4" size="md">
                     Tên Nhân viên
                   </Heading>
-                  <Text>{revenueData.staff.profile?.fullName || ''}</Text>
+                  <Text>{revenueData.staff.profile?.fullName || ""}</Text>
                 </Stack>
               </Box>
               <Box>
@@ -148,7 +148,7 @@ export const RevenueInfo: React.FC<RevenueInfoProps> = ({ revenueData }) => {
                   <Heading as="h4" size="md">
                     Tên khách hàng
                   </Heading>
-                  <Text>{revenueData.user.profile?.fullName || ''}</Text>
+                  <Text>{revenueData.user.profile?.fullName || ""}</Text>
                 </Stack>
               </Box>
             </SimpleGrid>

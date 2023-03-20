@@ -1,5 +1,5 @@
-import { MovieResult } from '@/features/manageMovie';
-import { Authorization, ROLES } from '@/lib/authorization';
+import { MovieResult } from "@/features/manageMovie";
+import { Authorization, ROLES } from "@/lib/authorization";
 
 export const ManageMovie = () => {
   return (

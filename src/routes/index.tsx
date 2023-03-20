@@ -1,10 +1,10 @@
-import { Switch } from 'react-router-dom';
+import { Switch } from "react-router-dom";
 
-import { protectedRoutes } from './protected';
-import { publicRoutes } from './public';
-import { RouteWithSubRoutes } from './routerConfig';
+import { protectedRoutes } from "./protected";
+import { publicRoutes } from "./public";
+import { RouteWithSubRoutes } from "./routerConfig";
 
-import { useAuth } from '@/lib/auth';
+import { useAuth } from "@/lib/auth";
 
 export const AppRoutes = () => {
   const auth = useAuth();

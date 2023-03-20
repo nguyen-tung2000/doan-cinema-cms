@@ -1,9 +1,9 @@
-import { createStandaloneToast } from '@chakra-ui/toast';
-import { useMutation } from 'react-query';
+import { createStandaloneToast } from "@chakra-ui/toast";
+import { useMutation } from "react-query";
 
-import { CustomersResponse } from '@/features/auth';
-import { axios } from '@/lib/axios';
-import { MutationConfig, queryClient } from '@/lib/react-query';
+import { CustomersResponse } from "@/features/auth";
+import { axios } from "@/lib/axios";
+import { MutationConfig, queryClient } from "@/lib/react-query";
 
 export type UpdateCustomerDTO = {
   data: {
@@ -36,14 +36,14 @@ export const useUpdateCustomer = ({ config }: UseUpdateCustomerOptions = {}) => 
   const toast = createStandaloneToast();
   return useMutation({
     onMutate: async (updatingCustomer) => {
-      await queryClient.cancelQueries(['customers', updatingCustomer.customerId]);
+      await queryClient.cancelQueries(["customers", updatingCustomer.customerId]);
 
       const previousCustomers = queryClient.getQueryData<CustomersResponse>([
-        'customers',
+        "customers",
         updatingCustomer.customerId,
       ]);
 
-      queryClient.setQueryData(['customers', updatingCustomer.customerId], {
+      queryClient.setQueryData(["customers", updatingCustomer.customerId], {
         ...previousCustomers,
         values: {
           users: { ...updatingCustomer.data, _id: updatingCustomer.customerId },
@@ -54,28 +54,28 @@ export const useUpdateCustomer = ({ config }: UseUpdateCustomerOptions = {}) => 
     },
     onError: (_, __, context: any) => {
       if (context?.previousCustomers) {
-        queryClient.setQueryData('customers', context.previousCustomers);
+        queryClient.setQueryData("customers", context.previousCustomers);
       }
     },
     onSuccess: (data) => {
       const { success, errors } = data;
-      queryClient.invalidateQueries('customers');
+      queryClient.invalidateQueries("customers");
       if (success) {
         toast({
-          title: 'Cập nhật khách hàng thành công',
-          status: 'success',
+          title: "Cập nhật khách hàng thành công",
+          status: "success",
           isClosable: true,
-          position: 'top-right',
+          position: "top-right",
         });
       } else {
         const titleError = Object.keys(errors)
           .map((key) => errors[key])
-          .join(' ');
+          .join(" ");
         toast({
           title: titleError,
-          status: 'error',
+          status: "error",
           isClosable: true,
-          position: 'top-right',
+          position: "top-right",
         });
       }
     },

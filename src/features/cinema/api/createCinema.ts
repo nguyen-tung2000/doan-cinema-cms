@@ -1,10 +1,10 @@
-import { createStandaloneToast } from '@chakra-ui/toast';
-import { useMutation } from 'react-query';
+import { createStandaloneToast } from "@chakra-ui/toast";
+import { useMutation } from "react-query";
 
-import { CinemaRespone } from '../type';
+import { CinemaRespone } from "../type";
 
-import { axios } from '@/lib/axios';
-import { MutationConfig, queryClient } from '@/lib/react-query';
+import { axios } from "@/lib/axios";
+import { MutationConfig, queryClient } from "@/lib/react-query";
 
 export type CreateCommentDTO = {
   name: string;
@@ -17,7 +17,7 @@ export type CreateCommentDTO = {
 };
 
 export const createCinema = (data: CreateCommentDTO): Promise<CinemaRespone> => {
-  return axios.post('/cinema/add', data);
+  return axios.post("/cinema/add", data);
 };
 
 type UseCreateCinematOptions = {
@@ -28,11 +28,11 @@ export const useCreateCinema = ({ config }: UseCreateCinematOptions = {}) => {
   const toast = createStandaloneToast();
   return useMutation({
     onMutate: async (newCinema) => {
-      await queryClient.cancelQueries('cinemas');
+      await queryClient.cancelQueries("cinemas");
 
-      const previousCinemas = queryClient.getQueryData<CinemaRespone>('cinemas');
+      const previousCinemas = queryClient.getQueryData<CinemaRespone>("cinemas");
 
-      queryClient.setQueryData('cinemas', {
+      queryClient.setQueryData("cinemas", {
         ...previousCinemas,
         values: { cinemas: [...(previousCinemas?.values.cinemas || []), newCinema] },
       });
@@ -41,16 +41,16 @@ export const useCreateCinema = ({ config }: UseCreateCinematOptions = {}) => {
     },
     onError: (_, __, context: any) => {
       if (context?.previousCinemas) {
-        queryClient.setQueryData('cinemas', context.previousCinemas);
+        queryClient.setQueryData("cinemas", context.previousCinemas);
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries('cinemas');
+      queryClient.invalidateQueries("cinemas");
       toast({
-        title: 'Created Cinema',
-        status: 'success',
+        title: "Created Cinema",
+        status: "success",
         isClosable: true,
-        position: 'top-right',
+        position: "top-right",
       });
     },
     ...config,

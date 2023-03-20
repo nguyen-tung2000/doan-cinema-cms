@@ -1,9 +1,9 @@
-import { Box, Heading, Text, Stack, Flex } from '@chakra-ui/react';
-import React from 'react';
+import { Box, Heading, Text, Stack, Flex } from "@chakra-ui/react";
+import React from "react";
 
-import { AuthUser } from '@/features/auth';
-import { useAuth } from '@/lib/auth';
-import { formatNumber, removeAccents } from '@/utils/format';
+import { AuthUser } from "@/features/auth";
+import { useAuth } from "@/lib/auth";
+import { formatNumber, removeAccents } from "@/utils/format";
 
 interface TicketCardProps {
   movieName: string;
@@ -50,7 +50,7 @@ export const TicketCard: React.FC<TicketCardProps> = (props) => {
         </Heading>
         <Text>{new Date().toUTCString()}</Text>
         <Text>PDS : SCAN</Text>
-        <Text>STAFF : {staff ? staff.profile.fullName : 'AFF'}</Text>
+        <Text>STAFF : {staff ? staff.profile.fullName : "AFF"}</Text>
       </Stack>
       <Stack spacing={1} marginTop={2} paddingY={2} borderY="1px dashed" borderColor="gray.900">
         <Flex justifyContent="space-between" alignItems="center">

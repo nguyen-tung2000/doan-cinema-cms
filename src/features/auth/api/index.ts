@@ -1,11 +1,11 @@
-import { useQuery } from 'react-query';
+import { useQuery } from "react-query";
 
-import { AuthResponse, Cities, District, UserAddress } from '@/features/auth';
-import { axios } from '@/lib/axios';
-import { QueryConfig } from '@/lib/react-query';
+import { AuthResponse, Cities, District, UserAddress } from "@/features/auth";
+import { axios } from "@/lib/axios";
+import { QueryConfig } from "@/lib/react-query";
 
 export const getUser = (): Promise<AuthResponse> => {
-  return axios.get('/staff/me');
+  return axios.get("/staff/me");
 };
 
 export type LoginCredentialsDTO = {
@@ -14,7 +14,7 @@ export type LoginCredentialsDTO = {
 };
 
 export const loginWithEmailAndPassword = (data: LoginCredentialsDTO): Promise<AuthResponse> => {
-  return axios.post('/staff/login', data);
+  return axios.post("/staff/login", data);
 };
 
 export type RegisterCredentialsDTO = {
@@ -30,7 +30,7 @@ export type RegisterCredentialsDTO = {
 export const registerWithEmailAndPassword = (
   data: RegisterCredentialsDTO,
 ): Promise<AuthResponse> => {
-  return axios.post('/staff/register', data);
+  return axios.post("/staff/register", data);
 };
 
 export const getWards = (district_code: string): Promise<District> => {
@@ -42,7 +42,7 @@ export const getDistrict = (code: string): Promise<Cities> => {
 };
 
 export const getCites = (): Promise<Cities[]> => {
-  return axios.get('https://provinces.open-api.vn/api/p/');
+  return axios.get("https://provinces.open-api.vn/api/p/");
 };
 
 type UseCitiesOptions = {
@@ -51,7 +51,7 @@ type UseCitiesOptions = {
 
 export const useCities = ({ config = {} }: UseCitiesOptions = {}) => {
   return useQuery({
-    queryKey: ['cites'],
+    queryKey: ["cites"],
     queryFn: () => getCites(),
     ...config,
   });

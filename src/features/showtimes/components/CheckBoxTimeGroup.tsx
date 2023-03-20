@@ -1,8 +1,8 @@
-import { Checkbox, CheckboxGroup, SimpleGrid } from '@chakra-ui/react';
-import React from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { Checkbox, CheckboxGroup, SimpleGrid } from "@chakra-ui/react";
+import React from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 
-import { FieldWrapper, FieldWrapperPassThroughProps } from '../../../components/Form';
+import { FieldWrapper, FieldWrapperPassThroughProps } from "../../../components/Form";
 
 type Option = {
   label: React.ReactNode;

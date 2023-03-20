@@ -1,9 +1,9 @@
-import { useQuery } from 'react-query';
+import { useQuery } from "react-query";
 
-import { TicketResponse } from '..';
+import { TicketResponse } from "..";
 
-import { axios } from '@/lib/axios';
-import { QueryConfig } from '@/lib/react-query';
+import { axios } from "@/lib/axios";
+import { QueryConfig } from "@/lib/react-query";
 
 interface TicketsDTO {
   showtimesId: string;
@@ -21,7 +21,7 @@ type UseTicketsByShowTimesOptions = {
 export const useTicketsByShowTimes = ({ config, showtimesId }: UseTicketsByShowTimesOptions) => {
   return useQuery({
     ...config,
-    queryKey: ['ticketsByShowtimes', showtimesId],
+    queryKey: ["ticketsByShowtimes", showtimesId],
     queryFn: () => getTicketsByShowTimes({ showtimesId }),
   });
 };

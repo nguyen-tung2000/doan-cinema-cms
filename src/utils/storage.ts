@@ -1,4 +1,4 @@
-const storagePrefix = 'cms_';
+const storagePrefix = "cms_";
 
 const storage = {
   getToken: () => {

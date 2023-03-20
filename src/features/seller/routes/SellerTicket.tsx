@@ -1,10 +1,10 @@
-import { Box, BreadcrumbItem, BreadcrumbLink, Flex, Stack, Spinner } from '@chakra-ui/react';
-import * as React from 'react';
-import { useParams } from 'react-router-dom';
-import shallow from 'zustand/shallow';
+import { Box, BreadcrumbItem, BreadcrumbLink, Flex, Stack, Spinner } from "@chakra-ui/react";
+import * as React from "react";
+import { useParams } from "react-router-dom";
+import shallow from "zustand/shallow";
 
-import { SiteHeader } from '@/components';
-import { ROUTES, SITE_MODAL_TYPES } from '@/constants';
+import { SiteHeader } from "@/components";
+import { ROUTES, SITE_MODAL_TYPES } from "@/constants";
 import {
   useTicketsByShowTimes,
   ShowTimeDetail,
@@ -13,9 +13,9 @@ import {
   CouponFormModal,
   SeatsRoute,
   FoodRoute,
-} from '@/features/seller';
-import { Authorization, ROLES } from '@/lib/authorization';
-import { ModalType, useSellerStore } from '@/stores/seller';
+} from "@/features/seller";
+import { Authorization, ROLES } from "@/lib/authorization";
+import { ModalType, useSellerStore } from "@/stores/seller";
 
 interface TParams {
   _id: string;
@@ -108,7 +108,7 @@ export const SellerTicket = () => {
             backgroundColor="white"
             px={12}
             py={12}
-            shadow={[null, 'md']}
+            shadow={[null, "md"]}
             spacing={4}
             w="100%"
             alignItems="center"

@@ -1,7 +1,7 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as React from 'react';
-import { useForm, UseFormReturn, SubmitHandler, UseFormProps } from 'react-hook-form';
-import { ZodType, ZodTypeDef } from 'zod';
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as React from "react";
+import { useForm, UseFormReturn, SubmitHandler, UseFormProps } from "react-hook-form";
+import { ZodType, ZodTypeDef } from "zod";
 
 type FormProps<TFormValues, Schema> = {
   onSubmit: SubmitHandler<TFormValues>;

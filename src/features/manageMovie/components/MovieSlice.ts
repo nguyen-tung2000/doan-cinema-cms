@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { getMovieAll, deleteMovie } from './../api/api';
+import { getMovieAll, deleteMovie } from "./../api/api";
 
 // import { movieList } from './';
 const initialState = {
@@ -8,7 +8,7 @@ const initialState = {
   isLoading: false,
 };
 
-export const getMovieList = createAsyncThunk('getMovieList', async (data: string, thunkAPI) => {
+export const getMovieList = createAsyncThunk("getMovieList", async (data: string, thunkAPI) => {
   try {
     const res = await getMovieAll(data);
     return res.values;
@@ -17,7 +17,7 @@ export const getMovieList = createAsyncThunk('getMovieList', async (data: string
   }
 });
 
-export const DeleteMovie = createAsyncThunk('delete Movie', async (data: string, thunkAPI) => {
+export const DeleteMovie = createAsyncThunk("delete Movie", async (data: string, thunkAPI) => {
   try {
     const res = await deleteMovie(data);
     return res;
@@ -27,7 +27,7 @@ export const DeleteMovie = createAsyncThunk('delete Movie', async (data: string,
 });
 
 const movie = createSlice({
-  name: 'movie',
+  name: "movie",
   initialState,
   reducers: {},
   extraReducers: {

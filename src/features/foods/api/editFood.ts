@@ -1,9 +1,9 @@
-import { createStandaloneToast } from '@chakra-ui/toast';
-import { useMutation } from 'react-query';
+import { createStandaloneToast } from "@chakra-ui/toast";
+import { useMutation } from "react-query";
 
-import { ComBosResponse } from '@/features/foods';
-import { axios } from '@/lib/axios';
-import { MutationConfig, queryClient } from '@/lib/react-query';
+import { ComBosResponse } from "@/features/foods";
+import { axios } from "@/lib/axios";
+import { MutationConfig, queryClient } from "@/lib/react-query";
 
 export type UpdateFoodDTO = {
   data: { name: string; price: string; unit: string; image: string };
@@ -22,11 +22,11 @@ export const useEditFood = ({ config }: UseUpdateFoodOptions = {}) => {
   const toast = createStandaloneToast();
   return useMutation({
     onMutate: async (updatingFood) => {
-      await queryClient.cancelQueries(['foods', updatingFood.foodId]);
+      await queryClient.cancelQueries(["foods", updatingFood.foodId]);
 
-      const previousFood = queryClient.getQueryData<ComBosResponse>(['foods', updatingFood.foodId]);
+      const previousFood = queryClient.getQueryData<ComBosResponse>(["foods", updatingFood.foodId]);
 
-      queryClient.setQueryData(['foods', updatingFood.foodId], {
+      queryClient.setQueryData(["foods", updatingFood.foodId], {
         ...previousFood,
         combos: { ...updatingFood.data, _id: updatingFood.foodId },
       });
@@ -35,16 +35,16 @@ export const useEditFood = ({ config }: UseUpdateFoodOptions = {}) => {
     },
     onError: (_, __, context: any) => {
       if (context?.previousFood) {
-        queryClient.setQueryData('foods', context.previousFood);
+        queryClient.setQueryData("foods", context.previousFood);
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries('foods');
+      queryClient.invalidateQueries("foods");
       toast({
-        title: 'Sửa thành công',
-        status: 'success',
+        title: "Sửa thành công",
+        status: "success",
         isClosable: true,
-        position: 'top-right',
+        position: "top-right",
       });
     },
     ...config,

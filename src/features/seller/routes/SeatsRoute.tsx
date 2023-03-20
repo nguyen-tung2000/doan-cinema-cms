@@ -10,25 +10,21 @@ import {
   FormLabel,
   Text,
   Input,
-  Checkbox,
-} from '@chakra-ui/react';
-import React from 'react';
+} from "@chakra-ui/react";
+import React from "react";
 
-import { PRICE, SITE_MODAL_TYPES } from '@/constants';
+import { PRICE } from "@/constants";
 import {
   SeatList,
-  MemberInfo,
   SeatType,
   TicketType,
   UserType,
   getOldPrice,
   AuthUser,
   ComboItem,
-  getNewPoint,
   IGift,
-} from '@/features/seller';
-import { formatNumber } from '@/utils/format';
-import { isEmptyObject } from '@/utils/object';
+} from "@/features/seller";
+import { formatNumber } from "@/utils/format";
 
 interface SeatsRouteProps {
   seats: TicketType[];
@@ -45,19 +41,7 @@ interface SeatsRouteProps {
 }
 
 export const SeatsRoute: React.FC<SeatsRouteProps> = (props) => {
-  const {
-    seats,
-    selectedSeats,
-    member,
-    memberPoint,
-    selectedCombos,
-    selectedGifts,
-    screenId,
-    setSelectedSeats,
-    setModal,
-    fetchGifts,
-    getScreen,
-  } = props;
+  const { seats, selectedSeats, setSelectedSeats } = props;
   const [displayPrice, setDisplayPrice] = React.useState(0);
   const [valueUserType, setValueUserType] = React.useState<string>(UserType.Adult);
   const oldPrice = getOldPrice(seats);
@@ -67,19 +51,19 @@ export const SeatsRoute: React.FC<SeatsRouteProps> = (props) => {
     const selectSeat = selectedSeats[selectedSeats.length - 1];
 
     switch (type) {
-      case 'Adult': {
+      case "Adult": {
         selectSeat.price = oldPrice;
         setDisplayPrice(selectSeat.price);
         return setSelectedSeats([...selectedSeats]);
       }
-      case 'Member': {
+      case "Member": {
         selectSeat.price = PRICE.CHILD;
         selectSeat.type = 0;
         setDisplayPrice(selectSeat.price);
         return setSelectedSeats([...selectedSeats]);
       }
 
-      case 'Student':
+      case "Student":
         if (event.target.checked) {
           selectSeat.price = PRICE.STUDENT;
           selectSeat.type = 2;
@@ -187,32 +171,6 @@ export const SeatsRoute: React.FC<SeatsRouteProps> = (props) => {
             <FormLabel>Giá vé</FormLabel>
             <Input value={`${formatNumber(displayPrice)} VNĐ`} isReadOnly />
           </FormControl>
-        </Box>
-
-        <Box>
-          <Heading as="h5" fontWeight="500" fontSize="md" my={3}>
-            Thành viên
-          </Heading>
-          <Checkbox
-            onChange={() => setModal(SITE_MODAL_TYPES.MEMBER_FORM)}
-            isChecked={!isEmptyObject(member)}
-            isDisabled={!selectedSeats.length && !selectedGifts.length}
-          >
-            Khách hàng thành viên
-          </Checkbox>
-
-          {/* {MemberPopUp} */}
-          {!isEmptyObject(member) && (
-            <MemberInfo
-              name={member.profile.fullName}
-              point={memberPoint}
-              screenId={screenId}
-              newPoint={getNewPoint(selectedCombos, selectedSeats)}
-              setModal={setModal}
-              fetchGifts={fetchGifts}
-              getScreen={getScreen}
-            />
-          )}
         </Box>
       </SimpleGrid>
     </>

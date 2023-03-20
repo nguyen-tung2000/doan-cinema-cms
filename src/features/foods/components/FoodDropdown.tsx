@@ -1,11 +1,11 @@
-import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/menu';
-import { IconButton } from '@chakra-ui/react';
-import * as React from 'react';
-import { FiMoreHorizontal, FiEdit2, FiTrash2 } from 'react-icons/fi';
+import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/menu";
+import { IconButton } from "@chakra-ui/react";
+import * as React from "react";
+import { FiMoreHorizontal, FiEdit2, FiTrash2 } from "react-icons/fi";
 
-import { FOOD_FORM } from '@/constants';
-import { ComboItem } from '@/features/seller';
-import { useFoodStore } from '@/stores/food';
+import { FOOD_FORM } from "@/constants";
+import { ComboItem } from "@/features/seller";
+import { useFoodStore } from "@/stores/food";
 
 interface FoodDropdownProps {
   food: ComboItem;

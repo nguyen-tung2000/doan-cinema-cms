@@ -1,9 +1,9 @@
-import { Select, FormControlProps, SelectProps } from '@chakra-ui/react';
-import * as React from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
-import { MdArrowDropDown } from 'react-icons/md';
+import { Select, FormControlProps, SelectProps } from "@chakra-ui/react";
+import * as React from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
+import { MdArrowDropDown } from "react-icons/md";
 
-import { FieldWrapper, FieldWrapperPassThroughProps } from './FieldWrapper';
+import { FieldWrapper, FieldWrapperPassThroughProps } from "./FieldWrapper";
 
 type Option = {
   label: React.ReactNode;

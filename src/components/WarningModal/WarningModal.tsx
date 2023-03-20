@@ -6,8 +6,8 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
-} from '@chakra-ui/react';
-import React from 'react';
+} from "@chakra-ui/react";
+import React from "react";
 
 interface WarningModalProps {
   onCancel: () => void;
@@ -19,7 +19,7 @@ interface WarningModalProps {
 export const WarningModal: React.FC<WarningModalProps> = (props) => {
   const { onCancel, onConfirm, visible, message } = props;
   const cancelRef: any = React.useRef();
-  const dialogBody = 'Bạn có chắc không? ' + message;
+  const dialogBody = "Bạn có chắc không? " + message;
 
   return (
     <AlertDialog isOpen={visible} leastDestructiveRef={cancelRef} onClose={onCancel}>

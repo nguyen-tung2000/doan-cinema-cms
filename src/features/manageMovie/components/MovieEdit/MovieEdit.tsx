@@ -1,20 +1,20 @@
-import { ref, uploadBytes, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
-import qs from 'query-string';
-import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { useHistory, useLocation } from 'react-router';
+import { ref, uploadBytes, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import qs from "query-string";
+import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { useHistory, useLocation } from "react-router";
 
-import { getCategoryAll, getDirectorAll, getScreenAll, updateMovie } from '../..';
-import { CategoryItem, MovieItemType, MovieType, directorType, screenType } from '../../type';
-import * as S from '../MovieResult/MovieResult.style';
+import { getCategoryAll, getDirectorAll, getScreenAll, updateMovie } from "../..";
+import { CategoryItem, MovieItemType, MovieType, directorType, screenType } from "../../type";
+import * as S from "../MovieResult/MovieResult.style";
 
-import x2 from '@/assets/icon/x2.svg';
-import { ErrorMessage, SingleSelect } from '@/components';
-import { InputField, Form, SelectField } from '@/components/Form2';
-import MultiSelectMenu from '@/components/Form2/SelectMultipleField/SelectMultipleField';
-import { storage } from '@/lib/firebase';
-import { rules } from '@/utils/rules';
-import { Toast } from '@/utils/Toast';
+import x2 from "@/assets/icon/x2.svg";
+import { ErrorMessage, SingleSelect } from "@/components";
+import { InputField, Form, SelectField } from "@/components/Form2";
+import MultiSelectMenu from "@/components/Form2/SelectMultipleField/SelectMultipleField";
+import { storage } from "@/lib/firebase";
+import { rules } from "@/utils/rules";
+import { Toast } from "@/utils/Toast";
 interface MovieEditProps {
   movieValue: MovieItemType;
   setMovieValue: Dispatch<SetStateAction<MovieItemType | undefined>>;
@@ -42,7 +42,7 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
     }
     return idCategory;
   });
-  console.log('screenValue', screenValue);
+  console.log("screenValue", screenValue);
   const [categoryList, setCategoryList] = useState<CategoryItem[]>([]);
   const [directorList, setDirectorList] = useState<directorType[]>([]);
   const [screenList, setScreenList] = useState<screenType[]>([]);
@@ -86,15 +86,15 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
       dateStart: data.dateStart,
       dateEnd: data.dateEnd,
     };
-    console.log('body', body);
+    console.log("body", body);
     try {
       const res = await updateMovie(query.id, body);
       if (res.success === false) {
         if (res.errors.dateStart) {
-          Toast(res.errors.dateStart, 'error');
+          Toast(res.errors.dateStart, "error");
         }
         if (res.errors.dateEnd) {
-          Toast(res.errors.dateEnd, 'error');
+          Toast(res.errors.dateEnd, "error");
         }
       } else {
         Toast(res.message);
@@ -120,13 +120,13 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
   }, []);
 
   const handleVideoImage = async (e: any, setValue: Dispatch<SetStateAction<string>>) => {
-    if (e.target.files[0] && e.target.files[0].type.includes('image')) {
+    if (e.target.files[0] && e.target.files[0].type.includes("image")) {
       const fileName = e.target.files[0];
       const storageRef = ref(storage, `images/${fileName.name}`);
       const uploadTask = uploadBytesResumable(storageRef, fileName);
       await uploadBytes(storageRef, fileName);
       getDownloadURL(uploadTask.snapshot.ref).then((url: string) => setValue(url));
-    } else if (e.target.files[0] && e.target.files[0].type.includes('video')) {
+    } else if (e.target.files[0] && e.target.files[0].type.includes("video")) {
       const fileName = e.target.files[0];
       const storageRef = ref(storage, `videos/${fileName.name}`);
       const uploadTask = uploadBytesResumable(storageRef, fileName);
@@ -155,7 +155,7 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
                     title="Tên Film"
                     change={field.onChange}
                     error={errors}
-                    value={getValues('name')}
+                    value={getValues("name")}
                   />
                 )}
               />
@@ -172,7 +172,7 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
                     title="Thời lượng"
                     error={errors}
                     change={field.onChange}
-                    value={getValues('moveDuration')}
+                    value={getValues("moveDuration")}
                   />
                 )}
               />
@@ -190,7 +190,7 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
                     change={field.onChange}
                     title="Đạo diễn"
                     name="directorId"
-                    value={getValues('directorId')}
+                    value={getValues("directorId")}
                   />
                 )}
               />
@@ -207,7 +207,7 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
                     error={errors}
                     title="Diễn viên"
                     change={field.onChange}
-                    value={getValues('cast')}
+                    value={getValues("cast")}
                   />
                 )}
               />
@@ -224,7 +224,7 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
                     title="Độ tuổi"
                     error={errors}
                     change={field.onChange}
-                    value={getValues('age')}
+                    value={getValues("age")}
                   />
                 )}
               />
@@ -237,7 +237,7 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
                 control={control}
                 render={({ field }) => (
                   <MultiSelectMenu
-                    defaultValue={getValues('categoryId')}
+                    defaultValue={getValues("categoryId")}
                     options={categoryList}
                     onChange={field.onChange}
                     name="Thể loại"
@@ -253,7 +253,7 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
                 control={control}
                 render={({ field }) => (
                   <MultiSelectMenu
-                    defaultValue={getValues('screensId')}
+                    defaultValue={getValues("screensId")}
                     options={screenList}
                     onChange={field.onChange}
                     name="Loại màn hình"
@@ -274,7 +274,7 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
                     error={errors}
                     textarea
                     change={field.onChange}
-                    value={getValues('description')}
+                    value={getValues("description")}
                   />
                 )}
               />
@@ -284,15 +284,15 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
           <S.MovieForm>
             <S.MovieFormController2>
               <SingleSelect
-                registration={register('dateStart')}
-                defaultValue={getValues('dateStart')}
+                registration={register("dateStart")}
+                defaultValue={getValues("dateStart")}
                 label="Ngày bắt đầu"
               />
             </S.MovieFormController2>
             <S.MovieFormController2>
               <SingleSelect
-                registration={register('dateEnd')}
-                defaultValue={getValues('dateEnd')}
+                registration={register("dateEnd")}
+                defaultValue={getValues("dateEnd")}
                 label="Ngày kết thúc"
               />
             </S.MovieFormController2>
@@ -305,7 +305,7 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
                 control={control}
                 render={({ field }) => (
                   <InputField
-                    url={getValues('image')}
+                    url={getValues("image")}
                     name="image"
                     type="file"
                     error={errors}
@@ -323,7 +323,7 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
                 control={control}
                 render={({ field }) => (
                   <InputField
-                    url={getValues('trailer')}
+                    url={getValues("trailer")}
                     name="trailer"
                     type="file"
                     error={errors}

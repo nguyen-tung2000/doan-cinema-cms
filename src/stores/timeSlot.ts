@@ -1,6 +1,6 @@
-import create from 'zustand';
+import create from "zustand";
 
-import { Room, getRoomsByMovie } from '@/features/room';
+import { Room, getRoomsByMovie } from "@/features/room";
 
 type TimeType = {
   _id: string;
@@ -38,8 +38,8 @@ export const useRoomsByMovieStore = create<RoomsByMovie>((set) => ({
     set((state) => {
       let rooms;
       switch (screenName) {
-        case '2D':
-          rooms = state.listRoomByMovie.filter((r) => r.name !== roomName && r.screen.name == '2D');
+        case "2D":
+          rooms = state.listRoomByMovie.filter((r) => r.name !== roomName && r.screen.name == "2D");
           for (const r of rooms) {
             const time = r.timeSlots.find((t) => t._id === _id);
             if (time) {
@@ -47,8 +47,8 @@ export const useRoomsByMovieStore = create<RoomsByMovie>((set) => ({
             }
           }
           return { ...state, listRoomByMovie: [...state.listRoomByMovie] };
-        case '3D':
-          rooms = state.listRoomByMovie.filter((r) => r.name !== roomName && r.screen.name == '3D');
+        case "3D":
+          rooms = state.listRoomByMovie.filter((r) => r.name !== roomName && r.screen.name == "3D");
           for (const r of rooms) {
             const time = r.timeSlots.find((t) => t._id === _id);
             if (time) {
@@ -56,9 +56,9 @@ export const useRoomsByMovieStore = create<RoomsByMovie>((set) => ({
             }
           }
           return { ...state, listRoomByMovie: [...state.listRoomByMovie] };
-        case 'IMAX':
+        case "IMAX":
           rooms = state.listRoomByMovie.filter(
-            (r) => r.name !== roomName && r.screen.name == 'IMAX',
+            (r) => r.name !== roomName && r.screen.name == "IMAX",
           );
           for (const r of rooms) {
             const time = r.timeSlots.find((t) => t._id === _id);

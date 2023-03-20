@@ -1,9 +1,9 @@
-import { createStandaloneToast } from '@chakra-ui/toast';
-import { useMutation } from 'react-query';
+import { createStandaloneToast } from "@chakra-ui/toast";
+import { useMutation } from "react-query";
 
-import { ComboItem, SeatType, BuyTicketResponse } from '@/features/seller';
-import { axios } from '@/lib/axios';
-import { MutationConfig, queryClient } from '@/lib/react-query';
+import { ComboItem, SeatType, BuyTicketResponse } from "@/features/seller";
+import { axios } from "@/lib/axios";
+import { MutationConfig, queryClient } from "@/lib/react-query";
 
 export type BuyTicketDTO = {
   showTimeDetailId: string;
@@ -16,7 +16,7 @@ export type BuyTicketDTO = {
 };
 
 export const buyTicket = (data: BuyTicketDTO): Promise<BuyTicketResponse> => {
-  return axios.post('/ticker/add', data);
+  return axios.post("/ticker/add", data);
 };
 
 type UseBuyTicketOptions = {
@@ -28,11 +28,11 @@ export const useBuyTicket = ({ config }: UseBuyTicketOptions = {}) => {
 
   return useMutation({
     onMutate: async (newTickets) => {
-      await queryClient.cancelQueries('ticketsByShowtimes');
+      await queryClient.cancelQueries("ticketsByShowtimes");
 
-      const previousTickets = queryClient.getQueryData<BuyTicketResponse>('ticketsByShowtimes');
+      const previousTickets = queryClient.getQueryData<BuyTicketResponse>("ticketsByShowtimes");
 
-      queryClient.setQueryData('ticketsByShowtimes', {
+      queryClient.setQueryData("ticketsByShowtimes", {
         ...previousTickets,
         values: { tickets: [...(previousTickets?.tickets || []), newTickets] },
       });
@@ -41,24 +41,24 @@ export const useBuyTicket = ({ config }: UseBuyTicketOptions = {}) => {
     },
     onError: (_, __, context: any) => {
       if (context?.previousTickets) {
-        queryClient.setQueryData('ticketsByShowtimes', context.previousTickets);
+        queryClient.setQueryData("ticketsByShowtimes", context.previousTickets);
       }
     },
     onSuccess: (data) => {
       if (data.success) {
-        queryClient.invalidateQueries('ticketsByShowtimes');
+        queryClient.invalidateQueries("ticketsByShowtimes");
         toast({
-          title: 'Mua vé thành công!',
-          status: 'success',
+          title: "Mua vé thành công!",
+          status: "success",
           isClosable: true,
-          position: 'top-right',
+          position: "top-right",
         });
       } else {
         toast({
-          title: 'Xảy ra lỗi!',
-          status: 'error',
+          title: "Xảy ra lỗi!",
+          status: "error",
           isClosable: true,
-          position: 'top-right',
+          position: "top-right",
         });
       }
     },

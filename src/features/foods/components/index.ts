@@ -1,2 +1,2 @@
-export * from './FoodFormModal';
-export * from './FoodDropdown';
+export * from "./FoodFormModal";
+export * from "./FoodDropdown";

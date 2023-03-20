@@ -1,6 +1,6 @@
-import React, { ChangeEventHandler } from 'react';
+import React, { ChangeEventHandler } from "react";
 
-import * as S from './SelectField.style';
+import * as S from "./SelectField.style";
 interface SelectFieldProps {
   name: string;
   title: string;

@@ -1,6 +1,6 @@
-import { AxiosError } from 'axios';
-import { QueryClient, UseQueryOptions, UseMutationOptions, DefaultOptions } from 'react-query';
-import { PromiseValue } from 'type-fest';
+import { AxiosError } from "axios";
+import { QueryClient, UseQueryOptions, UseMutationOptions, DefaultOptions } from "react-query";
+import { PromiseValue } from "type-fest";
 
 const queryConfig: DefaultOptions = {
   queries: {

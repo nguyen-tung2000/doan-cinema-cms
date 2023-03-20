@@ -1,15 +1,15 @@
-import { Image, Box, Flex, Spinner, Stack, Button, useColorModeValue } from '@chakra-ui/react';
-import * as React from 'react';
-import { MdAdd } from 'react-icons/md';
+import { Image, Box, Flex, Spinner, Stack, Button, useColorModeValue } from "@chakra-ui/react";
+import * as React from "react";
+import { MdAdd } from "react-icons/md";
 
-import { Table, Td, Th, Tr, SiteHeader, WarningModal } from '@/components';
-import { ROUTES, FOOD_FORM } from '@/constants';
-import { AuthUser } from '@/features/auth';
-import { useFoods, FoodFormModal, FoodDropdown, useDeleteFood } from '@/features/foods';
-import { useAuth } from '@/lib/auth';
-import { Authorization, ROLES, POLICIES } from '@/lib/authorization';
-import { useFoodStore } from '@/stores/food';
-import { formatNumber } from '@/utils/format';
+import { Table, Td, Th, Tr, SiteHeader, WarningModal } from "@/components";
+import { ROUTES, FOOD_FORM } from "@/constants";
+import { AuthUser } from "@/features/auth";
+import { useFoods, FoodFormModal, FoodDropdown, useDeleteFood } from "@/features/foods";
+import { useAuth } from "@/lib/auth";
+import { Authorization, ROLES, POLICIES } from "@/lib/authorization";
+import { useFoodStore } from "@/stores/food";
+import { formatNumber } from "@/utils/format";
 
 export const FoodsPage = () => {
   const { user } = useAuth();
@@ -17,9 +17,9 @@ export const FoodsPage = () => {
   const deleteFoodMutation = useDeleteFood();
   const { onOpen } = useFoodStore();
   const [warningDialogVisible, setWarningDialogVisible] = React.useState(false);
-  const [deleteFoodId, setdeleteFoodId] = React.useState('');
-  const bg = useColorModeValue('gray.900', 'white');
-  const color = useColorModeValue('white', 'gray.900');
+  const [deleteFoodId, setdeleteFoodId] = React.useState("");
+  const bg = useColorModeValue("gray.900", "white");
+  const color = useColorModeValue("white", "gray.900");
 
   const onDelete = (id: string) => {
     setWarningDialogVisible(true);
@@ -64,7 +64,7 @@ export const FoodsPage = () => {
 
               <Td>{food.unit}</Td>
               <Td>{formatNumber(food.price)}</Td>
-              <Authorization policyCheck={POLICIES['food:action'](user as AuthUser)}>
+              <Authorization policyCheck={POLICIES["food:action"](user as AuthUser)}>
                 <Td>
                   <FoodDropdown food={food} onDelete={() => onDelete(food._id)} />
                 </Td>
@@ -86,16 +86,16 @@ export const FoodsPage = () => {
         menuHref={ROUTES.FOODS}
         heading={`Foods`}
         showButton={
-          <Authorization policyCheck={POLICIES['food:create'](user as AuthUser)}>
+          <Authorization policyCheck={POLICIES["food:create"](user as AuthUser)}>
             <Button
               leftIcon={<MdAdd />}
               backgroundColor={bg}
               color={color}
               fontWeight="medium"
-              _hover={{ bg: 'gray.700' }}
+              _hover={{ bg: "gray.700" }}
               _active={{
-                bg: 'gray.800',
-                transform: 'scale(0.95)',
+                bg: "gray.800",
+                transform: "scale(0.95)",
               }}
               onClick={() => {
                 onOpen(FOOD_FORM.ADD);
@@ -114,7 +114,7 @@ export const FoodsPage = () => {
           maxWidth="1000px"
           px={8}
           py={12}
-          shadow={[null, 'md']}
+          shadow={[null, "md"]}
           spacing={4}
           w="100%"
         >

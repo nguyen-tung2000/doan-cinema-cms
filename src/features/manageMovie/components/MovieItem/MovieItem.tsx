@@ -1,23 +1,23 @@
-import { Flex, Spinner } from '@chakra-ui/react';
-import { unwrapResult } from '@reduxjs/toolkit';
-import qs from 'query-string';
-import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router';
+import { Flex, Spinner } from "@chakra-ui/react";
+import { unwrapResult } from "@reduxjs/toolkit";
+import qs from "query-string";
+import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router";
 
-import { getMovie } from '../..';
-import { MovieItemType } from '../../type';
-import { MovieEdit } from '../MovieEdit/MovieEdit';
-import { DeleteMovie } from '../MovieSlice';
+import { getMovie } from "../..";
+import { MovieItemType } from "../../type";
+import { MovieEdit } from "../MovieEdit/MovieEdit";
+import { DeleteMovie } from "../MovieSlice";
 
-import * as S from './MovieItem.style';
+import * as S from "./MovieItem.style";
 
-import clock from '@/assets/icon/clock.svg';
-import edit from '@/assets/icon/edit.svg';
-import play from '@/assets/icon/play.svg';
-import trash from '@/assets/icon/trash.svg';
-import x from '@/assets/icon/x.svg';
-import { Toast } from '@/utils/Toast';
+import clock from "@/assets/icon/clock.svg";
+import edit from "@/assets/icon/edit.svg";
+import play from "@/assets/icon/play.svg";
+import trash from "@/assets/icon/trash.svg";
+import x from "@/assets/icon/x.svg";
+import { Toast } from "@/utils/Toast";
 
 interface MovieItemProps {
   setMovie: Dispatch<SetStateAction<boolean>>;
@@ -27,7 +27,7 @@ interface MovieItemProps {
 export const MovieItem: React.FC<MovieItemProps> = ({ setMovie, movie }) => {
   const [openTrailer, setOpenTrailer] = useState(false);
   const [isMovie, setIsMovie] = useState(false);
-  const [idMovie, setIdMovie] = useState<string>('');
+  const [idMovie, setIdMovie] = useState<string>("");
   const [movieValue, setMovieValue] = useState<MovieItemType | undefined>();
   const [listMovie, setMovieList] = useState<MovieItemType[]>([]);
   const update = useSelector((state: any) => state.movie.list.movies);
@@ -74,7 +74,7 @@ export const MovieItem: React.FC<MovieItemProps> = ({ setMovie, movie }) => {
       Toast(res.message);
       setMovie(!movie);
     } else {
-      Toast(res.message, 'error');
+      Toast(res.message, "error");
     }
   };
 
@@ -191,7 +191,7 @@ export const MovieItem: React.FC<MovieItemProps> = ({ setMovie, movie }) => {
                         onClick={() => setIsMovie(false)}
                       >
                         <path
-                          style={{ fill: '#000' }}
+                          style={{ fill: "#000" }}
                           d="M0.324,1.909c-0.429-0.429-0.429-1.143,0-1.587c0.444-0.429,1.143-0.429,1.587,0l9.523,9.539
 	l9.539-9.539c0.429-0.429,1.143-0.429,1.571,0c0.444,0.444,0.444,1.159,0,1.587l-9.523,9.524l9.523,9.539
 	c0.444,0.429,0.444,1.143,0,1.587c-0.429,0.429-1.143,0.429-1.571,0l-9.539-9.539l-9.523,9.539c-0.444,0.429-1.143,0.429-1.587,0

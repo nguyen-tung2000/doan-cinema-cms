@@ -1,11 +1,11 @@
-import qs from 'query-string';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import qs from "query-string";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
-import { filterProps } from '../..';
+import { filterProps } from "../..";
 
-import * as S from './MoviePagination.style';
+import * as S from "./MoviePagination.style";
 
 interface MoviePaginationProps {
   filters: filterProps;
@@ -35,14 +35,14 @@ export const MoviePagination: React.FC<MoviePaginationProps> = ({ filters, setIs
     if (filters.page !== 1) {
       setIsLoading(true);
       const _filters = { ...filters, page: filters.page - 1 };
-      history.push('/app/managemovie?' + qs.stringify(_filters));
+      history.push("/app/managemovie?" + qs.stringify(_filters));
     }
   };
   const goToNext = () => {
     if (filters.page !== totalPage) {
       setIsLoading(true);
       const _filters = { ...filters, page: filters.page + 1 };
-      history.push('/app/managemovie?' + qs.stringify(_filters));
+      history.push("/app/managemovie?" + qs.stringify(_filters));
     }
   };
 

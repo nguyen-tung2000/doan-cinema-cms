@@ -1,9 +1,9 @@
-import { useQuery } from 'react-query';
+import { useQuery } from "react-query";
 
-import { GiftResponse } from '..';
+import { GiftResponse } from "..";
 
-import { axios } from '@/lib/axios';
-import { QueryConfig } from '@/lib/react-query';
+import { axios } from "@/lib/axios";
+import { QueryConfig } from "@/lib/react-query";
 
 interface GiftDTO {
   screenId: string;
@@ -23,7 +23,7 @@ type UseGetGiftByScreenOptions = {
 export const useGetGiftByScreen = ({ config, screenId }: UseGetGiftByScreenOptions) => {
   return useQuery({
     ...config,
-    queryKey: ['giftByScreen', screenId],
+    queryKey: ["giftByScreen", screenId],
     queryFn: () => getGiftByScreen({ screenId }),
   });
 };

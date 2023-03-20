@@ -1,4 +1,4 @@
-import { SimpleGrid, Box, Stack, Heading } from '@chakra-ui/layout';
+import { SimpleGrid, Box, Stack, Heading } from "@chakra-ui/layout";
 import {
   Modal,
   ModalOverlay,
@@ -6,9 +6,9 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-} from '@chakra-ui/modal';
-import { Text } from '@chakra-ui/react';
-import React from 'react';
+} from "@chakra-ui/modal";
+import { Text } from "@chakra-ui/react";
+import React from "react";
 
 interface CustomerInfoProps {
   isVisible: boolean;
@@ -34,7 +34,7 @@ export const CustomerInfo: React.FC<CustomerInfoProps> = ({
                 <Heading as="h4" size="md">
                   Họ tên
                 </Heading>
-                <Text>{customer?.fullName || ''} </Text>
+                <Text>{customer?.fullName || ""} </Text>
               </Stack>
             </Box>
             <Box>
@@ -42,7 +42,7 @@ export const CustomerInfo: React.FC<CustomerInfoProps> = ({
                 <Heading as="h4" size="md">
                   Ngày sinh
                 </Heading>
-                <Text>{customer?.dateOfBirth || ''}</Text>
+                <Text>{customer?.dateOfBirth || ""}</Text>
               </Stack>
             </Box>
             <Box>
@@ -74,7 +74,7 @@ export const CustomerInfo: React.FC<CustomerInfoProps> = ({
                 <Heading as="h4" size="md">
                   Giới tính
                 </Heading>
-                <Text>{customer?.male ? 'Nam' : 'Nữ'}</Text>
+                <Text>{customer?.male ? "Nam" : "Nữ"}</Text>
               </Stack>
             </Box>
           </SimpleGrid>

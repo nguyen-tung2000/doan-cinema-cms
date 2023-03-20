@@ -1,6 +1,6 @@
-import { CouponResponse } from '..';
+import { CouponResponse } from "..";
 
-import { axios } from '@/lib/axios';
+import { axios } from "@/lib/axios";
 
 interface CouponDTO {
   code: string;

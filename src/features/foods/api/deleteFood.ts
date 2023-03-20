@@ -1,10 +1,10 @@
-import { createStandaloneToast } from '@chakra-ui/toast';
-import { useMutation } from 'react-query';
+import { createStandaloneToast } from "@chakra-ui/toast";
+import { useMutation } from "react-query";
 
-import { ComBosResponse } from '../type';
+import { ComBosResponse } from "../type";
 
-import { axios } from '@/lib/axios';
-import { MutationConfig, queryClient } from '@/lib/react-query';
+import { axios } from "@/lib/axios";
+import { MutationConfig, queryClient } from "@/lib/react-query";
 
 export const deleteFood = ({ foodId }: { foodId: string }) => {
   return axios.delete(`/food/delete/${foodId}`);
@@ -19,11 +19,11 @@ export const useDeleteFood = ({ config }: UseDeleteFoodtOptions = {}) => {
 
   return useMutation({
     onMutate: async (deleteFood) => {
-      await queryClient.cancelQueries('foods');
+      await queryClient.cancelQueries("foods");
 
-      const previousFoods = queryClient.getQueryData<ComBosResponse>('foods');
+      const previousFoods = queryClient.getQueryData<ComBosResponse>("foods");
 
-      queryClient.setQueryData('foods', {
+      queryClient.setQueryData("foods", {
         ...previousFoods,
         combos: previousFoods?.combos.filter((food) => food._id !== deleteFood.foodId),
       });
@@ -32,16 +32,16 @@ export const useDeleteFood = ({ config }: UseDeleteFoodtOptions = {}) => {
     },
     onError: (_, __, context: any) => {
       if (context?.previousFoods) {
-        queryClient.setQueryData('foods', context.previousFoods);
+        queryClient.setQueryData("foods", context.previousFoods);
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries('foods');
+      queryClient.invalidateQueries("foods");
       toast({
-        title: 'Xoá sản phẩm thành công',
-        status: 'success',
+        title: "Xoá sản phẩm thành công",
+        status: "success",
         isClosable: true,
-        position: 'top-right',
+        position: "top-right",
       });
     },
     ...config,

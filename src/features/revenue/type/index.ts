@@ -1,6 +1,6 @@
-import { Customer, AuthUser } from '@/features/auth';
-import { MovieType } from '@/features/manageMovie';
-import { Room, TimeSlot } from '@/features/room';
+import { Customer, AuthUser } from "@/features/auth";
+import { MovieType } from "@/features/manageMovie";
+import { Room, TimeSlot } from "@/features/room";
 
 interface BaseEntity {
   success: boolean;

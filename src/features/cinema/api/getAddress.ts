@@ -1,10 +1,10 @@
-import { useQuery } from 'react-query';
+import { useQuery } from "react-query";
 
-import { Cities, District } from '@/features/auth';
-import { axios } from '@/lib/axios';
-import { QueryConfig } from '@/lib/react-query';
+import { Cities, District } from "@/features/auth";
+import { axios } from "@/lib/axios";
+import { QueryConfig } from "@/lib/react-query";
 export const getCites = (): Promise<Cities[]> => {
-  return axios.get('https://provinces.open-api.vn/api/p/');
+  return axios.get("https://provinces.open-api.vn/api/p/");
 };
 
 type UseCitiesOptions = {
@@ -14,7 +14,7 @@ type UseCitiesOptions = {
 export const useCities = ({ config = {} }: UseCitiesOptions = {}) => {
   return useQuery({
     ...config,
-    queryKey: ['cities'],
+    queryKey: ["cities"],
     queryFn: () => getCites(),
   });
 };

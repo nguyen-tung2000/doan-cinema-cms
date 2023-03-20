@@ -1,6 +1,6 @@
-import React, { ChangeEventHandler } from 'react';
+import React, { ChangeEventHandler } from "react";
 
-import * as S from './InputField.style';
+import * as S from "./InputField.style";
 
 interface InputFieldProps {
   title: string;
@@ -26,19 +26,19 @@ export const InputField: React.FC<InputFieldProps> = ({
   return (
     <S.InputField>
       <S.Label>{title}</S.Label>
-      {type === 'file' && (
+      {type === "file" && (
         <>
           <S.FileUploadLabel htmlFor={name}>Select a {name}...</S.FileUploadLabel>
           <S.FileUpload id={name} type={type} name={name} onChange={change} />
-          {url && name === 'image' && (
+          {url && name === "image" && (
             <S.Image>
               <img src={url} alt="" />
             </S.Image>
           )}
-          {url && name !== 'image' && <S.Iframe src={url} allowFullScreen />}
+          {url && name !== "image" && <S.Iframe src={url} allowFullScreen />}
         </>
       )}
-      {type !== 'file' && !textarea && (
+      {type !== "file" && !textarea && (
         <S.Input name={name} onChange={change} value={value} error={error[name]} />
       )}
       {textarea && <S.Area name={name} onChange={change} value={value} error={error[name]} />}

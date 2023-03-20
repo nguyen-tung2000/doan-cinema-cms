@@ -1,5 +1,5 @@
-import { keyframes } from '@chakra-ui/system';
-import styled from '@emotion/styled';
+import { keyframes } from "@chakra-ui/system";
+import styled from "@emotion/styled";
 
 export const loading = keyframes`
   to {
@@ -26,7 +26,7 @@ export const Loading = styled.section`
   color: red;
 
   &::after {
-    content: '';
+    content: "";
     width: 50px;
     height: 50px;
     border: 4px solid #fff;

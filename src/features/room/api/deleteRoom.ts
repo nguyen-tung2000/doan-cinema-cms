@@ -1,10 +1,10 @@
-import { createStandaloneToast } from '@chakra-ui/toast';
-import { useMutation } from 'react-query';
+import { createStandaloneToast } from "@chakra-ui/toast";
+import { useMutation } from "react-query";
 
-import { RoomRespone } from '../type';
+import { RoomRespone } from "../type";
 
-import { axios } from '@/lib/axios';
-import { MutationConfig, queryClient } from '@/lib/react-query';
+import { axios } from "@/lib/axios";
+import { MutationConfig, queryClient } from "@/lib/react-query";
 
 export const deleteRoom = ({ roomId }: { roomId: string }) => {
   return axios.delete(`/room/delete/${roomId}`);
@@ -19,11 +19,11 @@ export const useDeleteRoom = ({ config }: UseDeleteRoomtOptions = {}) => {
 
   return useMutation({
     onMutate: async (deleteRoom) => {
-      await queryClient.cancelQueries('rooms');
+      await queryClient.cancelQueries("rooms");
 
-      const previousRooms = queryClient.getQueryData<RoomRespone>('rooms');
+      const previousRooms = queryClient.getQueryData<RoomRespone>("rooms");
 
-      queryClient.setQueryData('rooms', {
+      queryClient.setQueryData("rooms", {
         ...previousRooms,
         values: {
           rooms: previousRooms?.values.rooms.filter((room) => room._id !== deleteRoom.roomId),
@@ -34,16 +34,16 @@ export const useDeleteRoom = ({ config }: UseDeleteRoomtOptions = {}) => {
     },
     onError: (_, __, context: any) => {
       if (context?.previousRooms) {
-        queryClient.setQueryData('rooms', context.previousRooms);
+        queryClient.setQueryData("rooms", context.previousRooms);
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries('rooms');
+      queryClient.invalidateQueries("rooms");
       toast({
-        title: 'Deleted Room',
-        status: 'success',
+        title: "Deleted Room",
+        status: "success",
         isClosable: true,
-        position: 'top-right',
+        position: "top-right",
       });
     },
     ...config,

@@ -1,9 +1,9 @@
-import { Flex, Spinner, Box, Heading, Stack, Badge, VStack } from '@chakra-ui/react';
-import { UseFormRegister } from 'react-hook-form';
+import { Flex, Spinner, Box, Heading, Stack, Badge, VStack } from "@chakra-ui/react";
+import { UseFormRegister } from "react-hook-form";
 
-import { Table, Tr, Th, Td, CheckBoxField, SingleSelect } from '@/components';
-import { Room, colorBadge } from '@/features/room';
-import { CheckBoxTimeGroup, ShowTimesValues } from '@/features/showtimes';
+import { Table, Tr, Th, Td, CheckBoxField, SingleSelect } from "@/components";
+import { Room, colorBadge } from "@/features/room";
+import { CheckBoxTimeGroup, ShowTimesValues } from "@/features/showtimes";
 
 interface TimeSlotListProps {
   register: UseFormRegister<ShowTimesValues>;
@@ -57,7 +57,7 @@ export const TimeSlotList: React.FC<TimeSlotListProps> = (props) => {
         borderRadius={[0, 8]}
         px={8}
         py={12}
-        shadow={[null, 'md']}
+        shadow={[null, "md"]}
         spacing={4}
         w="100%"
       >

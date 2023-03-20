@@ -1,13 +1,13 @@
-import { Button, Flex, Heading, Spinner } from '@chakra-ui/react';
-import * as React from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
-import { HelmetProvider } from 'react-helmet-async';
-import { QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Button, Flex, Heading, Spinner } from "@chakra-ui/react";
+import * as React from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import { HelmetProvider } from "react-helmet-async";
+import { QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { BrowserRouter as Router } from "react-router-dom";
 
-import { AuthProvider } from '@/lib/auth';
-import { queryClient } from '@/lib/react-query';
+import { AuthProvider } from "@/lib/auth";
+import { queryClient } from "@/lib/react-query";
 
 const ErrorFallback = () => {
   return (
@@ -55,7 +55,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       >
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <QueryClientProvider client={queryClient}>
-            {process.env.NODE_ENV !== 'test' && <ReactQueryDevtools />}
+            {process.env.NODE_ENV !== "test" && <ReactQueryDevtools />}
             <AuthProvider>
               <Router>{children}</Router>
             </AuthProvider>

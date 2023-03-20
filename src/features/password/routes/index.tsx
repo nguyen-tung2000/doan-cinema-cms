@@ -9,35 +9,35 @@ import {
   ModalContent,
   ModalOverlay,
   Stack,
-} from '@chakra-ui/react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
-import * as React from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import * as z from 'zod';
+} from "@chakra-ui/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
+import * as React from "react";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import * as z from "zod";
 
-import { ChangePassword, ChangePasswordType } from '..';
+import { ChangePassword, ChangePasswordType } from "..";
 
-import { SingleSelect } from '@/components';
-import { InputField, RadioField, FileUpload } from '@/components/Form';
-import { StaffValues, useEditStaff } from '@/features/staff';
-import { useAuth } from '@/lib/auth';
-import { storage } from '@/lib/firebase';
-import { Toast } from '@/utils/Toast';
+import { SingleSelect } from "@/components";
+import { InputField, RadioField, FileUpload } from "@/components/Form";
+import { StaffValues, useEditStaff } from "@/features/staff";
+import { useAuth } from "@/lib/auth";
+import { storage } from "@/lib/firebase";
+import { Toast } from "@/utils/Toast";
 
 const schemaPassword = z.object({
-  oldPassword: z.string().nonempty({ message: 'Vui lòng nhập mật khẩu cũ' }),
-  newPassword: z.string().nonempty({ message: 'Vui lòng nhập mật khẩu mới' }),
-  confirmPassword: z.string().nonempty({ message: 'Vui lòng nhập lại mật khẩu' }),
+  oldPassword: z.string().nonempty({ message: "Vui lòng nhập mật khẩu cũ" }),
+  newPassword: z.string().nonempty({ message: "Vui lòng nhập mật khẩu mới" }),
+  confirmPassword: z.string().nonempty({ message: "Vui lòng nhập lại mật khẩu" }),
 });
 
 const schemaProfile = z.object({
-  fullName: z.string().nonempty({ message: 'Tên là bắt buộc' }),
-  phoneNumber: z.string().nonempty({ message: 'Số điện thoại là bắt buộc' }),
-  email: z.string().nonempty({ message: 'Email là bắt buộc' }),
-  dateOfBirth: z.string().nonempty({ message: 'Ngày sinh là bắt buộc' }),
+  fullName: z.string().nonempty({ message: "Tên là bắt buộc" }),
+  phoneNumber: z.string().nonempty({ message: "Số điện thoại là bắt buộc" }),
+  email: z.string().nonempty({ message: "Email là bắt buộc" }),
+  dateOfBirth: z.string().nonempty({ message: "Ngày sinh là bắt buộc" }),
   avatar: z.string(),
-  male: z.string().nonempty({ message: 'Giới tính là bắt buộc' }),
+  male: z.string().nonempty({ message: "Giới tính là bắt buộc" }),
 });
 
 interface PasswordProps {
@@ -58,9 +58,9 @@ export const Password = ({ onClose, isOpen, type }: PasswordProps) => {
   } = useForm({
     resolver: type === 0 ? zodResolver(schemaPassword) : zodResolver(schemaProfile),
     defaultValues: {
-      oldPassword: '',
-      newPassword: '',
-      confirmPassword: '',
+      oldPassword: "",
+      newPassword: "",
+      confirmPassword: "",
       fullName: user?.profile.fullName,
       phoneNumber: user?.phoneNumber,
       email: user?.email,
@@ -69,9 +69,9 @@ export const Password = ({ onClose, isOpen, type }: PasswordProps) => {
       avatar: user?.profile.avatar,
     },
   });
-  const maleQuery = ['Male', 'Female'];
+  const maleQuery = ["Male", "Female"];
   const editStaffMutation = useEditStaff();
-  const [imageSource, setImageSource] = React.useState<string>(user?.profile.avatar || '');
+  const [imageSource, setImageSource] = React.useState<string>(user?.profile.avatar || "");
   const onLogin: SubmitHandler<ChangePasswordType> = async (data: ChangePasswordType) => {
     const res = await ChangePassword(data);
     if (res.success) {
@@ -80,17 +80,17 @@ export const Password = ({ onClose, isOpen, type }: PasswordProps) => {
       reset();
     } else {
       if (res.values.errors.oldPassword) {
-        Toast(res.values.errors.oldPassword, 'error');
+        Toast(res.values.errors.oldPassword, "error");
       } else if (res.values.errors.newPassword) {
-        Toast(res.values.errors.newPassword, 'error');
+        Toast(res.values.errors.newPassword, "error");
       } else if (res.values.errors.confirmPassword) {
-        Toast(res.values.errors.confirmPassword, 'error');
+        Toast(res.values.errors.confirmPassword, "error");
       }
     }
   };
 
   const onProfile: SubmitHandler<StaffValues> = async (data: StaffValues) => {
-    const male = data.male == 'Male' ? true : false;
+    const male = data.male == "Male" ? true : false;
     if (imageSource) {
       await editStaffMutation.mutateAsync({
         data: {
@@ -104,7 +104,7 @@ export const Password = ({ onClose, isOpen, type }: PasswordProps) => {
       });
       onClose();
     } else {
-      Toast('Vui lòng chọn hình ảnh', 'error');
+      Toast("Vui lòng chọn hình ảnh", "error");
     }
   };
 
@@ -131,7 +131,7 @@ export const Password = ({ onClose, isOpen, type }: PasswordProps) => {
               onSubmit={handleSubmit(onLogin)}
               px={8}
               py={12}
-              shadow={[null, 'md']}
+              shadow={[null, "md"]}
               spacing={4}
               w="100%"
             >
@@ -139,24 +139,24 @@ export const Password = ({ onClose, isOpen, type }: PasswordProps) => {
               <ModalCloseButton />
               <InputField
                 label="Old Password"
-                registration={register('oldPassword')}
+                registration={register("oldPassword")}
                 aria-label="Old Password"
                 type="password"
-                error={errors['oldPassword']}
+                error={errors["oldPassword"]}
               />
               <InputField
                 label="New Password"
-                registration={register('newPassword')}
+                registration={register("newPassword")}
                 aria-label="New Password"
                 type="password"
-                error={errors['newPassword']}
+                error={errors["newPassword"]}
               />
               <InputField
                 label="Confirm Password"
-                registration={register('confirmPassword')}
+                registration={register("confirmPassword")}
                 aria-label="Confirm Password"
                 type="password"
-                error={errors['confirmPassword']}
+                error={errors["confirmPassword"]}
               />
               <Button
                 id="login"
@@ -167,10 +167,10 @@ export const Password = ({ onClose, isOpen, type }: PasswordProps) => {
                 mt={4}
                 h="50px"
                 fontSize="lg"
-                _hover={{ bg: 'cyan.700' }}
+                _hover={{ bg: "cyan.700" }}
                 _active={{
-                  bg: 'cyan.200',
-                  transform: 'scale(0.95)',
+                  bg: "cyan.200",
+                  transform: "scale(0.95)",
                 }}
               >
                 Change Password
@@ -188,7 +188,7 @@ export const Password = ({ onClose, isOpen, type }: PasswordProps) => {
               onSubmit={handleSubmit(onProfile)}
               px={8}
               py={12}
-              shadow={[null, 'md']}
+              shadow={[null, "md"]}
               spacing={4}
               w="100%"
             >
@@ -197,34 +197,34 @@ export const Password = ({ onClose, isOpen, type }: PasswordProps) => {
               <InputField
                 type="text"
                 label="Tên nhân viên"
-                registration={register('fullName')}
-                error={errors['fullName']}
+                registration={register("fullName")}
+                error={errors["fullName"]}
               />
               <InputField
                 type="text"
                 label="Số điện thoại"
-                registration={register('phoneNumber')}
-                error={errors['phoneNumber']}
+                registration={register("phoneNumber")}
+                error={errors["phoneNumber"]}
               />
               <InputField
                 type="text"
                 label="Email"
-                registration={register('email')}
-                error={errors['email']}
+                registration={register("email")}
+                error={errors["email"]}
                 disabled
               />
               <SingleSelect
-                registration={register('dateOfBirth')}
-                defaultValue={getValues('dateOfBirth')}
+                registration={register("dateOfBirth")}
+                defaultValue={getValues("dateOfBirth")}
                 label="Ngày sinh"
-                error={errors['dateOfBirth']}
+                error={errors["dateOfBirth"]}
               />
               <RadioField
                 label="Giới tính"
-                registration={register('male')}
-                defaultValue={getValues('male') ? 'Male' : 'Female'}
+                registration={register("male")}
+                defaultValue={getValues("male") ? "Male" : "Female"}
                 options={maleQuery}
-                error={errors['male']}
+                error={errors["male"]}
               />
               <Controller
                 name="avatar"
@@ -232,7 +232,7 @@ export const Password = ({ onClose, isOpen, type }: PasswordProps) => {
                 render={({ field }) => (
                   <FileUpload
                     label="File"
-                    acceptedFileTypes={'image/*'}
+                    acceptedFileTypes={"image/*"}
                     onChange={(value: any) => {
                       field.onChange(value);
                       handleImage(value);
@@ -247,7 +247,7 @@ export const Password = ({ onClose, isOpen, type }: PasswordProps) => {
                     size="sm"
                     ml="-25px"
                     colorScheme="teal"
-                    onClick={() => setImageSource('')}
+                    onClick={() => setImageSource("")}
                   />
                 </Flex>
               )}
@@ -260,10 +260,10 @@ export const Password = ({ onClose, isOpen, type }: PasswordProps) => {
                 mt={4}
                 h="50px"
                 fontSize="lg"
-                _hover={{ bg: 'cyan.700' }}
+                _hover={{ bg: "cyan.700" }}
                 _active={{
-                  bg: 'cyan.200',
-                  transform: 'scale(0.95)',
+                  bg: "cyan.200",
+                  transform: "scale(0.95)",
                 }}
               >
                 Change Profile

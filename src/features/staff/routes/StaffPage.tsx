@@ -1,20 +1,20 @@
-import { Badge, Box, Button, Flex, Spinner, Stack, useColorModeValue } from '@chakra-ui/react';
-import React from 'react';
-import { MdAdd } from 'react-icons/md';
+import { Badge, Box, Button, Flex, Spinner, Stack, useColorModeValue } from "@chakra-ui/react";
+import React from "react";
+import { MdAdd } from "react-icons/md";
 
-import { useDeleteStaff } from '../api';
+import { useDeleteStaff } from "../api";
 
-import { Table, Td, Th, Tr, SiteHeader, WarningModal } from '@/components';
-import { ROUTES, STAFF_FORM } from '@/constants';
-import { useStaffs, StaffDropdown, StaffFormModal } from '@/features/staff';
-import { Authorization, ROLES } from '@/lib/authorization';
-import { useStaffStore } from '@/stores/staff';
-import { formatDate } from '@/utils/format';
+import { Table, Td, Th, Tr, SiteHeader, WarningModal } from "@/components";
+import { ROUTES, STAFF_FORM } from "@/constants";
+import { useStaffs, StaffDropdown, StaffFormModal } from "@/features/staff";
+import { Authorization, ROLES } from "@/lib/authorization";
+import { useStaffStore } from "@/stores/staff";
+import { formatDate } from "@/utils/format";
 
 export const colorBadge: any = {
-  '0': 'red',
-  '1': 'purple',
-  '2': 'gray',
+  "0": "red",
+  "1": "purple",
+  "2": "gray",
 };
 
 export const StaffPage = () => {
@@ -22,10 +22,10 @@ export const StaffPage = () => {
   const deleteFoodMutation = useDeleteStaff();
   const { onOpen, setType } = useStaffStore();
   const [warningDialogVisible, setWarningDialogVisible] = React.useState(false);
-  const [staffId, setStaffId] = React.useState('');
+  const [staffId, setStaffId] = React.useState("");
 
-  const bg = useColorModeValue('gray.900', 'white');
-  const color = useColorModeValue('white', 'gray.900');
+  const bg = useColorModeValue("gray.900", "white");
+  const color = useColorModeValue("white", "gray.900");
 
   const onDelete = (id: string) => {
     setWarningDialogVisible(true);
@@ -72,10 +72,10 @@ export const StaffPage = () => {
                   borderRadius={4}
                   padding={2}
                   w="100%"
-                  textAlign={'center'}
+                  textAlign={"center"}
                   colorScheme={colorBadge[name]}
                 >
-                  {name === '0' ? 'Admin' : name === '1' ? 'Manager' : 'Nhân viên'}
+                  {name === "0" ? "Admin" : name === "1" ? "Manager" : "Nhân viên"}
                 </Badge>
               </Td>
               <Td>{staff?.createdAt && formatDate(new Date(staff.createdAt))}</Td>
@@ -110,27 +110,27 @@ export const StaffPage = () => {
               backgroundColor={bg}
               color={color}
               fontWeight="medium"
-              _hover={{ bg: 'gray.700' }}
+              _hover={{ bg: "gray.700" }}
               _active={{
-                bg: 'gray.800',
-                transform: 'scale(0.95)',
+                bg: "gray.800",
+                transform: "scale(0.95)",
               }}
               onClick={() => {
                 onOpen();
                 setType({
                   type: STAFF_FORM.ADD,
                   data: {
-                    email: '',
-                    phoneNumber: '',
-                    fullName: '',
+                    email: "",
+                    phoneNumber: "",
+                    fullName: "",
                     male: true,
-                    cinemaId: '',
-                    dateOfBirth: '',
-                    permissionId: '',
-                    avatar: '',
+                    cinemaId: "",
+                    dateOfBirth: "",
+                    permissionId: "",
+                    avatar: "",
                   },
-                  imageSource: '',
-                  staffId: '',
+                  imageSource: "",
+                  staffId: "",
                 });
               }}
             >
@@ -147,7 +147,7 @@ export const StaffPage = () => {
           maxWidth="1000px"
           px={8}
           py={12}
-          shadow={[null, 'md']}
+          shadow={[null, "md"]}
           spacing={4}
           w="100%"
         >

@@ -1,9 +1,9 @@
-import { useQuery } from 'react-query';
+import { useQuery } from "react-query";
 
-import { CinemaRespone } from './../type';
+import { CinemaRespone } from "./../type";
 
-import { axios } from '@/lib/axios';
-import { QueryConfig } from '@/lib/react-query';
+import { axios } from "@/lib/axios";
+import { QueryConfig } from "@/lib/react-query";
 
 export const getCinemas = (): Promise<CinemaRespone> => {
   return axios.get(`/cinema/all`);
@@ -16,7 +16,7 @@ type UseCinemasOptions = {
 export const useCinemas = ({ config }: UseCinemasOptions = {}) => {
   return useQuery({
     ...config,
-    queryKey: ['cinemas'],
+    queryKey: ["cinemas"],
     queryFn: () => getCinemas(),
   });
 };

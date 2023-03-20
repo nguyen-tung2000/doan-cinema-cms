@@ -1,7 +1,7 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { InputField, SelectField } from '@/components';
-import { District, getDistrict, getWards, useCities, UserAddress, Ward } from '@/features/auth';
+import { InputField, SelectField } from "@/components";
+import { District, getDistrict, getWards, useCities, UserAddress, Ward } from "@/features/auth";
 
 interface Address {
   districts: District[];
@@ -19,7 +19,7 @@ export const AddressField: React.FC<AddressFieldProps> = ({ register, formState,
   const cityQuery = useCities();
 
   const onChangeCity = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const code = event.target.value.split('-');
+    const code = event.target.value.split("-");
     if (code.length > 1) {
       setAdress({ districts: [], wards: [] });
       getDistrict(code[0]).then((res) => setAdress({ districts: res.districts, wards: [] }));
@@ -27,7 +27,7 @@ export const AddressField: React.FC<AddressFieldProps> = ({ register, formState,
   };
 
   const onChangeDistrict = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const code = event.target.value.split('-');
+    const code = event.target.value.split("-");
     if (code.length > 1) {
       setAdress({ ...address, wards: [] });
       getWards(code[0]).then((res) => setAdress({ ...address, wards: res.wards }));
@@ -39,12 +39,12 @@ export const AddressField: React.FC<AddressFieldProps> = ({ register, formState,
       <SelectField
         label="Thành phố"
         placeholder="Thành phố"
-        registration={register('address.city')}
-        error={formState.errors['address']?.city}
+        registration={register("address.city")}
+        error={formState.errors["address"]?.city}
         defaultValue={userAddress.city}
         options={[
           {
-            title: '',
+            title: "",
             items: cityQuery.data
               ? cityQuery?.data.map((city) => ({
                   label: city.name,
@@ -59,12 +59,12 @@ export const AddressField: React.FC<AddressFieldProps> = ({ register, formState,
       <SelectField
         label="Quận / Huyện"
         placeholder="Quận / Huyện"
-        registration={register('address.district')}
-        error={formState.errors['address']?.district}
+        registration={register("address.district")}
+        error={formState.errors["address"]?.district}
         defaultValue={userAddress.district}
         options={[
           {
-            title: '',
+            title: "",
             items: address?.districts.map((d) => ({
               label: d.name,
               value: `${d.code}-${d.name}`,
@@ -77,12 +77,12 @@ export const AddressField: React.FC<AddressFieldProps> = ({ register, formState,
       <SelectField
         label="Phường"
         placeholder="Phường"
-        registration={register('address.ward')}
-        error={formState.errors['address']?.ward}
+        registration={register("address.ward")}
+        error={formState.errors["address"]?.ward}
         defaultValue={userAddress.ward}
         options={[
           {
-            title: '',
+            title: "",
             items: address?.wards.map((d) => ({
               label: d.name,
               value: `${d.code}-${d.name}`,
@@ -94,8 +94,8 @@ export const AddressField: React.FC<AddressFieldProps> = ({ register, formState,
       <InputField
         type="text"
         label="Đường"
-        error={formState.errors['address']?.street}
-        registration={register('address.street')}
+        error={formState.errors["address"]?.street}
+        registration={register("address.street")}
         defaultValue={userAddress.street}
         mt="4"
       />

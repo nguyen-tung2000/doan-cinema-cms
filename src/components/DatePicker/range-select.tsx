@@ -12,7 +12,7 @@ import {
   Stack,
   Text,
   useMultiStyleConfig,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 import {
   addWeeks,
   compareAsc,
@@ -25,15 +25,15 @@ import {
   isToday,
   startOfMonth,
   startOfWeek,
-} from 'date-fns';
-import React, { useState } from 'react';
+} from "date-fns";
+import React, { useState } from "react";
 import {
   IoArrowForwardSharp,
   IoCalendarClearSharp,
   IoChevronBackSharp,
   IoChevronForwardSharp,
-} from 'react-icons/io5';
-import { useLilius } from 'use-lilius';
+} from "react-icons/io5";
+import { useLilius } from "use-lilius";
 
 interface RangeSelectProps {
   dateStart?: string;
@@ -55,7 +55,7 @@ export const RangeSelect: React.FC<RangeSelectProps> = () => {
     viewToday,
   } = useLilius({ numberOfMonths: 2 });
 
-  const styles = useMultiStyleConfig('Datepicker', {});
+  const styles = useMultiStyleConfig("Datepicker", {});
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -82,25 +82,25 @@ export const RangeSelect: React.FC<RangeSelectProps> = () => {
 
               {selected.length > 0 && (
                 <>
-                  <Text>{format(selected[0], 'MM/dd/yyyy')}</Text>
+                  <Text>{format(selected[0], "MM/dd/yyyy")}</Text>
                   <Icon as={IoArrowForwardSharp} color="blue.400" marginX={2} />
                 </>
               )}
 
               {selected.length > 1 && (
-                <Text>{format(selected[selected.length - 1], 'MM/dd/yyyy')}</Text>
+                <Text>{format(selected[selected.length - 1], "MM/dd/yyyy")}</Text>
               )}
             </Box>
 
             <IconButton
               aria-label="Open Calendar"
-              colorScheme={isOpen ? 'blue' : 'gray'}
+              colorScheme={isOpen ? "blue" : "gray"}
               icon={<IoCalendarClearSharp />}
               minWidth="auto"
               onClick={() => setIsOpen(!isOpen)}
               variant="link"
               _focus={{
-                outline: 'none',
+                outline: "none",
               }}
             />
           </Box>
@@ -145,7 +145,7 @@ export const RangeSelect: React.FC<RangeSelectProps> = () => {
 
               {calendar.map(([[firstDay]]) => (
                 <Text key={firstDay.toDateString()} sx={styles.navigationLabel}>
-                  {format(firstDay, 'MMMM yyyy')}
+                  {format(firstDay, "MMMM yyyy")}
                 </Text>
               ))}
 
@@ -165,7 +165,7 @@ export const RangeSelect: React.FC<RangeSelectProps> = () => {
                     <Box sx={styles.dayLabelContainer}>
                       {month[0].map((day) => (
                         <Box key={`${day}`} sx={styles.dayLabel}>
-                          {['Sun', 'Mon', 'Tue', 'Wed', 'Tue', 'Thu', 'Fri', 'Sat'][getDay(day)]}
+                          {["Sun", "Mon", "Tue", "Wed", "Tue", "Thu", "Fri", "Sat"][getDay(day)]}
                         </Box>
                       ))}
                     </Box>
@@ -212,7 +212,7 @@ export const RangeSelect: React.FC<RangeSelectProps> = () => {
                             }}
                             sx={styles.calendarMatrixDay}
                           >
-                            <Text>{format(day, 'dd')}</Text>
+                            <Text>{format(day, "dd")}</Text>
                           </Box>
                         ))}
                       </Box>

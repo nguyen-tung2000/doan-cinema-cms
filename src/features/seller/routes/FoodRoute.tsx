@@ -1,10 +1,10 @@
-import { Box, Flex, IconButton, Heading, Img, Table, Tr, Th, Td } from '@chakra-ui/react';
-import * as React from 'react';
-import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
+import { Box, Flex, IconButton, Heading, Img, Table, Tr, Th, Td } from "@chakra-ui/react";
+import * as React from "react";
+import { HiMinusCircle, HiPlusCircle } from "react-icons/hi";
 
 // import { Table, Tr, Th, Td } from '@/components';
-import { ComboItem } from '@/features/seller';
-import { formatNumber } from '@/utils/format';
+import { ComboItem } from "@/features/seller";
+import { formatNumber } from "@/utils/format";
 
 interface FoodRouteProps {
   listCombo: ComboItem[];

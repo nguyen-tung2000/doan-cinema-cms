@@ -1,14 +1,14 @@
-import { Badge, Box, BreadcrumbItem, BreadcrumbLink, Flex, Spinner, Stack } from '@chakra-ui/react';
+import { Badge, Box, BreadcrumbItem, BreadcrumbLink, Flex, Spinner, Stack } from "@chakra-ui/react";
 
-import { Table, Td, Th, Tr, SiteHeader } from '@/components';
-import { ROUTES } from '@/constants';
-import { MenuListRoom, RoomCreateModal, useRooms } from '@/features/room';
-import { Authorization, ROLES } from '@/lib/authorization';
+import { Table, Td, Th, Tr, SiteHeader } from "@/components";
+import { ROUTES } from "@/constants";
+import { MenuListRoom, RoomCreateModal, useRooms } from "@/features/room";
+import { Authorization, ROLES } from "@/lib/authorization";
 
 export const colorBadge: any = {
-  '2D': 'gray',
-  '3D': 'purple',
-  IMAX: 'red',
+  "2D": "gray",
+  "3D": "purple",
+  IMAX: "red",
 };
 
 export const RoomList = () => {
@@ -44,7 +44,7 @@ export const RoomList = () => {
           maxWidth="1000px"
           px={8}
           py={12}
-          shadow={[null, 'md']}
+          shadow={[null, "md"]}
           spacing={4}
           w="100%"
         >

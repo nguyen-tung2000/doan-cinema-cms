@@ -20,14 +20,14 @@ import {
   Box,
   IconButton,
   useToast,
-} from '@chakra-ui/react';
-import React from 'react';
-import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
-import shallow from 'zustand/shallow';
+} from "@chakra-ui/react";
+import React from "react";
+import { HiMinusCircle, HiPlusCircle } from "react-icons/hi";
+import shallow from "zustand/shallow";
 
-import { Alert } from '@/components';
-import { IGift } from '@/features/seller';
-import { useSellerStore } from '@/stores/seller';
+import { Alert } from "@/components";
+import { IGift } from "@/features/seller";
+import { useSellerStore } from "@/stores/seller";
 
 export const BonusFormModal = () => {
   const [openAlert, setOpenAlert] = React.useState<boolean>(false);
@@ -69,8 +69,8 @@ export const BonusFormModal = () => {
     if (ticketsGift && ticketsGift.quantity > selectedSeats.length) {
       toast({
         title: `Bạn chỉ đổi được tối đa ${selectedSeats.length} vé`,
-        status: 'info',
-        position: 'top-right',
+        status: "info",
+        position: "top-right",
         isClosable: true,
       });
     } else {
@@ -174,12 +174,12 @@ export const BonusFormModal = () => {
                 showCloseButton={true}
                 closeButtonText="Trở lại"
                 triggerButton={{
-                  children: 'Xác nhận',
-                  variant: 'solid',
-                  colorScheme: 'cyan',
+                  children: "Xác nhận",
+                  variant: "solid",
+                  colorScheme: "cyan",
                   onClick: () => closeModal(),
                   ml: 3,
-                  color: 'white',
+                  color: "white",
                 }}
                 onClose={() => setOpenAlert(!openAlert)}
               />

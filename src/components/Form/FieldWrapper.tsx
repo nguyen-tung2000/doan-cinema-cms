@@ -1,6 +1,6 @@
-import { FormControl, FormErrorMessage, FormLabel } from '@chakra-ui/react';
-import * as React from 'react';
-import { FieldError } from 'react-hook-form';
+import { FormControl, FormErrorMessage, FormLabel } from "@chakra-ui/react";
+import * as React from "react";
+import { FieldError } from "react-hook-form";
 
 interface FieldWrapperProps {
   label?: string;
@@ -11,7 +11,7 @@ interface FieldWrapperProps {
   fieldset?: boolean;
 }
 
-export type FieldWrapperPassThroughProps = Omit<FieldWrapperProps, 'className' | 'children'>;
+export type FieldWrapperPassThroughProps = Omit<FieldWrapperProps, "className" | "children">;
 
 export const FieldWrapper = (props: FieldWrapperProps) => {
   const { label, error, children, className, fieldset, ...formProps } = props;
@@ -24,7 +24,7 @@ export const FieldWrapper = (props: FieldWrapperProps) => {
   }
   return (
     <FormControl className={className} isInvalid={!!error} {...formProps}>
-      <FormLabel style={{ fontSize: '13px' }}>{label}</FormLabel>
+      <FormLabel style={{ fontSize: "13px" }}>{label}</FormLabel>
       {children}
       <FormErrorMessage>{error && error.message}</FormErrorMessage>
     </FormControl>

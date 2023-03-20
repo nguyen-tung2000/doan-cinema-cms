@@ -14,20 +14,20 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
-} from '@chakra-ui/react';
-import React, { useRef, useState } from 'react';
-import { FiTrash } from 'react-icons/fi';
-import { MdInfo } from 'react-icons/md';
-import { Link, useRouteMatch } from 'react-router-dom';
+} from "@chakra-ui/react";
+import React, { useRef, useState } from "react";
+import { FiTrash } from "react-icons/fi";
+import { MdInfo } from "react-icons/md";
+import { Link, useRouteMatch } from "react-router-dom";
 
-import logoImage from '@/assets/logo.jpeg';
-import { AuthUser } from '@/features/auth';
-import { CinemaType, useDeleteCinema, CinemaModalUpdate } from '@/features/cinema';
-import { useAuth } from '@/lib/auth';
-import { Authorization, POLICIES } from '@/lib/authorization';
+import logoImage from "@/assets/logo.jpeg";
+import { AuthUser } from "@/features/auth";
+import { CinemaType, useDeleteCinema, CinemaModalUpdate } from "@/features/cinema";
+import { useAuth } from "@/lib/auth";
+import { Authorization, POLICIES } from "@/lib/authorization";
 
 export const CinemaItem: React.FC<CinemaType> = (props) => {
-  const bg = useColorModeValue('white', 'gray.900');
+  const bg = useColorModeValue("white", "gray.900");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const cancelRef: any = useRef();
   const onClose = () => setIsOpen(false);
@@ -58,7 +58,7 @@ export const CinemaItem: React.FC<CinemaType> = (props) => {
               <Heading size="lg" mb="1">
                 {props.name}
               </Heading>
-              <Authorization policyCheck={POLICIES['cinema:delete'](user as AuthUser)}>
+              <Authorization policyCheck={POLICIES["cinema:delete"](user as AuthUser)}>
                 <IconButton
                   size="lg"
                   variant="ghost"
@@ -98,8 +98,8 @@ export const CinemaItem: React.FC<CinemaType> = (props) => {
           </Box>
           <Text fontSize="sm" fontWeight="medium">
             {` Xem Lịch chiếu và Mua vé ${props.name} - rạp Movieer toàn quốc dễ dàng - nhanh chóng
-            tại Movieer. Rạp Movieer Nguyễn Du nằm ở đường Nguyễn Du, là rạp chiếu phim đầu tiên của
-            Movieer Cinema được xây dựng với tiêu chuẩn Hollywood, có 5 phòng chiếu (1000 chỗ ngồi),
+            tại Movieer. Rạp Movieer ${props.name} nằm ở đường ${props.address.street} ${props.address.district} ${props.address.city}, là rạp chiếu phim đầu tiên của
+            Movieer Cinema được xây dựng với tiêu chuẩn Hollywood, có nhiều phòng chiếu ,
             chuẩn âm thanh Dolby 7.1. ${props.name} nằm ở khu vực rất thuận lợi cho các bạn sinh
             viên - học sinh lẫn nhân viên văn phòng. Bên trong khuôn viên còn thường xuyên tổ chức
             các sự kiện ra mắt phim và hội chợ hết sức thú vị.`}
@@ -107,7 +107,7 @@ export const CinemaItem: React.FC<CinemaType> = (props) => {
         </Box>
       </Flex>
       <Stack direction="row" spacing={4} mt="4" justifyContent="flex-end">
-        <Authorization policyCheck={POLICIES['cinema:update'](user as AuthUser)}>
+        <Authorization policyCheck={POLICIES["cinema:update"](user as AuthUser)}>
           <CinemaModalUpdate {...props} />
         </Authorization>
         <Button

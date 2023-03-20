@@ -1,4 +1,4 @@
-import { CinemaType } from '@/features/cinema';
+import { CinemaType } from "@/features/cinema";
 export interface TimeSlot {
   _id: string;
   time: string;
