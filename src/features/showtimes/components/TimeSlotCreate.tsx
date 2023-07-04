@@ -7,13 +7,13 @@ import {
   Switch,
   Text,
   useDisclosure,
-} from "@chakra-ui/react";
-import React from "react";
-import FocusLock from "react-focus-lock";
-import { z } from "zod";
+} from '@chakra-ui/react';
+import React from 'react';
+import FocusLock from 'react-focus-lock';
+import { z } from 'zod';
 
-import { Form, InputField } from "@/components";
-import { useCreateTimeSlot } from "@/features/room";
+import { Form, InputField } from '@/components';
+import { useCreateTimeSlot } from '@/features/room';
 interface TimeSlotCreateProps {
   children?: React.ReactNode;
 }
@@ -25,8 +25,8 @@ type TimeValues = {
 const schema = z.object({
   time: z
     .string()
-    .nonempty({ message: "time field is required" })
-    .regex(/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/, "time is invalid"),
+    .nonempty({ message: 'time field is required' })
+    .regex(/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/, 'time is invalid'),
 });
 
 export const TimeSlotCreate: React.FC<TimeSlotCreateProps> = () => {
@@ -69,8 +69,8 @@ export const TimeSlotCreate: React.FC<TimeSlotCreateProps> = () => {
                   <InputField
                     type="text"
                     label="Tạo khung giờ"
-                    registration={register("time")}
-                    error={formState.errors["time"]}
+                    registration={register('time')}
+                    error={formState.errors['time']}
                   />
                   <ButtonGroup d="flex" justifyContent="flex-end">
                     <Button

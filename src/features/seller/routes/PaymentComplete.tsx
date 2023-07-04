@@ -22,15 +22,15 @@ import {
   Th,
   Tr,
   Text,
-} from "@chakra-ui/react";
-import { Redirect, useHistory } from "react-router-dom";
-import shallow from "zustand/shallow";
+} from '@chakra-ui/react';
+import { Redirect, useHistory } from 'react-router-dom';
+import shallow from 'zustand/shallow';
 
-import { ROUTES } from "@/constants";
-import { ComboItem, TicketCard } from "@/features/seller";
-import { useSellerStore } from "@/stores/seller";
-import { formatDate, formatNumber } from "@/utils/format";
-import { isEmptyObject } from "@/utils/object";
+import { ROUTES } from '@/constants';
+import { ComboItem, TicketCard } from '@/features/seller';
+import { useSellerStore } from '@/stores/seller';
+import { formatDate, formatNumber } from '@/utils/format';
+import { isEmptyObject } from '@/utils/object';
 
 export const PaymentComplete = () => {
   const { bills, clearBill } = useSellerStore(
@@ -53,7 +53,7 @@ export const PaymentComplete = () => {
           backgroundColor="white"
           px={5}
           py={5}
-          shadow={[null, "md"]}
+          shadow={[null, 'md']}
           spacing={4}
           w="50%"
           alignItems="center"
@@ -148,7 +148,7 @@ const FoodDetailTable = ({ foods, total }: IFoodDetailTable) => {
       <tbody>
         {foods.map((food) => {
           return (
-            <Box as="tr" key={food._id}>
+            <Box as="tr" key={food.id}>
               <Td>{food.name}</Td>
 
               <Td>{food.quantity}</Td>

@@ -1,6 +1,6 @@
-import { Spinner, Flex, Heading, Box, Stack, Select } from "@chakra-ui/react";
-import * as R from "ramda";
-import * as React from "react";
+import { Spinner, Flex, Heading, Box, Stack, Select } from '@chakra-ui/react';
+import * as R from 'ramda';
+import * as React from 'react';
 
 import {
   LineChart,
@@ -8,65 +8,65 @@ import {
   useRevenueByMonthQuery,
   sortByDate,
   RevenueInfo,
-} from "@/features/revenue";
-import { formatNumber, convertToMoney } from "@/utils/format";
+} from '@/features/revenue';
+import { formatNumber, convertToMoney } from '@/utils/format';
 
 interface RevenueByQuarterFormProps {
   cinemaId: string;
 }
 
 export const RevenueByQuarterForm: React.FC<RevenueByQuarterFormProps> = ({ cinemaId }) => {
-  const [dataDTO, setDataDTO] = React.useState({ month: "", year: "" });
+  const [dataDTO, setDataDTO] = React.useState({ month: '', year: '' });
 
   const columns = React.useMemo(
     () => [
       {
-        Header: "Thông tin",
-        Footer: "Thông tin",
+        Header: 'Thông tin',
+        Footer: 'Thông tin',
         columns: [
           {
-            Header: "Ngày",
-            accessor: "date",
+            Header: 'Ngày',
+            accessor: 'date',
           },
           {
-            Header: "Tên phim",
-            accessor: "movieName",
-            aggregate: "count",
+            Header: 'Tên phim',
+            accessor: 'movieName',
+            aggregate: 'count',
             Aggregated: ({ value }: any) => `${value} phim`,
           },
           {
-            Header: "Màn hình",
-            accessor: "screenName",
+            Header: 'Màn hình',
+            accessor: 'screenName',
           },
         ],
       },
       {
-        Header: "Doanh thu bán hàng",
-        Footer: "Doanh thu bán hàng",
+        Header: 'Doanh thu bán hàng',
+        Footer: 'Doanh thu bán hàng',
 
         columns: [
           {
-            Header: "Số lượng",
-            accessor: "quantity",
+            Header: 'Số lượng',
+            accessor: 'quantity',
             canGroupBy: false,
           },
           {
-            Header: "Đơn giá",
-            accessor: "price",
+            Header: 'Đơn giá',
+            accessor: 'price',
             canGroupBy: false,
           },
           {
-            Header: "Giảm",
-            accessor: "promotion",
+            Header: 'Giảm',
+            accessor: 'promotion',
             canGroupBy: false,
           },
           {
-            Header: "Loại",
-            accessor: "type",
+            Header: 'Loại',
+            accessor: 'type',
           },
           {
-            Header: "Tổng",
-            accessor: "totalString",
+            Header: 'Tổng',
+            accessor: 'totalString',
             canGroupBy: false,
             Footer: (info: any) => {
               // Only calculate total visits if rows change
@@ -84,7 +84,7 @@ export const RevenueByQuarterForm: React.FC<RevenueByQuarterFormProps> = ({ cine
             },
           },
           {
-            Header: "TT",
+            Header: 'TT',
             accessor: (originalRow: any) => {
               return <RevenueInfo revenueData={originalRow} />;
             },
@@ -178,7 +178,7 @@ export const RevenueByQuarterForm: React.FC<RevenueByQuarterFormProps> = ({ cine
           <LineChart
             data={{
               title: `Doanh thu tháng ${dataDTO.month}`,
-              subTitle: "Doanh thu từng phim ",
+              subTitle: 'Doanh thu từng phim ',
               data: revenueByMonthQuery.data.values.data,
               xCategories: R.uniq(
                 sortByDate(revenueByMonthQuery.data.values.data).map((m: any) => m.date),

@@ -1,1 +1,1 @@
-export * from "./WarningModal";
+export * from './WarningModal';

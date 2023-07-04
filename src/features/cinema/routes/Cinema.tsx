@@ -7,20 +7,20 @@ import {
   Tab,
   TabPanel,
   Flex,
-} from "@chakra-ui/react";
-import { format } from "date-fns";
-import React from "react";
-import { useParams } from "react-router-dom";
+} from '@chakra-ui/react';
+import { format } from 'date-fns';
+import React from 'react';
+import { useParams } from 'react-router-dom';
 
-import { SiteHeader } from "@/components/Layout";
-import { ROUTES } from "@/constants";
-import { getRangeDate } from "@/features/seller";
-import { ShowTimesListV2 } from "@/features/showtimes";
+import { SiteHeader } from '@/components/Layout';
+import { ROUTES } from '@/constants';
+import { getRangeDate } from '@/features/seller';
+import { ShowTimesListV2 } from '@/features/showtimes';
 
 export const Cinema = () => {
   const { rangeDate, startDay } = getRangeDate();
-  const [activeDate, setActiveDate] = React.useState<string>(format(startDay, "MM/dd/yyyy"));
-  const { _id: cinemaId }: { _id: string } = useParams();
+  const [activeDate, setActiveDate] = React.useState<string>(format(startDay, 'MM/dd/yyyy'));
+  const { id: cinemaId }: { id: string } = useParams();
 
   return (
     <>

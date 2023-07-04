@@ -1,6 +1,6 @@
-import { CinemaType } from "@/features/cinema";
+import { CinemaType } from '@/features/cinema';
 export interface TimeSlot {
-  _id: string;
+  id: string;
   time: string;
   disabled: boolean;
 }
@@ -14,7 +14,7 @@ export interface TimSlotRespone {
 }
 
 export interface ScreenType {
-  _id: string;
+  id: string;
   name: string;
   weekdayPrice: number;
   weekendPrice: number;
@@ -29,7 +29,7 @@ export interface ScreenRespone {
 }
 
 export interface Room {
-  _id: string;
+  id: string;
   name: string;
   rowNumber: number;
   seatsInRow: number;

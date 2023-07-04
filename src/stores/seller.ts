@@ -1,6 +1,6 @@
-import create from "zustand";
+import create from 'zustand';
 
-import { SITE_MODAL_TYPES } from "@/constants";
+import { SITE_MODAL_TYPES } from '@/constants';
 import {
   AuthUser,
   getUserProfile,
@@ -10,7 +10,7 @@ import {
   IGift,
   ICoupon,
   getGiftByScreen,
-} from "@/features/seller";
+} from '@/features/seller';
 
 type Keys = keyof typeof SITE_MODAL_TYPES;
 export type ModalType = typeof SITE_MODAL_TYPES[Keys];
@@ -53,9 +53,9 @@ type SellerStore = {
 
 export const useSellerStore = create<SellerStore>((set) => ({
   openModal: false,
-  modalType: "",
-  message: "",
-  screenId: "",
+  modalType: '',
+  message: '',
+  screenId: '',
   step: 1,
   point: 0,
   isLoading: false,
@@ -134,7 +134,7 @@ export const useSellerStore = create<SellerStore>((set) => ({
   clearBill: () => set(() => ({ bills: {} as BillsResponse })),
   inc: (item: ComboItem) =>
     set((state) => {
-      const comboItem = state.selectedCombos.find((combo) => combo._id === item._id);
+      const comboItem = state.selectedCombos.find((combo) => combo.id === item.id);
       if (comboItem) {
         comboItem.quantity++;
         set({ selectedCombos: [...state.selectedCombos] });
@@ -144,7 +144,7 @@ export const useSellerStore = create<SellerStore>((set) => ({
     }),
   des: (item: ComboItem) =>
     set((state) => {
-      const comboItem = state.selectedCombos.find((combo) => combo._id === item._id);
+      const comboItem = state.selectedCombos.find((combo) => combo.id === item.id);
       if (comboItem) {
         comboItem.quantity--;
         set({ selectedCombos: [...state.selectedCombos] });
@@ -157,12 +157,12 @@ export const useSellerStore = create<SellerStore>((set) => ({
     }),
   setSelectedGift: (gift: IGift) => {
     set((state) => {
-      const hasGift = state.selectedGifts.find((g) => g._id === gift._id);
+      const hasGift = state.selectedGifts.find((g) => g.id === gift.id);
       const hasGiftDiscount = state.selectedGifts.find((g) => g.type === 2);
       const coupon = false;
 
       if (hasGiftDiscount) {
-        return { ...state, message: "Chỉ dùng được 1 lần coupon giảm giá" };
+        return { ...state, message: 'Chỉ dùng được 1 lần coupon giảm giá' };
       }
 
       if (hasGift) {
@@ -177,7 +177,7 @@ export const useSellerStore = create<SellerStore>((set) => ({
   },
   incGift: (gift: IGift) =>
     set((state) => {
-      const hasGift = state.selectedGifts.find((g) => g._id === gift._id);
+      const hasGift = state.selectedGifts.find((g) => g.id === gift.id);
       const newPoint = state.point - gift.point;
       const coupon = false;
 
@@ -193,7 +193,7 @@ export const useSellerStore = create<SellerStore>((set) => ({
     }),
   desGift: (gift: IGift) =>
     set((state) => {
-      const hasGift = state.selectedGifts.find((g) => g._id === gift._id);
+      const hasGift = state.selectedGifts.find((g) => g.id === gift.id);
       const newPoint = state.point + gift.point;
 
       if (hasGift) {

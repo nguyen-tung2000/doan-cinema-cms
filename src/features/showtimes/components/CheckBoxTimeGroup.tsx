@@ -1,8 +1,8 @@
-import { Checkbox, CheckboxGroup, SimpleGrid } from "@chakra-ui/react";
-import React from "react";
-import { UseFormRegisterReturn } from "react-hook-form";
+import { Checkbox, CheckboxGroup, SimpleGrid } from '@chakra-ui/react';
+import React from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
-import { FieldWrapper, FieldWrapperPassThroughProps } from "../../../components/Form";
+import { FieldWrapper, FieldWrapperPassThroughProps } from '../../../components/Form';
 
 type Option = {
   label: React.ReactNode;
@@ -16,11 +16,11 @@ interface CheckBoxTimeGroupProps extends FieldWrapperPassThroughProps {
   roomName: string;
   screenName: string;
   onCheck: ({
-    _id,
+    id,
     roomName,
     screenName,
   }: {
-    _id: string;
+    id: string;
     roomName: string;
     screenName: string;
   }) => void;
@@ -41,7 +41,7 @@ export const CheckBoxTimeGroup: React.FC<CheckBoxTimeGroupProps> = (props) => {
               key={o.value}
               isDisabled={o.disable}
               onChange={() => {
-                onCheck({ _id: o.value as string, roomName, screenName });
+                onCheck({ id: o.value as string, roomName, screenName });
               }}
             >
               {o.label}

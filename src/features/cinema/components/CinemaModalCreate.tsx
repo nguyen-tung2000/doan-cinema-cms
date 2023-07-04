@@ -9,15 +9,15 @@ import {
   ModalOverlay,
   useColorModeValue,
   useDisclosure,
-} from "@chakra-ui/react";
-import React, { useRef, useState } from "react";
-import { MdAdd } from "react-icons/md";
-import * as z from "zod";
+} from '@chakra-ui/react';
+import React, { useRef, useState } from 'react';
+import { MdAdd } from 'react-icons/md';
+import * as z from 'zod';
 
-import { useCreateCinema } from "../api/createCinema";
+import { useCreateCinema } from '../api/createCinema';
 
-import { Form, InputField, SelectField } from "@/components";
-import { District, getDistrict, getWards, useCities, Ward } from "@/features/auth";
+import { Form, InputField, SelectField } from '@/components';
+import { District, getDistrict, getWards, useCities, Ward } from '@/features/auth';
 
 type Address = {
   districts: District[];
@@ -35,12 +35,12 @@ export type CinemaValues = {
 };
 
 const schema = z.object({
-  name: z.string().nonempty({ message: "Tên rạp là bắt buộc" }),
+  name: z.string().nonempty({ message: 'Tên rạp là bắt buộc' }),
   address: z.object({
-    city: z.string().nonempty({ message: "Thành phố là bắt buộc" }),
-    district: z.string().nonempty({ message: "Quận/Huyện là bắt buộc" }),
-    ward: z.string().nonempty({ message: "Phường/Xã là bắt buộc" }),
-    street: z.string().nonempty({ message: "Đường là bắt buộc" }),
+    city: z.string().nonempty({ message: 'Thành phố là bắt buộc' }),
+    district: z.string().nonempty({ message: 'Quận/Huyện là bắt buộc' }),
+    ward: z.string().nonempty({ message: 'Phường/Xã là bắt buộc' }),
+    street: z.string().nonempty({ message: 'Đường là bắt buộc' }),
   }),
 });
 
@@ -52,7 +52,7 @@ export const CinemaModalCreate: React.FC<any> = () => {
   const createCinema = useCreateCinema();
 
   const onChangeCity = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const code = event.target.value.split("-");
+    const code = event.target.value.split('-');
     if (code.length > 1) {
       setAdress({ districts: [], wards: [] });
       getDistrict(code[0]).then((res) => setAdress({ districts: res.districts, wards: [] }));
@@ -60,7 +60,7 @@ export const CinemaModalCreate: React.FC<any> = () => {
   };
 
   const onChangeDistrict = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const code = event.target.value.split("-");
+    const code = event.target.value.split('-');
     if (code.length > 1) {
       setAdress({ ...address, wards: [] });
       getWards(code[0]).then((res) => setAdress({ ...address, wards: res.wards }));
@@ -69,9 +69,9 @@ export const CinemaModalCreate: React.FC<any> = () => {
 
   const onCreateCinema = async (data: CinemaValues) => {
     const { name, address } = data;
-    const newCity = address.city.split("-");
-    const newWard = address.ward.split("-");
-    const newDistrict = address.district.split("-");
+    const newCity = address.city.split('-');
+    const newWard = address.ward.split('-');
+    const newDistrict = address.district.split('-');
     const values = {
       name,
       address: {
@@ -85,8 +85,8 @@ export const CinemaModalCreate: React.FC<any> = () => {
     onClose();
   };
 
-  const bg = useColorModeValue("gray.900", "white");
-  const color = useColorModeValue("white", "gray.900");
+  const bg = useColorModeValue('gray.900', 'white');
+  const color = useColorModeValue('white', 'gray.900');
 
   return (
     <>
@@ -96,10 +96,10 @@ export const CinemaModalCreate: React.FC<any> = () => {
         backgroundColor={bg}
         color={color}
         fontWeight="medium"
-        _hover={{ bg: "gray.700" }}
+        _hover={{ bg: 'gray.700' }}
         _active={{
-          bg: "gray.800",
-          transform: "scale(0.95)",
+          bg: 'gray.800',
+          transform: 'scale(0.95)',
         }}
         leftIcon={<MdAdd />}
       >
@@ -123,17 +123,17 @@ export const CinemaModalCreate: React.FC<any> = () => {
                   <InputField
                     type="text"
                     label="Tên Rạp Phim"
-                    error={formState.errors["name"]}
-                    registration={register("name")}
+                    error={formState.errors['name']}
+                    registration={register('name')}
                   />
                   <SelectField
                     label="Thành phố"
                     placeholder="Thành phố"
-                    registration={register("address.city")}
-                    error={formState.errors["address"]?.city}
+                    registration={register('address.city')}
+                    error={formState.errors['address']?.city}
                     options={[
                       {
-                        title: "",
+                        title: '',
                         items: cityQuery.data
                           ? cityQuery?.data.map((city) => ({
                               label: city.name,
@@ -148,11 +148,11 @@ export const CinemaModalCreate: React.FC<any> = () => {
                   <SelectField
                     label="Quận / Huyện"
                     placeholder="Quận / Huyện"
-                    registration={register("address.district")}
-                    error={formState.errors["address"]?.district}
+                    registration={register('address.district')}
+                    error={formState.errors['address']?.district}
                     options={[
                       {
-                        title: "",
+                        title: '',
                         items: address?.districts.map((d) => ({
                           label: d.name,
                           value: `${d.code}-${d.name}`,
@@ -165,11 +165,11 @@ export const CinemaModalCreate: React.FC<any> = () => {
                   <SelectField
                     label="Phường"
                     placeholder="Phường"
-                    registration={register("address.ward")}
-                    error={formState.errors["address"]?.ward}
+                    registration={register('address.ward')}
+                    error={formState.errors['address']?.ward}
                     options={[
                       {
-                        title: "",
+                        title: '',
                         items: address?.wards.map((d) => ({
                           label: d.name,
                           value: `${d.code}-${d.name}`,
@@ -181,8 +181,8 @@ export const CinemaModalCreate: React.FC<any> = () => {
                   <InputField
                     type="text"
                     label="Đường"
-                    error={formState.errors["address"]?.street}
-                    registration={register("address.street")}
+                    error={formState.errors['address']?.street}
+                    registration={register('address.street')}
                     mt="4"
                   />
                 </ModalBody>
@@ -196,7 +196,7 @@ export const CinemaModalCreate: React.FC<any> = () => {
                     fontWeight="medium"
                     type="submit"
                     _hover={{
-                      backgroundColor: "cyan.700",
+                      backgroundColor: 'cyan.700',
                     }}
                     isLoading={createCinema.isLoading}
                   >

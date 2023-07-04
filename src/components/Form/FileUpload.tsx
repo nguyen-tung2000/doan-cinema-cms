@@ -1,6 +1,6 @@
-import { Button, FormControl, FormLabel, InputGroup } from "@chakra-ui/react";
-import React, { useRef } from "react";
-import { FiFile } from "react-icons/fi";
+import { Button, FormControl, FormLabel, InputGroup } from '@chakra-ui/react';
+import React, { useRef } from 'react';
+import { FiFile } from 'react-icons/fi';
 
 interface FileUploadProps {
   acceptedFileTypes?: string;
@@ -27,7 +27,7 @@ export const FileUpload = (props: FileUploadProps) => {
             inputRef.current = e;
           }}
           onChange={onChange}
-          style={{ display: "none" }}
+          style={{ display: 'none' }}
         />
       </InputGroup>
     </FormControl>

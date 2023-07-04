@@ -1,8 +1,8 @@
-import { Badge, Box, Button, Flex, Stack, Heading, Spinner } from "@chakra-ui/react";
-import React from "react";
+import { Badge, Box, Button, Flex, Stack, Heading, Spinner } from '@chakra-ui/react';
+import React from 'react';
 
-import { TableSink } from "@/components";
-import { useShowTimes } from "@/features/showtimes";
+import { TableSink } from '@/components';
+import { useShowTimes } from '@/features/showtimes';
 import {
   getCurrentMonday,
   getCurrentSunday,
@@ -11,7 +11,7 @@ import {
   getNextSunday,
   getPrevMonday,
   getPrevSunday,
-} from "@/utils/format";
+} from '@/utils/format';
 
 interface ShowTimeListProps {
   cinemaId: string;
@@ -63,48 +63,48 @@ export const ShowTimesList: React.FC<ShowTimeListProps> = ({ cinemaId }) => {
   const columns = React.useMemo(
     () => [
       {
-        Header: "Thông tin lịch chiếu",
-        Footer: "Thông tin lịch chiếu",
+        Header: 'Thông tin lịch chiếu',
+        Footer: 'Thông tin lịch chiếu',
         columns: [
           {
-            Header: "Thứ",
+            Header: 'Thứ',
             accessor: (originalRow: any) => {
               return getDay(originalRow.date);
             },
           },
           {
-            Header: "Ngày",
-            accessor: "date",
+            Header: 'Ngày',
+            accessor: 'date',
           },
           {
-            Header: "Phim",
-            accessor: "movie",
-            aggregate: "uniqueCount",
+            Header: 'Phim',
+            accessor: 'movie',
+            aggregate: 'uniqueCount',
 
             Aggregated: ({ value }: any) => (
               <Badge colorScheme="green" variant="outline">{`${value} phim`}</Badge>
             ),
           },
           {
-            Header: "Phòng",
-            accessor: "room",
-            aggregate: "uniqueCount",
+            Header: 'Phòng',
+            accessor: 'room',
+            aggregate: 'uniqueCount',
             Aggregated: ({ value }: any) => (
               <Badge colorScheme="green" variant="outline">{`${value} phòng`}</Badge>
             ),
           },
           {
-            Header: "Màn hình",
-            accessor: "screen",
-            aggregate: "uniqueCount",
+            Header: 'Màn hình',
+            accessor: 'screen',
+            aggregate: 'uniqueCount',
             Aggregated: ({ value }: any) => (
               <Badge colorScheme="green">{`${value} màn hình`}</Badge>
             ),
           },
           {
-            Header: "Suất",
-            aggregate: "uniqueCount",
-            accessor: "time",
+            Header: 'Suất',
+            aggregate: 'uniqueCount',
+            accessor: 'time',
             Aggregated: ({ value }: any) => <Badge colorScheme="green">{`${value} suất`}</Badge>,
           },
         ],
@@ -165,7 +165,7 @@ export const ShowTimesList: React.FC<ShowTimeListProps> = ({ cinemaId }) => {
           maxWidth="1000px"
           px={8}
           py={12}
-          shadow={[null, "md"]}
+          shadow={[null, 'md']}
           spacing={4}
           w="100%"
         >

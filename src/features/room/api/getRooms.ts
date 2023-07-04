@@ -1,9 +1,9 @@
-import { useQuery } from "react-query";
+import { useQuery } from 'react-query';
 
-import { RoomRespone } from "../type";
+import { RoomRespone } from '../type';
 
-import { axios } from "@/lib/axios";
-import { QueryConfig } from "@/lib/react-query";
+import { axios } from '@/lib/axios';
+import { QueryConfig } from '@/lib/react-query';
 
 export const getRooms = (): Promise<RoomRespone> => {
   return axios.get(`/room/all`);
@@ -16,7 +16,7 @@ type UseRoomsOptions = {
 export const useRooms = ({ config }: UseRoomsOptions = {}) => {
   return useQuery({
     ...config,
-    queryKey: ["rooms"],
+    queryKey: ['rooms'],
     queryFn: () => getRooms(),
   });
 };

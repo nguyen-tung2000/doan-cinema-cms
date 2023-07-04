@@ -1,18 +1,18 @@
-import { createStandaloneToast } from "@chakra-ui/toast";
-import Axios, { AxiosRequestConfig } from "axios";
+import { createStandaloneToast } from '@chakra-ui/toast';
+import Axios, { AxiosRequestConfig } from 'axios';
 
-import { API_URL } from "@/config";
-import storage from "@/utils/storage";
+import { API_URL } from '@/config';
+import storage from '@/utils/storage';
 
 function authRequestInterceptor(config: AxiosRequestConfig) {
   const token = storage.getToken();
   if (token) {
     config.headers.authorization = `Bearer ${token}`;
   }
-  if (config.url?.includes("provinces")) {
+  if (config.url?.includes('provinces')) {
     delete config.headers.authorization;
   }
-  config.headers.Accept = "application/json";
+  config.headers.Accept = 'application/json';
   return config;
 }
 
@@ -29,10 +29,10 @@ axios.interceptors.response.use(
     const message = error.response?.data?.message || error.message;
     const toast = createStandaloneToast();
     toast({
-      title: "Error",
+      title: 'Error',
       description: message,
-      status: "error",
-      position: "top-right",
+      status: 'error',
+      position: 'top-right',
     });
 
     // Promise.reject(error);

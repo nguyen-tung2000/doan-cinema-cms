@@ -1,21 +1,21 @@
-import { Customer } from "@/features/auth";
+import { Customer } from '@/features/auth';
 
 export const mapInitialCustomer = (customer: Customer) => {
   return {
-    id: customer._id,
+    id: customer.id,
     email: customer.email,
-    phoneNumber: customer.phoneNumber,
-    fullName: customer.profile.fullName,
+    phone_number: customer.phone_number,
+    name: customer.name,
     address: {
-      city: customer.profile.address?.city || "",
-      district: customer.profile.address?.district || "",
-      ward: customer.profile.address?.ward || "",
-      street: customer.profile.address?.street || "",
+      city: customer.address?.city || '',
+      district: customer.address?.district || '',
+      ward: customer.address?.ward || '',
+      street: customer.address?.street || '',
     },
-    dateOfBirth: customer.profile.dateOfBirth,
-    hobby: customer.profile.hobby || "",
-    male: customer.profile.male || true,
-    avatar: customer.profile.avatar || "",
+    date_of_birth: customer.date_of_birth,
+    hobby: customer.hobby || '',
+    male: customer.male || true,
+    avatar: customer.avatar || '',
   };
 };
 
@@ -23,21 +23,21 @@ export const mapDataCustomer = (customer: Customer[] | undefined) => {
   const newCustomer =
     customer &&
     customer
-      .filter((ctm) => ctm.email !== "cientdefault@gmail.com") // Exclude client default
+      .filter((ctm) => ctm.email !== 'cientdefault@gmail.com') // Exclude client default
       .map((ctm) => ({
-        _id: ctm._id,
+        id: ctm.id,
         email: ctm.email,
-        phoneNumber: ctm.phoneNumber,
-        fullName: ctm.profile.fullName,
-        dateOfBirth: ctm.profile.dateOfBirth,
-        hobby: ctm.profile.hobby || "",
-        male: ctm.profile.male || true,
-        avatar: ctm.profile.avatar || "",
+        phone_number: ctm.phone_number,
+        name: ctm.name,
+        date_of_birth: ctm.date_of_birth,
+        hobby: ctm.hobby || '',
+        male: ctm.male || true,
+        avatar: ctm.avatar || '',
         address: {
-          city: ctm.profile.address?.city || "",
-          district: ctm.profile.address?.district || "",
-          ward: ctm.profile.address?.ward || "",
-          street: ctm.profile.address?.street || "",
+          city: ctm.address?.city || '',
+          district: ctm.address?.district || '',
+          ward: ctm.address?.ward || '',
+          street: ctm.address?.street || '',
         },
         customer: ctm,
       }));

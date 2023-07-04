@@ -1,10 +1,10 @@
-import { Box, Button, Flex, Heading, Img, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react";
-import { Location } from "history";
-import * as React from "react";
-import { Link } from "react-router-dom";
+import { Box, Button, Flex, Heading, Img, Stack, Text, Wrap, WrapItem } from '@chakra-ui/react';
+import { Location } from 'history';
+import * as React from 'react';
+import { Link } from 'react-router-dom';
 
-import { ShowTimesListByDate, ShowTimesDetail, screenDetail } from "@/features/showtimes";
-import { formatDate } from "@/utils/format";
+import { ShowTimesListByDate, ShowTimesDetail, screenDetail } from '@/features/showtimes';
+import { formatDate } from '@/utils/format';
 
 interface IShowTimesItem extends ShowTimesListByDate {
   isMineCinema: boolean;
@@ -86,13 +86,13 @@ const ListTime = ({ screens, date, isMineCinema }: IListTime) => {
   return (
     <Wrap spacing={1} direction="row" mt={2}>
       {screens.showTimesDetails.map((showtime) => (
-        <WrapItem key={showtime._id}>
+        <WrapItem key={showtime.id}>
           <Button
             as={isMineCinema ? Link : undefined}
             to={(location: Location) =>
               isDisableTime(showtime.timeSlot.time)
                 ? location.pathname
-                : `/app/seller/bookTicket/${showtime._id}`
+                : `/app/seller/bookTicket/${showtime.id}`
             }
             variant="outline"
             isDisabled={isDisableTime(showtime.timeSlot.time)}

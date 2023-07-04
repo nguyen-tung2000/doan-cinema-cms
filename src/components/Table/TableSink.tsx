@@ -18,12 +18,12 @@ import {
   Stack,
   Select,
   Text,
-} from "@chakra-ui/react";
-import * as FileSaver from "file-saver";
-import * as React from "react";
-import { FiArrowRight, FiArrowDown } from "react-icons/fi";
-import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
-import { ImFileExcel } from "react-icons/im";
+} from '@chakra-ui/react';
+import * as FileSaver from 'file-saver';
+import * as React from 'react';
+import { FiArrowRight, FiArrowDown } from 'react-icons/fi';
+import { GoTriangleDown, GoTriangleUp } from 'react-icons/go';
+import { ImFileExcel } from 'react-icons/im';
 import {
   useTable,
   usePagination,
@@ -32,9 +32,9 @@ import {
   useSortBy,
   useAsyncDebounce,
   useGlobalFilter,
-} from "react-table";
-import { v4 as uuidv4 } from "uuid";
-import * as XLSX from "xlsx";
+} from 'react-table';
+import { v4 as uuidv4 } from 'uuid';
+import * as XLSX from 'xlsx';
 
 interface TableSinkProps {
   rowsTable: any;
@@ -57,11 +57,11 @@ const MenuFilter = ({ headerGroups }: any) => {
             .filter((column: any) => column.canGroupBy)
             .map((column: any) => (
               <MenuItemOption
-                value={column.render("Header")}
+                value={column.render('Header')}
                 {...column.getGroupByToggleProps()}
                 key={uuidv4()}
               >
-                {column.render("Header")}
+                {column.render('Header')}
               </MenuItemOption>
             ))}
         </MenuOptionGroup>
@@ -81,7 +81,7 @@ const GlobalFilter = ({ preGlobalFilteredRows, globalFilter, setGlobalFilter }: 
       <Input
         variant="outline"
         placeholder={`Search: ${count} records...`}
-        value={value || ""}
+        value={value || ''}
         onChange={(e) => {
           setValue(e.target.value);
           onChange(e.target.value);
@@ -92,13 +92,13 @@ const GlobalFilter = ({ preGlobalFilteredRows, globalFilter, setGlobalFilter }: 
 };
 const ButtonExportCSV = ({ csvData, fileName }: { csvData: any; fileName: string }) => {
   const fileType =
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=URF-8";
-  const fileExtension = ".xlsx";
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=URF-8';
+  const fileExtension = '.xlsx';
 
   const handleExport = (csvData: any, fileName: string) => {
     const ws = XLSX.utils.json_to_sheet(csvData);
-    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
-    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const wb = { Sheets: { data: ws }, SheetNames: ['data'] };
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
     const data = new Blob([excelBuffer], { type: fileType });
     FileSaver.saveAs(data, fileName + fileExtension);
   };
@@ -159,7 +159,7 @@ export const TableSink: React.FC<TableSinkProps> = ({
         />
         {isGroupBy && <MenuFilter headerGroups={headerGroups} />}
         {isExport && (
-          <ButtonExportCSV csvData={rowsTable} fileName={fileNameExport || "file-export"} />
+          <ButtonExportCSV csvData={rowsTable} fileName={fileNameExport || 'file-export'} />
         )}
       </Stack>
 
@@ -174,7 +174,7 @@ export const TableSink: React.FC<TableSinkProps> = ({
                   key={uuidv4()}
                   padding={2}
                 >
-                  {column.render("Header")}
+                  {column.render('Header')}
                   <chakra.span pl="4">
                     {column.isSorted ? (
                       column.isSortedDesc ? (
@@ -206,15 +206,15 @@ export const TableSink: React.FC<TableSinkProps> = ({
                             <Icon as={FiArrowRight} aria-label="unexpanded" />
                           )}
                         </chakra.span>
-                        {cell.render("Cell")} ({row.subRows.length})
+                        {cell.render('Cell')} ({row.subRows.length})
                       </>
                     ) : cell.isAggregated ? (
                       // If the cell is aggregated, use the Aggregated
                       // renderer for cell
-                      cell.render("Aggregated")
+                      cell.render('Aggregated')
                     ) : cell.isPlaceholder ? null : ( // For cells with repeated values, render null
                       // Otherwise, just render the regular cell
-                      cell.render("Cell")
+                      cell.render('Cell')
                     )}
                   </Td>
                 ))}
@@ -228,7 +228,7 @@ export const TableSink: React.FC<TableSinkProps> = ({
               <Tr {...group.getFooterGroupProps()} key={uuidv4()}>
                 {group.headers.map((column: any) => (
                   <Td {...column.getFooterProps()} key={uuidv4()} padding={2}>
-                    {column.render("Footer")}
+                    {column.render('Footer')}
                   </Td>
                 ))}
               </Tr>
@@ -238,16 +238,16 @@ export const TableSink: React.FC<TableSinkProps> = ({
 
       <Stack spacing={3} direction="row">
         <Button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          {"<<"}
+          {'<<'}
         </Button>
         <Button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          {"<"}
+          {'<'}
         </Button>
         <Button onClick={() => nextPage()} disabled={!canNextPage}>
-          {">"}
+          {'>'}
         </Button>
         <Button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-          {">>"}
+          {'>>'}
         </Button>
         <chakra.span display="flex" alignItems="center">
           Trang
@@ -256,7 +256,7 @@ export const TableSink: React.FC<TableSinkProps> = ({
           </Text>
         </chakra.span>
         <chakra.span>
-          | Đi đến trang:{" "}
+          | Đi đến trang:{' '}
           <Input
             type="number"
             defaultValue={pageIndex + 1}
@@ -266,7 +266,7 @@ export const TableSink: React.FC<TableSinkProps> = ({
             }}
             width="100px"
           />
-        </chakra.span>{" "}
+        </chakra.span>{' '}
         <Select
           value={pageSize}
           onChange={(e) => {

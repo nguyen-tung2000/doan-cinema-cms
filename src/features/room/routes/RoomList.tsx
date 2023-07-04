@@ -1,14 +1,14 @@
-import { Badge, Box, BreadcrumbItem, BreadcrumbLink, Flex, Spinner, Stack } from "@chakra-ui/react";
+import { Badge, Box, BreadcrumbItem, BreadcrumbLink, Flex, Spinner, Stack } from '@chakra-ui/react';
 
-import { Table, Td, Th, Tr, SiteHeader } from "@/components";
-import { ROUTES } from "@/constants";
-import { MenuListRoom, RoomCreateModal, useRooms } from "@/features/room";
-import { Authorization, ROLES } from "@/lib/authorization";
+import { Table, Td, Th, Tr, SiteHeader } from '@/components';
+import { ROUTES } from '@/constants';
+import { MenuListRoom, RoomCreateModal, useRooms } from '@/features/room';
+import { Authorization, ROLES } from '@/lib/authorization';
 
 export const colorBadge: any = {
-  "2D": "gray",
-  "3D": "purple",
-  IMAX: "red",
+  '2D': 'gray',
+  '3D': 'purple',
+  IMAX: 'red',
 };
 
 export const RoomList = () => {
@@ -44,7 +44,7 @@ export const RoomList = () => {
           maxWidth="1000px"
           px={8}
           py={12}
-          shadow={[null, "md"]}
+          shadow={[null, 'md']}
           spacing={4}
           w="100%"
         >
@@ -74,7 +74,7 @@ export const RoomList = () => {
                   {roomsQuery.data?.values.rooms.map((room) => {
                     const name = room.screen?.name;
                     return (
-                      <Box as="tr" key={room._id}>
+                      <Box as="tr" key={room.id}>
                         <Td>{`Phòng ${room.name}`}</Td>
                         <Td>
                           <Badge fontSize="1em" colorScheme={colorBadge[name]}>
@@ -84,7 +84,7 @@ export const RoomList = () => {
                         <Td>{room.rowNumber}</Td>
                         <Td>{room.seatsInRow}</Td>
                         <Td>
-                          <MenuListRoom roomId={room._id} />
+                          <MenuListRoom roomId={room.id} />
                         </Td>
                       </Box>
                     );

@@ -1,10 +1,10 @@
-import { useQuery } from "react-query";
+import { useQuery } from 'react-query';
 
-import { FormatMovieResponse } from "..";
+import { FormatMovieResponse } from '..';
 
-import { getMovieAll, getMovieAllCMS } from "@/features/manageMovie";
-import { axios } from "@/lib/axios";
-import { QueryConfig } from "@/lib/react-query";
+import { getMovieAll, getMovieAllCMS } from '@/features/manageMovie';
+import { axios } from '@/lib/axios';
+import { QueryConfig } from '@/lib/react-query';
 
 export const getFormatMovie = (): Promise<FormatMovieResponse> => {
   return axios.get(`/screenDetail/all`);
@@ -17,7 +17,7 @@ type UseFormatOptions = {
 export const useFormatMovie = ({ config }: UseFormatOptions = {}) => {
   return useQuery({
     ...config,
-    queryKey: ["formatMovie"],
+    queryKey: ['formatMovie'],
     queryFn: () => getFormatMovie(),
   });
 };
@@ -33,7 +33,7 @@ type UseMoviesCMSOptions = {
 export const useMovies = ({ config }: UseMoviesOptions = {}) => {
   return useQuery({
     ...config,
-    queryKey: ["movies"],
+    queryKey: ['movies'],
     queryFn: () => getMovieAll(),
   });
 };
@@ -41,7 +41,7 @@ export const useMovies = ({ config }: UseMoviesOptions = {}) => {
 export const useMoviesCMS = ({ config }: UseMoviesCMSOptions = {}) => {
   return useQuery({
     ...config,
-    queryKey: ["moviesCMS"],
+    queryKey: ['moviesCMS'],
     queryFn: () => getMovieAllCMS(),
   });
 };

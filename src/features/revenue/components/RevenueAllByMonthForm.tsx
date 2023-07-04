@@ -1,31 +1,31 @@
-import { Flex, Spinner, Box, Heading, Stack, Select } from "@chakra-ui/react";
-import * as R from "ramda";
-import React from "react";
+import { Flex, Spinner, Box, Heading, Stack, Select } from '@chakra-ui/react';
+import * as R from 'ramda';
+import React from 'react';
 
-import { LineChart, TableRevenue, useRevenueAllByMonthQuery, sortByDate } from "@/features/revenue";
+import { LineChart, TableRevenue, useRevenueAllByMonthQuery, sortByDate } from '@/features/revenue';
 
 export const RevenueAllByMonthForm: React.FC<any> = () => {
-  const [dataDTO, setDataDTO] = React.useState({ month: "", year: "" });
+  const [dataDTO, setDataDTO] = React.useState({ month: '', year: '' });
 
   const columns = React.useMemo(
     () => [
       {
-        Header: "Thông tin",
-        Footer: "Thông tin",
+        Header: 'Thông tin',
+        Footer: 'Thông tin',
         columns: [
           {
-            Header: "Ngày",
-            accessor: "date",
+            Header: 'Ngày',
+            accessor: 'date',
           },
           {
-            Header: "Tên rạp",
-            accessor: "cinemaName",
-            aggregate: "count",
+            Header: 'Tên rạp',
+            accessor: 'cinemaName',
+            aggregate: 'count',
             Aggregated: ({ value }: any) => `${value} rạp`,
           },
           {
-            Header: "Tổng tiền",
-            accessor: "totalString",
+            Header: 'Tổng tiền',
+            accessor: 'totalString',
             canGroupBy: false,
           },
         ],
@@ -115,7 +115,7 @@ export const RevenueAllByMonthForm: React.FC<any> = () => {
           <LineChart
             data={{
               title: `Doanh thu tháng ${dataDTO.month}`,
-              subTitle: "Doanh thu từng rạp ",
+              subTitle: 'Doanh thu từng rạp ',
               data: revenueAllByMonthQuery.data.data,
               xCategories: R.uniq(
                 sortByDate(revenueAllByMonthQuery.data.data).map((m: any) => m.date),

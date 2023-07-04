@@ -11,42 +11,42 @@ import {
   Flex,
   Image,
   CloseButton,
-} from "@chakra-ui/react";
-import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
-import React from "react";
-import { Controller } from "react-hook-form";
-import * as z from "zod";
+} from '@chakra-ui/react';
+import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
+import React from 'react';
+import { Controller } from 'react-hook-form';
+import * as z from 'zod';
 
-import { StaffRespon } from "../type";
+import { StaffRespon } from '../type';
 
-import { FileUpload, Form, InputField, RadioField, SelectField, SingleSelect } from "@/components";
-import { STAFF_FORM } from "@/constants";
-import { useCinemas } from "@/features/cinema";
-import { useCreateStaff, usePermissions, useEditStaff } from "@/features/staff";
-import { storage } from "@/lib/firebase";
-import { useStaffStore } from "@/stores/staff";
-import { Toast } from "@/utils/Toast";
+import { FileUpload, Form, InputField, RadioField, SelectField, SingleSelect } from '@/components';
+import { STAFF_FORM } from '@/constants';
+import { useCinemas } from '@/features/cinema';
+import { useCreateStaff, useEditStaff } from '@/features/staff';
+import { storage } from '@/lib/firebase';
+import { useStaffStore } from '@/stores/staff';
+import { Toast } from '@/utils/Toast';
 
 export type StaffValues = {
   email: string;
-  phoneNumber: string;
-  fullName: string;
+  phone_number: string;
+  name: string;
   avatar: string;
   male: boolean | string;
-  dateOfBirth: string;
-  permissionId: string;
-  cinemaId: string;
+  date_of_birth: string;
+  permission_id: number;
+  cinema_id: string;
 };
 
 const schema = z.object({
-  fullName: z.string().nonempty({ message: "Tên là bắt buộc" }),
-  phoneNumber: z.string().nonempty({ message: "Số điện thoại là bắt buộc" }),
-  email: z.string().nonempty({ message: "Email là bắt buộc" }),
-  dateOfBirth: z.string().nonempty({ message: "Ngày sinh là bắt buộc" }),
+  name: z.string().nonempty({ message: 'Tên là bắt buộc' }),
+  phone_number: z.string().nonempty({ message: 'Số điện thoại là bắt buộc' }),
+  email: z.string().nonempty({ message: 'Email là bắt buộc' }),
+  date_of_birth: z.string().nonempty({ message: 'Ngày sinh là bắt buộc' }),
   avatar: z.string(),
-  male: z.string().nonempty({ message: "Giới tính là bắt buộc" }),
-  permissionId: z.string().nonempty({ message: "Role là bắt buộc" }),
-  cinemaId: z.string().nonempty({ message: "Rạp là bắt buộc" }),
+  male: z.string().nonempty({ message: 'Giới tính là bắt buộc' }),
+  permission_id: z.number().gte(1).lte(3),
+  cinema_id: z.string().nonempty({ message: 'Rạp là bắt buộc' }),
 });
 
 export const StaffFormModal = () => {
@@ -56,29 +56,28 @@ export const StaffFormModal = () => {
     onClose,
     data: dataStaff,
     type,
-    staffId,
+    staff_id,
     setImageSource,
-    imageSource,
+    image_source,
   } = useStaffStore();
   const isAdding = type === STAFF_FORM.ADD;
   const StaffCreateMutation = useCreateStaff();
   const cinemasQuery = useCinemas();
-  const permissionsQuery = usePermissions();
   const editStaffMutation = useEditStaff();
-  const maleQuery = ["Male", "Female"];
-  const buttonText = isAdding ? "Thêm nhân viên" : "Chỉnh sửa";
+  const maleQuery = ['Male', 'Female'];
+  const buttonText = isAdding ? 'Thêm nhân viên' : 'Chỉnh sửa';
 
   const saveStaff = (type: string, data: StaffValues): Promise<StaffRespon> | any => {
-    const male = data.male == "Male" ? true : false;
-    if (!imageSource) {
-      Toast("Vui lòng chọn hình ảnh", "error");
+    const male = data.male == 'Male' ? true : false;
+    if (!image_source) {
+      Toast('Vui lòng chọn hình ảnh', 'error');
     } else {
       if (type === STAFF_FORM.ADD) {
-        return StaffCreateMutation.mutateAsync({ ...data, male, avatar: imageSource });
+        return StaffCreateMutation.mutateAsync({ ...data, male, avatar: image_source });
       }
       return editStaffMutation.mutateAsync({
-        data: { ...data, male, avatar: imageSource },
-        staffId,
+        data: { ...data, male, avatar: image_source },
+        staff_id,
       });
     }
   };
@@ -102,13 +101,13 @@ export const StaffFormModal = () => {
               const res = await await saveStaff(type, data);
               if (!res?.success) {
                 if (res?.errors.phoneNumber) {
-                  Toast(res?.errors.phoneNumber, "error");
+                  Toast(res?.errors.phoneNumber, 'error');
                 } else if (res?.errors.email) {
-                  Toast(res?.errors.email, "error");
+                  Toast(res?.errors.email, 'error');
                 } else if (res?.errors.male) {
-                  Toast(res?.errors.male, "error");
+                  Toast(res?.errors.male, 'error');
                 } else if (res?.errors.name) {
-                  Toast(res?.errors.name, "error");
+                  Toast(res?.errors.name, 'error');
                 }
                 return;
               }
@@ -127,61 +126,60 @@ export const StaffFormModal = () => {
                   <InputField
                     type="text"
                     label="Tên nhân viên"
-                    registration={register("fullName")}
-                    error={formState.errors["fullName"]}
+                    registration={register('name')}
+                    error={formState.errors['name']}
                   />
                   <InputField
                     type="text"
                     label="Số điện thoại"
-                    registration={register("phoneNumber")}
-                    error={formState.errors["phoneNumber"]}
+                    registration={register('phone_number')}
+                    error={formState.errors['phone_number']}
                   />
                   <InputField
                     type="text"
                     label="Email"
-                    registration={register("email")}
-                    error={formState.errors["email"]}
+                    registration={register('email')}
+                    error={formState.errors['email']}
                   />
                   <SingleSelect
-                    registration={register("dateOfBirth")}
-                    defaultValue={getValues("dateOfBirth")}
+                    registration={register('date_of_birth')}
+                    defaultValue={getValues('date_of_birth')}
                     label="Ngày sinh"
-                    error={formState.errors["dateOfBirth"]}
+                    error={formState.errors['date_of_birth']}
                   />
                   <RadioField
                     label="Giới tính"
-                    registration={register("male")}
-                    defaultValue={getValues("male") ? "Male" : "Female"}
+                    registration={register('male')}
+                    defaultValue={getValues('male') ? 'Male' : 'Female'}
                     options={maleQuery}
-                    error={formState.errors["male"]}
+                    error={formState.errors['male']}
                   />
                   <SelectField
                     label="Role"
-                    registration={register("permissionId")}
-                    error={formState.errors["permissionId"]}
+                    registration={register('permission_id')}
+                    error={formState.errors['permission_id']}
                     options={[
                       {
-                        title: "",
-                        items: permissionsQuery.data
-                          ? permissionsQuery.data?.values.permissions.map(({ _id, name }) => ({
-                              label: name,
-                              value: _id,
-                            }))
-                          : [],
+                        title: '',
+                        items: [
+                          { label: 'Admin', value: 1 },
+                          { label: 'Manager', value: 2 },
+                          { label: 'Staff', value: 3 },
+                        ],
                       },
                     ]}
                   />
                   <SelectField
                     label="Rạp"
-                    registration={register("cinemaId")}
-                    error={formState.errors["cinemaId"]}
+                    registration={register('cinema_id')}
+                    error={formState.errors['cinema_id']}
                     options={[
                       {
-                        title: "",
+                        title: '',
                         items: cinemasQuery.data
-                          ? cinemasQuery.data?.values.cinemas.map(({ _id, name }) => ({
+                          ? cinemasQuery.data?.values.map(({ id, name }) => ({
                               label: name,
-                              value: _id,
+                              value: id,
                             }))
                           : [],
                       },
@@ -193,7 +191,7 @@ export const StaffFormModal = () => {
                     render={({ field }) => (
                       <FileUpload
                         label="File"
-                        acceptedFileTypes={"image/*"}
+                        acceptedFileTypes={'image/*'}
                         onChange={(value: any) => {
                           field.onChange(value);
                           handleImage(value);
@@ -201,14 +199,14 @@ export const StaffFormModal = () => {
                       />
                     )}
                   />
-                  {imageSource && (
+                  {image_source && (
                     <Flex>
-                      <Image src={imageSource} alt="Image staff" boxSize="100px" />
+                      <Image src={image_source} alt="Image staff" boxSize="100px" />
                       <CloseButton
                         size="sm"
                         ml="-25px"
                         colorScheme="teal"
-                        onClick={() => setImageSource("")}
+                        onClick={() => setImageSource('')}
                       />
                     </Flex>
                   )}
@@ -223,7 +221,7 @@ export const StaffFormModal = () => {
                     fontWeight="medium"
                     type="submit"
                     _hover={{
-                      backgroundColor: "cyan.700",
+                      backgroundColor: 'cyan.700',
                     }}
                     isLoading={
                       isAdding ? StaffCreateMutation.isLoading : editStaffMutation.isLoading

@@ -1,7 +1,7 @@
-import Highcharts from "highcharts";
-import HighchartsReact from "highcharts-react-official";
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 
-import { getSeriesByMonth, getSeriesCinemaByMonth } from "../RevenueHelper";
+import { getSeriesByMonth, getSeriesCinemaByMonth } from '../RevenueHelper';
 
 const generateOptions = (props: any) => {
   const { xCategories, data, title, subTitle, byCinemaAll } = props;
@@ -17,7 +17,7 @@ const generateOptions = (props: any) => {
 
     yAxis: {
       title: {
-        text: "Doanh số",
+        text: 'Doanh số',
       },
     },
 
@@ -26,9 +26,9 @@ const generateOptions = (props: any) => {
     },
 
     legend: {
-      layout: "vertical",
-      align: "right",
-      verticalAlign: "middle",
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'middle',
     },
 
     series: byCinemaAll ? getSeriesCinemaByMonth(data) : getSeriesByMonth(data),
@@ -41,9 +41,9 @@ const generateOptions = (props: any) => {
           },
           chartOptions: {
             legend: {
-              layout: "horizontal",
-              align: "center",
-              verticalAlign: "bottom",
+              layout: 'horizontal',
+              align: 'center',
+              verticalAlign: 'bottom',
             },
           },
         },

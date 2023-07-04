@@ -20,11 +20,11 @@ import {
   MenuItem,
   MenuList,
   useColorMode,
-} from "@chakra-ui/react";
-import clsx from "clsx";
-import * as React from "react";
-import { IconType } from "react-icons";
-import { AiOutlineSchedule } from "react-icons/ai";
+} from '@chakra-ui/react';
+import clsx from 'clsx';
+import * as React from 'react';
+import { IconType } from 'react-icons';
+import { AiOutlineSchedule } from 'react-icons/ai';
 import {
   FiHome,
   // FiTrendingUp,
@@ -39,13 +39,13 @@ import {
   FiFilm,
   FiBox,
   FiChevronDown,
-} from "react-icons/fi";
-import { GiPopcorn } from "react-icons/gi";
-import { NavLink } from "react-router-dom";
+} from 'react-icons/fi';
+import { GiPopcorn } from 'react-icons/gi';
+import { NavLink } from 'react-router-dom';
 
-import { Password } from "@/features/password";
-import { useAuth } from "@/lib/auth";
-import { useAuthorization, ROLES } from "@/lib/authorization";
+import { Password } from '@/features/password';
+import { useAuth } from '@/lib/auth';
+import { useAuthorization, ROLES } from '@/lib/authorization';
 interface LinkItemProps {
   name: string;
   icon: IconType;
@@ -56,11 +56,11 @@ const LinkItems = () => {
   const { checkAccess } = useAuthorization();
 
   const navigation = [
-    { name: "Trang chủ", icon: FiHome, to: "/app/dashboard" },
+    { name: 'Trang chủ', icon: FiHome, to: '/app/dashboard' },
     checkAccess({ allowedRoles: [ROLES.ADMIN] }) && {
-      name: "Phim",
+      name: 'Phim',
       icon: FiFilm,
-      to: "/app/managemovie",
+      to: '/app/managemovie',
     },
     // checkAccess({ allowedRoles: [ROLES.USER, ROLES.MANAGER, ROLES.ADMIN] }) && {
     //   name: 'Doanh thu',
@@ -68,39 +68,39 @@ const LinkItems = () => {
     //   to: '/app/revenue',
     // },
     {
-      name: "Rạp",
+      name: 'Rạp',
       icon: FiCompass,
-      to: "/app/cinema/list",
+      to: '/app/cinema/list',
     },
     checkAccess({ allowedRoles: [ROLES.MANAGER] }) && {
-      name: "Phòng",
+      name: 'Phòng',
       icon: FiBox,
-      to: "/app/room/listRoom",
+      to: '/app/room/listRoom',
     },
     checkAccess({ allowedRoles: [ROLES.MANAGER] }) && {
-      name: "Lịch chiếu",
+      name: 'Lịch chiếu',
       icon: AiOutlineSchedule,
-      to: "/app/showtimes",
+      to: '/app/showtimes',
     },
     checkAccess({ allowedRoles: [ROLES.MANAGER] }) && {
-      name: "Nhân viên",
+      name: 'Nhân viên',
       icon: FiUser,
-      to: "/app/users",
+      to: '/app/users',
     },
     checkAccess({ allowedRoles: [ROLES.MANAGER] }) && {
-      name: "Khách hàng",
+      name: 'Khách hàng',
       icon: FiUsers,
-      to: "/app/customers",
+      to: '/app/customers',
     },
     checkAccess({ allowedRoles: [ROLES.MANAGER, ROLES.USER] }) && {
-      name: "Bán vé",
+      name: 'Bán vé',
       icon: FiStar,
-      to: "/app/seller",
+      to: '/app/seller',
     },
     checkAccess({ allowedRoles: [ROLES.MANAGER, ROLES.USER] }) && {
-      name: "Bắp nước",
+      name: 'Bắp nước',
       icon: GiPopcorn,
-      to: "/app/foods",
+      to: '/app/foods',
     },
   ].filter(Boolean) as LinkItemProps[];
 
@@ -118,8 +118,8 @@ const LinkItems = () => {
 export default function SidebarWithHeader({ children }: { children: React.ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
-      <SidebarContent onClose={() => onClose} display={{ base: "none", md: "block" }} />
+    <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+      <SidebarContent onClose={() => onClose} display={{ base: 'none', md: 'block' }} />
       <Drawer
         isOpen={isOpen}
         placement="left"
@@ -148,10 +148,10 @@ interface SidebarProps extends BoxProps {
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
     <Box
-      bg={useColorModeValue("white", "gray.900")}
+      bg={useColorModeValue('white', 'gray.900')}
       borderRight="1px"
-      borderRightColor={useColorModeValue("gray.200", "gray.700")}
-      w={{ base: "full", md: 60 }}
+      borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+      w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
       overflowX="scroll"
@@ -159,9 +159,9 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Movieer CMS
+          Cinema CMS
         </Text>
-        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
+        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
 
       <LinkItems />
@@ -177,17 +177,17 @@ interface NavItemProps extends FlexProps {
 }
 const NavItem = ({ icon, children, href, classes, ...rest }: NavItemProps) => {
   return (
-    <NavLink to={href} style={{ textDecoration: "none" }} activeClassName="active-link">
+    <NavLink to={href} style={{ textDecoration: 'none' }} activeClassName="active-link">
       <Flex
         align="center"
         p="4"
         role="group"
         cursor="pointer"
         _hover={{
-          bg: "cyan.400",
-          color: "white",
+          bg: 'cyan.400',
+          color: 'white',
         }}
-        className={clsx("link-item", classes)}
+        className={clsx('link-item', classes)}
         {...rest}
       >
         {icon && (
@@ -195,11 +195,11 @@ const NavItem = ({ icon, children, href, classes, ...rest }: NavItemProps) => {
             mr="4"
             fontSize="16"
             _groupHover={{
-              color: "white",
+              color: 'white',
             }}
             transition="transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms"
             as={icon}
-            className={classes && "link-icon"}
+            className={classes && 'link-icon'}
           />
         )}
         {children}
@@ -228,14 +228,14 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       px={{ base: 4, md: 4 }}
       height="20"
       alignItems="center"
-      bg={useColorModeValue("white", "gray.900")}
+      bg={useColorModeValue('white', 'gray.900')}
       borderBottomWidth="1px"
-      borderBottomColor={useColorModeValue("gray.200", "gray.700")}
-      justifyContent={{ base: "space-between", md: "flex-end" }}
+      borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
+      justifyContent={{ base: 'space-between', md: 'flex-end' }}
       {...rest}
     >
       <IconButton
-        display={{ base: "flex", md: "none" }}
+        display={{ base: 'flex', md: 'none' }}
         onClick={onOpen}
         variant="outline"
         aria-label="open menu"
@@ -243,59 +243,59 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       />
 
       <Text
-        display={{ base: "flex", md: "none" }}
+        display={{ base: 'flex', md: 'none' }}
         fontSize="2xl"
         fontFamily="monospace"
         fontWeight="bold"
       >
-        Movieer CMS
+        Cinema CMS
       </Text>
 
-      <HStack spacing={{ base: "0", md: "4" }}>
+      <HStack spacing={{ base: '0', md: '4' }}>
         <IconButton size="lg" variant="ghost" aria-label="toogle theme" icon={<FiBell />} />
         <IconButton
           size="lg"
           variant="ghost"
           aria-label="toogle theme"
-          icon={colorMode === "light" ? <FiSun /> : <FiMoon />}
+          icon={colorMode === 'light' ? <FiSun /> : <FiMoon />}
           onClick={toggleColorMode}
         />
-        <Flex alignItems={"center"}>
+        <Flex alignItems={'center'}>
           <Menu>
-            <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: "none" }}>
+            <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: 'none' }}>
               <HStack>
-                <Avatar size={"sm"} src={user?.profile.avatar} />
+                <Avatar size={'sm'} src={user?.avatar} />
                 <VStack
-                  display={{ base: "none", md: "flex" }}
+                  display={{ base: 'none', md: 'flex' }}
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm">{user?.profile.fullName}</Text>
+                  <Text fontSize="sm">{user?.name}</Text>
                   <Text fontSize="xs" color="gray.600">
                     {role}
                   </Text>
                 </VStack>
-                <Box display={{ base: "none", md: "flex" }}>
+                <Box display={{ base: 'none', md: 'flex' }}>
                   <FiChevronDown />
                 </Box>
               </HStack>
             </MenuButton>
             <MenuList
-              bg={useColorModeValue("white", "gray.900")}
-              borderColor={useColorModeValue("gray.200", "gray.700")}
-              marginTop={"2px"}
+              bg={useColorModeValue('white', 'gray.900')}
+              borderColor={useColorModeValue('gray.200', 'gray.700')}
+              marginTop={'2px'}
             >
-              <Box display={"flex"} flexDirection={"column"} alignItems={"center"} py={4} px="20px">
+              <Box display={'flex'} flexDirection={'column'} alignItems={'center'} py={4} px="20px">
                 <Avatar
-                  w={"80px"}
-                  h={"80px"}
-                  marginBottom={"10px"}
-                  textAlign={"center"}
-                  justifyItems={"center"}
-                  src={user?.profile.avatar}
+                  w={'80px'}
+                  h={'80px'}
+                  marginBottom={'10px'}
+                  textAlign={'center'}
+                  justifyItems={'center'}
+                  src={user?.avatar}
                 />
-                <Text>{user?.profile.fullName}</Text>
+                <Text>{user?.name}</Text>
                 <Text>{user?.email}</Text>
               </Box>
               <MenuDivider />

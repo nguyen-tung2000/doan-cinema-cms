@@ -1,6 +1,6 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Heading, Flex, Box } from "@chakra-ui/react";
-import React from "react";
-import { Link } from "react-router-dom";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Heading, Flex, Box } from '@chakra-ui/react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface SiteHeaderProps {
   menuName: string;
@@ -28,7 +28,7 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({
         {children}
       </Breadcrumb>
       <Flex justifyContent="space-between">
-        <Heading mb={8}>{heading || ""}</Heading>
+        <Heading mb={8}>{heading || ''}</Heading>
         {showButton}
       </Flex>
     </Box>

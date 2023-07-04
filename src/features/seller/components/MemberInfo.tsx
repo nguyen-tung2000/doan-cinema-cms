@@ -1,7 +1,7 @@
-import { Input, Box, FormControl, FormLabel, Button } from "@chakra-ui/react";
-import * as React from "react";
+import { Input, Box, FormControl, FormLabel, Button } from '@chakra-ui/react';
+import * as React from 'react';
 
-import { SITE_MODAL_TYPES } from "@/constants";
+import { SITE_MODAL_TYPES } from '@/constants';
 interface MemberInfoProps {
   name: string;
   point: number;

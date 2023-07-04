@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import SidebarWithHeader from "../Navbar/Sidebar";
+import SidebarWithHeader from '../Navbar/Sidebar';
 
 interface MainLayoutProps {
   children: React.ReactNode;

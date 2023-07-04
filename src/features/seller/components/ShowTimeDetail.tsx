@@ -8,13 +8,13 @@ import {
   Text,
   useToast,
   useDisclosure,
-} from "@chakra-ui/react";
-import React from "react";
-import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
-import { useHistory } from "react-router";
+} from '@chakra-ui/react';
+import React from 'react';
+import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
+import { useHistory } from 'react-router';
 
-import { Alert } from "@/components";
-import { ROUTES } from "@/constants";
+import { Alert } from '@/components';
+import { ROUTES } from '@/constants';
 import {
   mapToShowtimeDetails,
   SeatType,
@@ -30,10 +30,10 @@ import {
   getDiscountPercent,
   IGift,
   getDiscount,
-} from "@/features/seller";
-import { ShowTimesDetail } from "@/features/showtimes";
-import { useAuth } from "@/lib/auth";
-import { formatNumber } from "@/utils/format";
+} from '@/features/seller';
+import { ShowTimesDetail } from '@/features/showtimes';
+import { useAuth } from '@/lib/auth';
+import { formatNumber } from '@/utils/format';
 
 interface ShowTimeDetailProps {
   detail: ShowTimesDetail;
@@ -83,10 +83,10 @@ export const ShowTimeDetail: React.FC<ShowTimeDetailProps> = (props) => {
       combos: selectedCombos,
       data: selectedSeats,
       payment: {
-        type: "0",
+        type: '0',
       },
-      showTimeDetailId: showTimeDetail._id,
-      userId: user && user._id,
+      showTimeDetailId: showTimeDetail.id,
+      userId: user && user.id,
       gifts: selectedGifts,
       coupons: selectedCoupons,
     };
@@ -106,7 +106,7 @@ export const ShowTimeDetail: React.FC<ShowTimeDetailProps> = (props) => {
 
   const contentAlert = `Bạn có muốn mua vé ${getNameSeats(selectedSeats)}  ${
     !!selectedCombos.length && `và ${getNameCombo(selectedCombos)}`
-  }  ?`.replace("false", "");
+  }  ?`.replace('false', '');
 
   return (
     <>
@@ -133,7 +133,7 @@ export const ShowTimeDetail: React.FC<ShowTimeDetailProps> = (props) => {
         </Box>
         <Stack spacing={2}>
           <Box paddingBottom="8px" borderBottom="1px solid">
-            <b>Rạp : </b> Movieer  | Phòng: {showTimeDetail.roomName}
+            <b>Rạp : </b> Movieer | Phòng: {showTimeDetail.roomName}
           </Box>
           <Box paddingBottom="8px" borderBottom="1px solid">
             <b>Suất chiếu : </b> {`${showTimeDetail.time} | ${showTimeDetail.date}`}
@@ -183,9 +183,9 @@ export const ShowTimeDetail: React.FC<ShowTimeDetailProps> = (props) => {
                   if (!selectedSeats.length) {
                     toast({
                       title: `Vui lòng chọn vé trước`,
-                      status: "info",
+                      status: 'info',
                       isClosable: true,
-                      position: "top-right",
+                      position: 'top-right',
                     });
                   } else {
                     nextStep();
@@ -214,12 +214,12 @@ export const ShowTimeDetail: React.FC<ShowTimeDetailProps> = (props) => {
             showCloseButton={true}
             closeButtonText="Trở lại"
             triggerButton={{
-              children: "Thanh toán",
-              variant: "solid",
-              colorScheme: "cyan",
+              children: 'Thanh toán',
+              variant: 'solid',
+              colorScheme: 'cyan',
               onClick: () => onPayTicket(),
               ml: 3,
-              color: "white",
+              color: 'white',
               isLoading: buyTicketMutation.isLoading ? buyTicketMutation.isLoading : undefined,
             }}
             onClose={onClose}

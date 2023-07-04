@@ -1,10 +1,10 @@
-import { Box, Flex, Spinner, Stack, Button, useColorModeValue } from "@chakra-ui/react";
-import * as React from "react";
-import { MdAdd } from "react-icons/md";
+import { Box, Flex, Spinner, Stack, Button, useColorModeValue } from '@chakra-ui/react';
+import * as React from 'react';
+import { MdAdd } from 'react-icons/md';
 
-import { SiteHeader, TableSink, WarningModal } from "@/components";
-import { CUSTOMER_FORM, ROUTES } from "@/constants";
-import { AuthUser } from "@/features/auth";
+import { SiteHeader, TableSink, WarningModal } from '@/components';
+import { CUSTOMER_FORM, ROUTES } from '@/constants';
+import { AuthUser } from '@/features/auth';
 import {
   CustomerFormModal,
   mapDataCustomer,
@@ -12,10 +12,10 @@ import {
   CustomerDropdown,
   useDeleteCustomer,
   CustomerInfo,
-} from "@/features/customer";
-import { useAuth } from "@/lib/auth";
-import { Authorization, POLICIES, ROLES } from "@/lib/authorization";
-import { useCustomerStore } from "@/stores/customer";
+} from '@/features/customer';
+import { useAuth } from '@/lib/auth';
+import { Authorization, POLICIES, ROLES } from '@/lib/authorization';
+import { useCustomerStore } from '@/stores/customer';
 
 export const CustomerPage = () => {
   const customersQuery = useCustomers();
@@ -25,9 +25,9 @@ export const CustomerPage = () => {
   const [warningDialogVisible, setWarningDialogVisible] = React.useState(false);
   const [infoDialogVisible, setInfoDialogVisible] = React.useState(false);
   const [customerInfo, setCustomerInfo] = React.useState<any>({});
-  const [customerId, setCustomerId] = React.useState("");
-  const bg = useColorModeValue("gray.900", "white");
-  const color = useColorModeValue("white", "gray.900");
+  const [customerId, setCustomerId] = React.useState('');
+  const bg = useColorModeValue('gray.900', 'white');
+  const color = useColorModeValue('white', 'gray.900');
 
   const onDelete = (id: string) => {
     setWarningDialogVisible(true);
@@ -56,38 +56,38 @@ export const CustomerPage = () => {
   const columns = React.useMemo(
     () => [
       {
-        Header: "Thông tin khách hàng",
-        Footer: "Thông tin khách hàng",
+        Header: 'Thông tin khách hàng',
+        Footer: 'Thông tin khách hàng',
         columns: [
           {
-            Header: "Họ tên",
-            accessor: "fullName",
+            Header: 'Họ tên',
+            accessor: 'name',
           },
           {
-            Header: "Email",
-            accessor: "email",
+            Header: 'Email',
+            accessor: 'email',
           },
           {
-            Header: "Ngày sinh",
-            accessor: "dateOfBirth",
+            Header: 'Ngày sinh',
+            accessor: 'date_of_birth',
           },
           {
-            Header: "Giới tính",
+            Header: 'Giới tính',
             accessor: (originalRow: any) => {
-              return originalRow.male ? "Nam" : "Nữ";
+              return originalRow.male ? 'Nam' : 'Nữ';
             },
           },
           {
-            Header: "Số điện thoại",
-            accessor: "phoneNumber",
+            Header: 'Số điện thoại',
+            accessor: 'phone_number',
           },
           {
-            Header: "More",
+            Header: 'More',
             accessor: (originalRow: any) => {
               return (
                 <CustomerDropdown
                   customer={originalRow}
-                  onDelete={() => onDelete(originalRow._id)}
+                  onDelete={() => onDelete(originalRow.id)}
                   onGetDetail={() => onGetDetail(originalRow)}
                 />
               );
@@ -122,16 +122,16 @@ export const CustomerPage = () => {
         menuHref={ROUTES.CUSTOMERS}
         heading={`Customers`}
         showButton={
-          <Authorization policyCheck={POLICIES["customer:save"](user as AuthUser)}>
+          <Authorization policyCheck={POLICIES['customer:save'](user as AuthUser)}>
             <Button
               leftIcon={<MdAdd />}
               backgroundColor={bg}
               color={color}
               fontWeight="medium"
-              _hover={{ bg: "gray.700" }}
+              _hover={{ bg: 'gray.700' }}
               _active={{
-                bg: "gray.800",
-                transform: "scale(0.95)",
+                bg: 'gray.800',
+                transform: 'scale(0.95)',
               }}
               onClick={() => {
                 onOpen(CUSTOMER_FORM.ADD);
@@ -150,7 +150,7 @@ export const CustomerPage = () => {
           maxWidth="1000px"
           px={8}
           py={12}
-          shadow={[null, "md"]}
+          shadow={[null, 'md']}
           spacing={4}
           w="100%"
         >

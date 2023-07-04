@@ -1,6 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 
-import { movieReducer } from "@/features/manageMovie";
+import { movieReducer } from '@/features/manageMovie';
 // eslint-disable-next-line no-restricted-imports
 
 const rootReducer = {
@@ -9,7 +9,7 @@ const rootReducer = {
 
 const store = configureStore({
   reducer: rootReducer,
-  devTools: process.env.NODE_ENV !== "production",
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
 export default store;

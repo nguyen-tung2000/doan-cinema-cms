@@ -1,38 +1,38 @@
-import create from "zustand";
+import create from 'zustand';
 
-import { StaffValues } from "@/features/staff";
+import { StaffValues } from '@/features/staff';
 
 type StaffDTO = {
   type: string;
-  staffId: string;
+  staff_id: string;
   data: StaffValues;
-  imageSource: string;
+  image_source: string;
 };
 
 type useStaffStoreType = {
   type: string;
   isOpen: boolean;
-  staffId: string;
+  staff_id: string;
   data: StaffValues;
-  imageSource: string;
+  image_source: string;
   onOpen: () => void;
   onClose: () => void;
-  setType: ({ type, data, staffId, imageSource }: StaffDTO) => void;
+  setType: ({ type, data, staff_id, image_source }: StaffDTO) => void;
   setImageSource: (url: string) => void;
 };
 
 export const useStaffStore = create<useStaffStoreType>((set) => ({
-  type: "",
+  type: '',
   isOpen: false,
   data: {} as StaffValues,
-  imageSource: "",
-  staffId: "",
+  image_source: '',
+  staff_id: '',
   onOpen: () =>
     set(() => ({
       isOpen: true,
     })),
   onClose: () => set(() => ({ isOpen: false })),
-  setType: ({ type, data, staffId, imageSource }: StaffDTO) =>
-    set(() => ({ type, data, staffId, imageSource })),
-  setImageSource: (url: string) => set(() => ({ imageSource: url })),
+  setType: ({ type, data, staff_id, image_source }: StaffDTO) =>
+    set(() => ({ type, data, staff_id, image_source })),
+  setImageSource: (url: string) => set(() => ({ image_source: url })),
 }));

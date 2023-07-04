@@ -1,26 +1,26 @@
-import { useMutation } from "react-query";
+import { useMutation } from 'react-query';
 
-import { StaffRespon } from "@/features/staff";
-import { axios } from "@/lib/axios";
-import { MutationConfig, queryClient } from "@/lib/react-query";
-import { Toast } from "@/utils/Toast";
+import { StaffRespon } from '@/features/staff';
+import { axios } from '@/lib/axios';
+import { MutationConfig, queryClient } from '@/lib/react-query';
+import { Toast } from '@/utils/Toast';
 
 export type UpdateStaffDTO = {
   data: {
     email: string;
-    phoneNumber: string;
-    fullName: string;
+    phone_number: string;
+    name: string;
     male: boolean;
     avatar: string;
-    cinemaId: string | undefined;
-    dateOfBirth: string;
-    permissionId: string | undefined;
+    cinema_id: string | undefined;
+    date_of_birth: string;
+    permission_id: number | undefined;
   };
-  staffId: string | undefined;
+  staff_id: string | undefined;
 };
 
-export const editStaff = ({ data, staffId }: UpdateStaffDTO): Promise<StaffRespon> => {
-  return axios.put(`/staff/update/${staffId}`, data);
+export const editStaff = ({ data, staff_id }: UpdateStaffDTO): Promise<StaffRespon> => {
+  return axios.put(`/staff/update/${staff_id}`, data);
 };
 
 type UseUpdateStaffOptions = {
@@ -30,32 +30,32 @@ type UseUpdateStaffOptions = {
 export const useEditStaff = ({ config }: UseUpdateStaffOptions = {}) => {
   return useMutation({
     onMutate: async (updatingStaff) => {
-      await queryClient.cancelQueries(["staffs", updatingStaff.staffId]);
+      await queryClient.cancelQueries(['staffs', updatingStaff.staff_id]);
 
       const previousStaff = queryClient.getQueryData<StaffRespon>([
-        "staffs",
-        updatingStaff.staffId,
+        'staffs',
+        updatingStaff.staff_id,
       ]);
 
-      queryClient.setQueryData(["staffs", updatingStaff.staffId], {
+      queryClient.setQueryData(['staffs', updatingStaff.staff_id], {
         ...previousStaff,
-        staffs: { ...updatingStaff.data, _id: updatingStaff.staffId },
+        staffs: { ...updatingStaff.data, id: updatingStaff.staff_id },
       });
 
       return { previousStaff };
     },
     onError: (_, __, context: any) => {
       if (context?.previousStaff) {
-        queryClient.setQueryData("staffs", context.previousStaff);
+        queryClient.setQueryData('staffs', context.previousStaff);
       }
     },
     onSuccess: (res) => {
       if (res.success) {
-        queryClient.invalidateQueries("auth-user");
-        queryClient.invalidateQueries("staffs");
-        Toast("Updated Staff");
+        queryClient.invalidateQueries('auth-user');
+        queryClient.invalidateQueries('staffs');
+        Toast('Updated Staff');
       } else {
-        queryClient.invalidateQueries("staffs");
+        queryClient.invalidateQueries('staffs');
       }
     },
     ...config,

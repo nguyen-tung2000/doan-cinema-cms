@@ -1,17 +1,13 @@
 export interface StaffType {
-  _id: string;
+  id: string;
   email: string;
-  phoneNumber: string;
-  permission: {
-    _id: string;
-    name: string;
-    type: string;
-  };
+  phone_number: string;
+  permission_id: number;
   cinema: string;
-  createdAt: string;
+  created_at: string;
   profile: {
-    fullName: string;
-    dateOfBirth: string;
+    name: string;
+    date_of_birth: string;
     male: boolean;
     avatar: string;
   };
@@ -24,7 +20,7 @@ export interface StaffRespon {
     staffs: StaffType[];
   };
   errors: {
-    phoneNumber: string;
+    phone_number: string;
     email: string;
     male: string;
     name: string;
@@ -32,7 +28,7 @@ export interface StaffRespon {
 }
 
 export interface CinemaType {
-  _id: string;
+  id: string;
   name: string;
   payments: {
     type: string;
@@ -53,19 +49,5 @@ export interface CinemaRespon {
   message: string;
   values: {
     cinemas: CinemaType[];
-  };
-}
-
-export interface PermissionType {
-  _id: string;
-  name: string;
-  type: string;
-}
-
-export interface PermissionRespon {
-  success: boolean;
-  message: string;
-  values: {
-    permissions: PermissionType[];
   };
 }

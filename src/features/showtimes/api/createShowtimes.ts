@@ -1,9 +1,9 @@
-import { createStandaloneToast } from "@chakra-ui/toast";
-import { useMutation } from "react-query";
+import { createStandaloneToast } from '@chakra-ui/toast';
+import { useMutation } from 'react-query';
 
-import { ShowTimesResponse, TimeStamp } from "@/features/showtimes";
-import { axios } from "@/lib/axios";
-import { MutationConfig, queryClient } from "@/lib/react-query";
+import { ShowTimesResponse, TimeStamp } from '@/features/showtimes';
+import { axios } from '@/lib/axios';
+import { MutationConfig, queryClient } from '@/lib/react-query';
 
 export type CreateShowTimesDTO = {
   data: {
@@ -16,7 +16,7 @@ export type CreateShowTimesDTO = {
 };
 
 export const createShowTimes = ({ data }: CreateShowTimesDTO): Promise<ShowTimesResponse> => {
-  return axios.post("/showTime/add", data);
+  return axios.post('/showTime/add', data);
 };
 
 type UseCreateShowTimeOptions = {
@@ -28,11 +28,11 @@ export const useCreateShowTime = ({ config }: UseCreateShowTimeOptions = {}) => 
 
   return useMutation({
     onMutate: async (newShowTimes) => {
-      await queryClient.cancelQueries("showTimes");
+      await queryClient.cancelQueries('showTimes');
 
-      const previousShowTimes = queryClient.getQueryData<ShowTimesResponse>("showTimes");
+      const previousShowTimes = queryClient.getQueryData<ShowTimesResponse>('showTimes');
 
-      queryClient.setQueryData("showTimes", {
+      queryClient.setQueryData('showTimes', {
         ...previousShowTimes,
         showTimes: [...(previousShowTimes?.showTimes || []), newShowTimes],
       });
@@ -41,16 +41,16 @@ export const useCreateShowTime = ({ config }: UseCreateShowTimeOptions = {}) => 
     },
     onError: (_, __, context: any) => {
       if (context?.previousShowTimes) {
-        queryClient.setQueryData("showTimes", context.previousShowTimes);
+        queryClient.setQueryData('showTimes', context.previousShowTimes);
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries("showTimes");
+      queryClient.invalidateQueries('showTimes');
       toast({
-        title: "Created ShowTimes",
-        status: "success",
+        title: 'Created ShowTimes',
+        status: 'success',
         isClosable: true,
-        position: "top-right",
+        position: 'top-right',
       });
     },
     ...config,

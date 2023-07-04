@@ -14,21 +14,21 @@ import {
   HStack,
   Radio,
   RadioGroup,
-} from "@chakra-ui/react";
-import React from "react";
-import * as z from "zod";
+} from '@chakra-ui/react';
+import React from 'react';
+import * as z from 'zod';
 
-import { AddressField, Form, InputField } from "@/components";
-import { CUSTOMER_FORM } from "@/constants";
-import { CustomersResponse, UserAddress } from "@/features/auth";
-import { useCreateCustomer, useUpdateCustomer } from "@/features/customer";
-import { useCustomerStore } from "@/stores/customer";
+import { AddressField, Form, InputField } from '@/components';
+import { CUSTOMER_FORM } from '@/constants';
+import { CustomersResponse, UserAddress } from '@/features/auth';
+import { useCreateCustomer, useUpdateCustomer } from '@/features/customer';
+import { useCustomerStore } from '@/stores/customer';
 
 export type CustomerValues = {
   email: string;
-  phoneNumber: string;
-  fullName: string;
-  dateOfBirth: string;
+  phone_number: string;
+  name: string;
+  date_of_birth: string;
   address: {
     city: string;
     district: string;
@@ -42,37 +42,37 @@ export type CustomerValues = {
 const regexDate = /(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d/i; // mm/dd/yyyy
 
 const schemaUpdateCustomer = z.object({
-  email: z.string().nonempty({ message: "Email là bắt buộc" }),
-  phoneNumber: z
+  email: z.string().nonempty({ message: 'Email là bắt buộc' }),
+  phone_number: z
     .string()
-    .nonempty({ message: "Số điện thoại là bắt buộc" })
-    .regex(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g, "số điện thoại không đúng định dạng"),
-  fullName: z.string().nonempty({ message: "Họ tên là bắt buộc" }),
-  dateOfBirth: z
+    .nonempty({ message: 'Số điện thoại là bắt buộc' })
+    .regex(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g, 'số điện thoại không đúng định dạng'),
+  name: z.string().nonempty({ message: 'Họ tên là bắt buộc' }),
+  date_of_birth: z
     .string()
-    .nonempty({ message: "Ngày sinh là bắt buộc" })
-    .regex(regexDate, { message: "Ngày không đúng định dạng" }),
+    .nonempty({ message: 'Ngày sinh là bắt buộc' })
+    .regex(regexDate, { message: 'Ngày không đúng định dạng' }),
   hobby: z.string().nullable(),
   address: z.object({
-    city: z.string().nonempty({ message: "Thành phố là bắt buộc" }),
-    district: z.string().nonempty({ message: "Quận/Huyện là bắt buộc" }),
-    ward: z.string().nonempty({ message: "Phường/Xã là bắt buộc" }),
-    street: z.string().nonempty({ message: "Đường là bắt buộc" }),
+    city: z.string().nonempty({ message: 'Thành phố là bắt buộc' }),
+    district: z.string().nonempty({ message: 'Quận/Huyện là bắt buộc' }),
+    ward: z.string().nonempty({ message: 'Phường/Xã là bắt buộc' }),
+    street: z.string().nonempty({ message: 'Đường là bắt buộc' }),
   }),
   male: z.boolean(),
 });
 
 const schemaCreateCustomer = z.object({
-  email: z.string().nonempty({ message: "Email là bắt buộc" }),
-  phoneNumber: z
+  email: z.string().nonempty({ message: 'Email là bắt buộc' }),
+  phone_number: z
     .string()
-    .nonempty({ message: "Số điện thoại là bắt buộc" })
-    .regex(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g, "số điện thoại không đúng định dạng"),
-  fullName: z.string().nonempty({ message: "Họ tên là bắt buộc" }),
-  dateOfBirth: z
+    .nonempty({ message: 'Số điện thoại là bắt buộc' })
+    .regex(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g, 'số điện thoại không đúng định dạng'),
+  name: z.string().nonempty({ message: 'Họ tên là bắt buộc' }),
+  date_of_birth: z
     .string()
-    .nonempty({ message: "Ngày sinh là bắt buộc" })
-    .regex(regexDate, { message: "Ngày không đúng định dạng" }),
+    .nonempty({ message: 'Ngày sinh là bắt buộc' })
+    .regex(regexDate, { message: 'Ngày không đúng định dạng' }),
 });
 
 export const CustomerFormModal = () => {
@@ -83,21 +83,21 @@ export const CustomerFormModal = () => {
 
   const createCustomerMutation = useCreateCustomer();
   const updateCustomerMutation = useUpdateCustomer();
-  const buttonText = isAdding ? "Thêm khách hàng" : "Cập nhật khách hàng";
+  const buttonText = isAdding ? 'Thêm khách hàng' : 'Cập nhật khách hàng';
 
   const saveData = (values: CustomerValues): Promise<CustomersResponse> => {
     if (isAdding) {
       return createCustomerMutation.mutateAsync({ ...values });
     }
     const { address } = values;
-    const newCity = address.city.split("-");
-    const newWard = address.ward.split("-");
-    const newDistrict = address.district.split("-");
+    const newCity = address.city.split('-');
+    const newWard = address.ward.split('-');
+    const newDistrict = address.district.split('-');
 
     return updateCustomerMutation.mutateAsync({
       data: {
         ...values,
-        male: male === "true",
+        male: male === 'true',
         address: {
           ...address,
           city: newCity[1],
@@ -105,7 +105,7 @@ export const CustomerFormModal = () => {
           ward: newWard[1],
         },
       },
-      customerId: initialValues._id || "",
+      customerId: initialValues.id || '',
     });
   };
 
@@ -131,30 +131,30 @@ export const CustomerFormModal = () => {
                 <ModalBody as={Stack} spacing={5} direction="column">
                   <InputField
                     label="Họ tên"
-                    registration={register("fullName")}
-                    error={formState.errors["fullName"]}
+                    registration={register('name')}
+                    error={formState.errors['name']}
                   />
                   <InputField
                     label="Email"
-                    registration={register("email")}
-                    error={formState.errors["email"]}
+                    registration={register('email')}
+                    error={formState.errors['email']}
                   />
                   <InputField
                     label="Số điện thoại"
-                    registration={register("phoneNumber")}
-                    error={formState.errors["phoneNumber"]}
+                    registration={register('phone_number')}
+                    error={formState.errors['phone_number']}
                   />
                   <InputField
                     label="Ngày sinh"
-                    registration={register("dateOfBirth")}
-                    error={formState.errors["dateOfBirth"]}
+                    registration={register('date_of_birth')}
+                    error={formState.errors['date_of_birth']}
                   />
                   {!isAdding && (
                     <>
                       <InputField
                         label="Sở thích"
-                        registration={register("hobby")}
-                        error={formState.errors["hobby"]}
+                        registration={register('hobby')}
+                        error={formState.errors['hobby']}
                       />
 
                       <FormControl as="fieldset">
@@ -165,7 +165,7 @@ export const CustomerFormModal = () => {
                             <Radio value="false">Nữ</Radio>
                           </HStack>
                         </RadioGroup>
-                        <FormHelperText>{formState.errors["male"]}</FormHelperText>
+                        <FormHelperText>{formState.errors['male']}</FormHelperText>
                       </FormControl>
 
                       <AddressField
@@ -186,7 +186,7 @@ export const CustomerFormModal = () => {
                     fontWeight="medium"
                     type="submit"
                     _hover={{
-                      backgroundColor: "cyan.700",
+                      backgroundColor: 'cyan.700',
                     }}
                     isLoading={
                       isAdding ? createCustomerMutation.isLoading : updateCustomerMutation.isLoading

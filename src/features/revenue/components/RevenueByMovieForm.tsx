@@ -1,9 +1,9 @@
-import { Box, Button, Flex, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
-import React from "react";
+import { Box, Button, Flex, Heading, SimpleGrid, Stack } from '@chakra-ui/react';
+import React from 'react';
 
-import { Form, SingleSelect, Table, Td, Th, Tr } from "@/components";
-import { useGetRevenueByMovie, ColumnChart } from "@/features/revenue";
-import { formatNumber } from "@/utils/format";
+import { Form, SingleSelect, Table, Td, Th, Tr } from '@/components';
+import { useGetRevenueByMovie, ColumnChart } from '@/features/revenue';
+import { formatNumber } from '@/utils/format';
 
 type RevenueValues = {
   cinemaId: string;
@@ -33,8 +33,8 @@ export const RevenueByMovieForm: React.FC<RevenueByMovieFormProps> = ({ cinemaId
           {({ register }) => (
             <Flex alignItems="center" justifyContent="space-between">
               <Stack spacing={3}>
-                <SingleSelect registration={register("dateStart")} />
-                <SingleSelect registration={register("dateEnd")} />
+                <SingleSelect registration={register('dateStart')} />
+                <SingleSelect registration={register('dateEnd')} />
               </Stack>
               <Button
                 backgroundColor="cyan.400"
@@ -42,7 +42,7 @@ export const RevenueByMovieForm: React.FC<RevenueByMovieFormProps> = ({ cinemaId
                 fontWeight="medium"
                 type="submit"
                 _hover={{
-                  backgroundColor: "cyan.700",
+                  backgroundColor: 'cyan.700',
                 }}
                 maxWidth="200px"
                 alignSelf="flex-end"
@@ -62,9 +62,9 @@ export const RevenueByMovieForm: React.FC<RevenueByMovieFormProps> = ({ cinemaId
             <ColumnChart
               data={{
                 data: useRevenueMovieMutation.data?.data,
-                text: "Doanh thu",
+                text: 'Doanh thu',
                 xCategories: useRevenueMovieMutation.data?.data.map((r) => r.movie.name),
-                type: "ByMovie",
+                type: 'ByMovie',
               }}
             />
           </Box>
@@ -85,15 +85,15 @@ export const RevenueByMovieForm: React.FC<RevenueByMovieFormProps> = ({ cinemaId
                   <tbody>
                     <Tr>
                       <Td>Tổng tiền vé</Td>
-                      <Td>{formatNumber(rv.totalTicket)}</Td>
+                      <Td>{formatNumber(rv.total_ticket)}</Td>
                     </Tr>
                     <Tr>
                       <Td>Tổng tiền thức ăn</Td>
-                      <Td>{formatNumber(rv.totalFood)}</Td>
+                      <Td>{formatNumber(rv.total_food)}</Td>
                     </Tr>
                     <Tr>
                       <Td>Tổng cộng</Td>
-                      <Td>{formatNumber(rv.totalPrice)}</Td>
+                      <Td>{formatNumber(rv.total_price)}</Td>
                     </Tr>
                   </tbody>
                 </Table>

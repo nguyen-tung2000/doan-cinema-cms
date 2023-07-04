@@ -1,11 +1,11 @@
-import React, { ChangeEventHandler } from "react";
+import React, { ChangeEventHandler } from 'react';
 
-import * as S from "./SelectField.style";
+import * as S from './SelectField.style';
 interface SelectFieldProps {
   name: string;
   title: string;
   List: {
-    _id: string;
+    id: string;
     name: string;
   }[];
   change: ChangeEventHandler<HTMLSelectElement | undefined>;
@@ -27,7 +27,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({
       {value && (
         <S.Select name={name} onChange={change} value={value} error={error[name]}>
           {List.map((item) => (
-            <S.Option key={item._id} value={item._id}>
+            <S.Option key={item.id} value={item.id}>
               {item.name}
             </S.Option>
           ))}
@@ -39,7 +39,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({
             Mời bạn chọn...
           </S.Option>
           {List.map((item) => (
-            <S.Option key={item._id} value={item._id}>
+            <S.Option key={item.id} value={item.id}>
               {item.name}
             </S.Option>
           ))}

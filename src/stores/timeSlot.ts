@@ -1,9 +1,9 @@
-import create from "zustand";
+import create from 'zustand';
 
-import { Room, getRoomsByMovie } from "@/features/room";
+import { Room, getRoomsByMovie } from '@/features/room';
 
 type TimeType = {
-  _id: string;
+  id: string;
   roomName: string;
   screenName: string;
 };
@@ -12,7 +12,7 @@ type RoomsByMovie = {
   listRoomByMovie: Room[];
   loading: boolean;
   fetchRooms: (idMovie: string) => void;
-  checkedTimes: ({ _id, roomName, screenName }: TimeType) => void;
+  checkedTimes: ({ id, roomName, screenName }: TimeType) => void;
   reset: () => void;
 };
 
@@ -25,8 +25,8 @@ export const useRoomsByMovieStore = create<RoomsByMovie>((set) => ({
     const { rooms } = response.values;
     const listRoom: Room[] = [];
     for (const room of rooms) {
-      const newTime = room.timeSlots.map(({ _id, time }) => ({
-        _id,
+      const newTime = room.timeSlots.map(({ id, time }) => ({
+        id,
         time,
         disabled: false,
       }));
@@ -34,34 +34,34 @@ export const useRoomsByMovieStore = create<RoomsByMovie>((set) => ({
     }
     set({ listRoomByMovie: listRoom, loading: false });
   },
-  checkedTimes: ({ _id, roomName, screenName }) =>
+  checkedTimes: ({ id, roomName, screenName }) =>
     set((state) => {
       let rooms;
       switch (screenName) {
-        case "2D":
-          rooms = state.listRoomByMovie.filter((r) => r.name !== roomName && r.screen.name == "2D");
+        case '2D':
+          rooms = state.listRoomByMovie.filter((r) => r.name !== roomName && r.screen.name == '2D');
           for (const r of rooms) {
-            const time = r.timeSlots.find((t) => t._id === _id);
+            const time = r.timeSlots.find((t) => t.id === id);
             if (time) {
               time.disabled = !time.disabled;
             }
           }
           return { ...state, listRoomByMovie: [...state.listRoomByMovie] };
-        case "3D":
-          rooms = state.listRoomByMovie.filter((r) => r.name !== roomName && r.screen.name == "3D");
+        case '3D':
+          rooms = state.listRoomByMovie.filter((r) => r.name !== roomName && r.screen.name == '3D');
           for (const r of rooms) {
-            const time = r.timeSlots.find((t) => t._id === _id);
+            const time = r.timeSlots.find((t) => t.id === id);
             if (time) {
               time.disabled = !time.disabled;
             }
           }
           return { ...state, listRoomByMovie: [...state.listRoomByMovie] };
-        case "IMAX":
+        case 'IMAX':
           rooms = state.listRoomByMovie.filter(
-            (r) => r.name !== roomName && r.screen.name == "IMAX",
+            (r) => r.name !== roomName && r.screen.name == 'IMAX',
           );
           for (const r of rooms) {
-            const time = r.timeSlots.find((t) => t._id === _id);
+            const time = r.timeSlots.find((t) => t.id === id);
             if (time) {
               time.disabled = !time.disabled;
             }

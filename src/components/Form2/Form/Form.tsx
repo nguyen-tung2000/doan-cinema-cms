@@ -1,7 +1,7 @@
-import React from "react";
-import { SubmitHandler } from "react-hook-form";
+import React from 'react';
+import { SubmitHandler } from 'react-hook-form';
 
-import * as S from "./Form.style";
+import * as S from './Form.style';
 
 interface FormProps {
   submit: SubmitHandler<any>;

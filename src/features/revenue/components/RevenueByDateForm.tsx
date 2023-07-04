@@ -1,16 +1,16 @@
-import { Box, Button, Flex, Heading, Stack, Spinner } from "@chakra-ui/react";
-import * as R from "ramda";
-import * as React from "react";
+import { Box, Button, Flex, Heading, Stack, Spinner } from '@chakra-ui/react';
+import * as R from 'ramda';
+import * as React from 'react';
 
-import { Form, SingleSelect } from "@/components";
+import { Form, SingleSelect } from '@/components';
 import {
   TableRevenue,
   useGetRevenueByDate,
   ColumnChart,
   RevenueInfo,
   // IRevenueData,
-} from "@/features/revenue";
-import { formatDate, formatNumber, convertToMoney } from "@/utils/format";
+} from '@/features/revenue';
+import { formatDate, formatNumber, convertToMoney } from '@/utils/format';
 
 type RevenueValues = {
   cinemaId: string;
@@ -20,7 +20,7 @@ type RevenueValues = {
 interface RevenueByDateFormProps {
   cinemaId: string;
   userName: string;
-  roleType: string;
+  roleType: number;
 }
 
 export const RevenueByDateForm: React.FC<RevenueByDateFormProps> = ({
@@ -32,60 +32,60 @@ export const RevenueByDateForm: React.FC<RevenueByDateFormProps> = ({
   const columns = React.useMemo(
     () => [
       {
-        Header: "Thông tin",
-        Footer: "",
+        Header: 'Thông tin',
+        Footer: '',
         columns: [
           {
-            Header: "Mã HD",
-            accessor: "billId",
-            aggregate: "count",
+            Header: 'Mã HD',
+            accessor: 'billId',
+            aggregate: 'count',
             Aggregated: ({ value }: any) => `${value} hoá đơn`,
           },
           {
-            Header: "Tên phim",
-            accessor: "movieName",
-            aggregate: "count",
+            Header: 'Tên phim',
+            accessor: 'movieName',
+            aggregate: 'count',
             Aggregated: ({ value }: any) => `${value} phim`,
           },
           {
-            Header: "Phòng",
-            accessor: "roomName",
-            aggregate: "uniqueCount",
+            Header: 'Phòng',
+            accessor: 'roomName',
+            aggregate: 'uniqueCount',
             Aggregated: ({ value }) => `${value} phòng`,
           },
           {
-            Header: "Màn hình",
-            accessor: "screenName",
+            Header: 'Màn hình',
+            accessor: 'screenName',
           },
         ],
       },
       {
-        Header: "Doanh thu bán hàng",
-        Footer: "",
+        Header: 'Doanh thu bán hàng',
+        Footer: '',
 
         columns: [
           {
-            Header: "Số lượng",
-            accessor: "quantity",
+            Header: 'Số lượng',
+            accessor: 'quantity',
             canGroupBy: false,
           },
           {
-            Header: "Đơn giá",
-            accessor: "price",
+            Header: 'Đơn giá',
+            accessor: 'price',
             canGroupBy: false,
           },
           {
-            Header: "Giảm",
-            accessor: "promotion",
+            Header: 'Giảm',
+            accessor: 'promotion',
             canGroupBy: false,
           },
           {
-            Header: "Loại",
-            accessor: "type",
+            Header: 'Loại',
+            accessor: 'type',
           },
           {
-            Header: "Tổng",
-            accessor: "totalString",
+            Header: 'Tổng',
+            accessor: 'totalString',
             canGroupBy: false,
             Footer: (info: any) => {
               // Only calculate total visits if rows change
@@ -103,17 +103,17 @@ export const RevenueByDateForm: React.FC<RevenueByDateFormProps> = ({
             },
           },
           {
-            Header: "TT",
+            Header: 'TT',
             accessor: (originalRow: any) => {
               return <RevenueInfo revenueData={originalRow} />;
             },
             canGroupBy: false,
           },
           {
-            Header: "Tên nhân viên",
+            Header: 'Tên nhân viên',
             isVisible: true,
-            accessor: (originalRow: any) => `${originalRow.staff.profile.fullName}` as any,
-            aggregate: "uniqueCount",
+            accessor: (originalRow: any) => `${originalRow.staff.profile.name}` as any,
+            aggregate: 'uniqueCount',
             Aggregated: ({ value }: any) => {
               return `${value} phòng`;
             },
@@ -145,7 +145,7 @@ export const RevenueByDateForm: React.FC<RevenueByDateFormProps> = ({
 
   const { values } = useRevenueByDateQuery.data;
   const hasRevenue = values.data.length > 0;
-  const lstTitleMovie = R.uniq(values.data.map((v) => v.movieName));
+  const lstTitleMovie = R.uniq(values.data.map((v) => v.movie_name));
 
   const noData = (
     <Box
@@ -169,7 +169,7 @@ export const RevenueByDateForm: React.FC<RevenueByDateFormProps> = ({
     <Stack spacing={3} width="full">
       <Stack direction="column" justifyContent="center">
         <Heading fontSize="20px">Thống kê doanh thu</Heading>
-        {roleType === "2" && <Heading fontSize="20px">{`Nhân viên: ${userName} `}</Heading>}
+        {roleType === 3 && <Heading fontSize="20px">{`Nhân viên: ${userName} `}</Heading>}
       </Stack>
       <Box paddingBottom={5} borderBottom="1px solid" borderColor="gray.300">
         <Form<RevenueValues>
@@ -186,7 +186,7 @@ export const RevenueByDateForm: React.FC<RevenueByDateFormProps> = ({
             <Flex alignItems="center" justifyContent="space-between">
               <Stack spacing={3}>
                 <SingleSelect
-                  registration={register("date")}
+                  registration={register('date')}
                   setValues={setValue}
                   nameToSet="dateStart"
                   defaultValue={date}
@@ -198,7 +198,7 @@ export const RevenueByDateForm: React.FC<RevenueByDateFormProps> = ({
                 fontWeight="medium"
                 type="submit"
                 _hover={{
-                  backgroundColor: "cyan.700",
+                  backgroundColor: 'cyan.700',
                 }}
                 maxWidth="200px"
                 alignSelf="flex-end"
@@ -218,7 +218,7 @@ export const RevenueByDateForm: React.FC<RevenueByDateFormProps> = ({
               xCategories: lstTitleMovie,
               data: values.data,
               text: `Doanh thu ngày ${date}`,
-              type: "Full",
+              type: 'Full',
             }}
           />
           <TableRevenue rowsTable={values.data} columnsTable={columns} />

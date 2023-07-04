@@ -1,10 +1,10 @@
-import { Box, Flex, Stack, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { Box, Flex, Stack, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 
-import { SiteHeader } from "@/components";
-import { ROUTES } from "@/constants";
-import { RevenueByDateForm, RevenueByQuarterForm, RevenueAllByMonthForm } from "@/features/revenue";
-import { useAuth } from "@/lib/auth";
-import { Authorization, useAuthorization, ROLES } from "@/lib/authorization";
+import { SiteHeader } from '@/components';
+import { ROUTES } from '@/constants';
+import { RevenueByDateForm, RevenueByQuarterForm, RevenueAllByMonthForm } from '@/features/revenue';
+import { useAuth } from '@/lib/auth';
+import { Authorization, useAuthorization, ROLES } from '@/lib/authorization';
 
 export const RevenuePage = () => {
   const { user } = useAuth();
@@ -25,7 +25,7 @@ export const RevenuePage = () => {
             backgroundColor="white"
             px={5}
             py={12}
-            shadow={[null, "md"]}
+            shadow={[null, 'md']}
             spacing={4}
             w="100%"
             alignItems="center"
@@ -51,14 +51,14 @@ export const RevenuePage = () => {
                 </TabPanel>
                 <TabPanel>
                   <RevenueByDateForm
-                    cinemaId={user?.cinema._id || ""}
-                    userName={user?.profile.fullName || ""}
-                    roleType={user?.permission.type || "2"}
+                    cinemaId={user?.cinema.id || ''}
+                    userName={user?.name || ''}
+                    roleType={user?.permission_id || 3}
                   />
                 </TabPanel>
 
                 <TabPanel>
-                  <RevenueByQuarterForm cinemaId={user?.cinema._id || ""} />
+                  <RevenueByQuarterForm cinemaId={user?.cinema.id || ''} />
                 </TabPanel>
               </TabPanels>
             </Tabs>

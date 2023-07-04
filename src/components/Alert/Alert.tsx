@@ -8,8 +8,8 @@ import {
   Button,
   AlertDialogCloseButton,
   ButtonProps,
-} from "@chakra-ui/react";
-import * as React from "react";
+} from '@chakra-ui/react';
+import * as React from 'react';
 
 interface AlertProps {
   title: string;
@@ -41,7 +41,7 @@ export const Alert: React.FC<AlertProps> = (props) => {
         ref={cancelRef}
         onClick={onClose}
         key="closeButton"
-        variant={!triggerButton ? "solid" : undefined}
+        variant={!triggerButton ? 'solid' : undefined}
       >
         {closeButtonText}
       </Button>,

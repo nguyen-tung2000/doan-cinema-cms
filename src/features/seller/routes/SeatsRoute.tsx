@@ -10,10 +10,10 @@ import {
   FormLabel,
   Text,
   Input,
-} from "@chakra-ui/react";
-import React from "react";
+} from '@chakra-ui/react';
+import React from 'react';
 
-import { PRICE } from "@/constants";
+import { PRICE } from '@/constants';
 import {
   SeatList,
   SeatType,
@@ -23,8 +23,8 @@ import {
   AuthUser,
   ComboItem,
   IGift,
-} from "@/features/seller";
-import { formatNumber } from "@/utils/format";
+} from '@/features/seller';
+import { formatNumber } from '@/utils/format';
 
 interface SeatsRouteProps {
   seats: TicketType[];
@@ -51,19 +51,19 @@ export const SeatsRoute: React.FC<SeatsRouteProps> = (props) => {
     const selectSeat = selectedSeats[selectedSeats.length - 1];
 
     switch (type) {
-      case "Adult": {
+      case 'Adult': {
         selectSeat.price = oldPrice;
         setDisplayPrice(selectSeat.price);
         return setSelectedSeats([...selectedSeats]);
       }
-      case "Member": {
+      case 'Member': {
         selectSeat.price = PRICE.CHILD;
         selectSeat.type = 0;
         setDisplayPrice(selectSeat.price);
         return setSelectedSeats([...selectedSeats]);
       }
 
-      case "Student":
+      case 'Student':
         if (event.target.checked) {
           selectSeat.price = PRICE.STUDENT;
           selectSeat.type = 2;

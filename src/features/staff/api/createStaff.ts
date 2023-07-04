@@ -1,24 +1,24 @@
-import { useMutation } from "react-query";
+import { useMutation } from 'react-query';
 
-import { StaffRespon } from "../type";
+import { StaffRespon } from '../type';
 
-import { axios } from "@/lib/axios";
-import { MutationConfig, queryClient } from "@/lib/react-query";
-import { Toast } from "@/utils/Toast";
+import { axios } from '@/lib/axios';
+import { MutationConfig, queryClient } from '@/lib/react-query';
+import { Toast } from '@/utils/Toast';
 
 export type CreateStaffDTO = {
   email: string;
-  phoneNumber: string;
-  fullName: string;
+  phone_number: string;
+  name: string;
   male: boolean;
   avatar: string;
-  dateOfBirth: string;
-  permissionId: string;
-  cinemaId: string;
+  date_of_birth: string;
+  permission_id: number;
+  cinema_id: string;
 };
 
 export const createStaff = (data: CreateStaffDTO): Promise<StaffRespon> => {
-  return axios.post("/staff/register", data);
+  return axios.post('/staff/register', data);
 };
 
 type UseCreateStaffOptions = {
@@ -28,11 +28,11 @@ type UseCreateStaffOptions = {
 export const useCreateStaff = ({ config }: UseCreateStaffOptions = {}) => {
   return useMutation({
     onMutate: async (newStaff) => {
-      await queryClient.cancelQueries("staffs");
+      await queryClient.cancelQueries('staffs');
 
-      const previousStaffs = queryClient.getQueryData<StaffRespon>("staffs");
+      const previousStaffs = queryClient.getQueryData<StaffRespon>('staffs');
 
-      queryClient.setQueryData("staffs", {
+      queryClient.setQueryData('staffs', {
         ...previousStaffs,
         values: { staffs: [...(previousStaffs?.values.staffs || []), newStaff] },
       });
@@ -41,15 +41,15 @@ export const useCreateStaff = ({ config }: UseCreateStaffOptions = {}) => {
     },
     onError: (context: any) => {
       if (context?.previousStaffs) {
-        queryClient.setQueryData("staffs", context.previousStaffs);
+        queryClient.setQueryData('staffs', context.previousStaffs);
       }
     },
     onSuccess: (res) => {
       if (res.success) {
-        queryClient.invalidateQueries("staffs");
-        Toast("Created Staff");
+        queryClient.invalidateQueries('staffs');
+        Toast('Created Staff');
       } else {
-        queryClient.invalidateQueries("staffs");
+        queryClient.invalidateQueries('staffs');
       }
     },
     ...config,

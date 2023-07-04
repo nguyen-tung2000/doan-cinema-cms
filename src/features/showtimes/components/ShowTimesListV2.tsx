@@ -1,9 +1,9 @@
-import { Button, Stack, Flex, Spinner } from "@chakra-ui/react";
-import { format } from "date-fns";
-import React from "react";
+import { Button, Stack, Flex, Spinner } from '@chakra-ui/react';
+import { format } from 'date-fns';
+import React from 'react';
 
-import { ShowTimesItem, useShowTimesByDate } from "@/features/showtimes";
-import { getDay } from "@/utils/format";
+import { ShowTimesItem, useShowTimesByDate } from '@/features/showtimes';
+import { getDay } from '@/utils/format';
 
 interface ShowTimesListV2Props {
   rangeDate: Date[];
@@ -29,7 +29,7 @@ export const ShowTimesListV2: React.FC<ShowTimesListV2Props> = ({
       backgroundColor="white"
       px={10}
       py={12}
-      shadow={[null, "md"]}
+      shadow={[null, 'md']}
       spacing={4}
       w="100%"
       alignItems="center"
@@ -38,7 +38,7 @@ export const ShowTimesListV2: React.FC<ShowTimesListV2Props> = ({
       <Stack spacing={2} direction="row">
         {rangeDate
           .map((d) => ({
-            date: format(d, "MM/dd/yyyy"),
+            date: format(d, 'MM/dd/yyyy'),
             day: getDay(d),
           }))
           .map((b) => {
@@ -47,13 +47,13 @@ export const ShowTimesListV2: React.FC<ShowTimesListV2Props> = ({
               <Button
                 key={b.date}
                 size="lg"
-                colorScheme={isActive ? "cyan" : undefined}
-                color={isActive ? "white" : undefined}
+                colorScheme={isActive ? 'cyan' : undefined}
+                color={isActive ? 'white' : undefined}
                 onClick={() => setActiveDate(b.date)}
                 fontSize="medium"
                 _hover={{
-                  backgroundColor: "cyan.400",
-                  color: "white",
+                  backgroundColor: 'cyan.400',
+                  color: 'white',
                 }}
               >
                 {b.date}

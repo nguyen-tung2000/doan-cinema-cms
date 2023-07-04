@@ -1,8 +1,8 @@
-import { Checkbox, CheckboxProps } from "@chakra-ui/react";
-import React from "react";
-import { UseFormRegisterReturn } from "react-hook-form";
+import { Checkbox, CheckboxProps } from '@chakra-ui/react';
+import React from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
-import { FieldWrapper, FieldWrapperPassThroughProps } from ".";
+import { FieldWrapper, FieldWrapperPassThroughProps } from '.';
 
 interface CheckBoxFieldProps extends FieldWrapperPassThroughProps, CheckboxProps {
   registration: Partial<UseFormRegisterReturn>;

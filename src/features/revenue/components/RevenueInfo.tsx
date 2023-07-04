@@ -1,4 +1,4 @@
-import { useDisclosure } from "@chakra-ui/hooks";
+import { useDisclosure } from '@chakra-ui/hooks';
 import {
   Modal,
   ModalOverlay,
@@ -6,12 +6,12 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-} from "@chakra-ui/modal";
-import { IconButton, Text, SimpleGrid, Box, Heading, Stack } from "@chakra-ui/react";
-import React from "react";
-import { FiInfo } from "react-icons/fi";
+} from '@chakra-ui/modal';
+import { IconButton, Text, SimpleGrid, Box, Heading, Stack } from '@chakra-ui/react';
+import React from 'react';
+import { FiInfo } from 'react-icons/fi';
 
-import { IRevenueData } from "@/features/revenue";
+import { IRevenueData } from '@/features/revenue';
 
 interface RevenueInfoProps {
   revenueData: IRevenueData;
@@ -43,7 +43,7 @@ export const RevenueInfo: React.FC<RevenueInfoProps> = ({ revenueData }) => {
                   <Heading as="h4" size="md">
                     Mã hoá đơn
                   </Heading>
-                  <Text>{revenueData?.billId || ""}</Text>
+                  <Text>{revenueData?.bill_id || ''}</Text>
                 </Stack>
               </Box>
               <Box>
@@ -51,7 +51,7 @@ export const RevenueInfo: React.FC<RevenueInfoProps> = ({ revenueData }) => {
                   <Heading as="h4" size="md">
                     Ngày
                   </Heading>
-                  <Text>{revenueData.createdAt}</Text>
+                  <Text>{revenueData.created_at}</Text>
                 </Stack>
               </Box>
               <Box>
@@ -67,7 +67,7 @@ export const RevenueInfo: React.FC<RevenueInfoProps> = ({ revenueData }) => {
                   <Heading as="h4" size="md">
                     Tên phim
                   </Heading>
-                  <Text>{revenueData.movieName}</Text>
+                  <Text>{revenueData.movie_name}</Text>
                 </Stack>
               </Box>
               <Box>
@@ -75,7 +75,7 @@ export const RevenueInfo: React.FC<RevenueInfoProps> = ({ revenueData }) => {
                   <Heading as="h4" size="md">
                     Phòng
                   </Heading>
-                  <Text>{revenueData.roomName}</Text>
+                  <Text>{revenueData.room_name}</Text>
                 </Stack>
               </Box>
               <Box>
@@ -83,7 +83,7 @@ export const RevenueInfo: React.FC<RevenueInfoProps> = ({ revenueData }) => {
                   <Heading as="h4" size="md">
                     Màn hình
                   </Heading>
-                  <Text>{revenueData.screenName}</Text>
+                  <Text>{revenueData.screen_name}</Text>
                 </Stack>
               </Box>
               <Box>
@@ -131,7 +131,7 @@ export const RevenueInfo: React.FC<RevenueInfoProps> = ({ revenueData }) => {
                   <Heading as="h4" size="md">
                     Loại khuyến mãi
                   </Heading>
-                  <Text>{revenueData.promotionType}</Text>
+                  <Text>{revenueData.promotion_type}</Text>
                 </Stack>
               </Box>
 
@@ -140,7 +140,7 @@ export const RevenueInfo: React.FC<RevenueInfoProps> = ({ revenueData }) => {
                   <Heading as="h4" size="md">
                     Tên Nhân viên
                   </Heading>
-                  <Text>{revenueData.staff.profile?.fullName || ""}</Text>
+                  <Text>{revenueData.staff?.name || ''}</Text>
                 </Stack>
               </Box>
               <Box>
@@ -148,7 +148,7 @@ export const RevenueInfo: React.FC<RevenueInfoProps> = ({ revenueData }) => {
                   <Heading as="h4" size="md">
                     Tên khách hàng
                   </Heading>
-                  <Text>{revenueData.user.profile?.fullName || ""}</Text>
+                  <Text>{revenueData.user?.name || ''}</Text>
                 </Stack>
               </Box>
             </SimpleGrid>

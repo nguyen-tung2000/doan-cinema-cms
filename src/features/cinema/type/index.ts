@@ -1,5 +1,5 @@
 export interface CinemaType {
-  _id: string;
+  id: string;
   name: string;
   address: {
     city: string;
@@ -9,15 +9,13 @@ export interface CinemaType {
     lat?: string;
     lng?: string;
   };
-  createdAt?: string;
+  created_at?: string;
 }
 
 export interface CinemaRespone {
   success: boolean;
   message: string;
-  values: {
-    cinemas: CinemaType[];
-  };
+  values: CinemaType[];
   errors: CinemaType;
 }
 

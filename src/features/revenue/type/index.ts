@@ -1,6 +1,6 @@
-import { Customer, AuthUser } from "@/features/auth";
-import { MovieType } from "@/features/manageMovie";
-import { Room, TimeSlot } from "@/features/room";
+import { Customer, AuthUser } from '@/features/auth';
+import { MovieType } from '@/features/manageMovie';
+import { Room, TimeSlot } from '@/features/room';
 
 interface BaseEntity {
   success: boolean;
@@ -8,7 +8,7 @@ interface BaseEntity {
 }
 
 export interface IRevenue {
-  _id: string;
+  id: string;
   name: string;
   price: number;
   count: number;
@@ -20,12 +20,12 @@ export interface IStatistical {
     child: IRevenue;
     student: IRevenue;
     total: number;
-    totalPromotion: number;
+    total_promotion: number;
   };
   food: {
     combo: IRevenue[];
     total: number;
-    totalPromotion: number;
+    total_promotion: number;
   };
   totalPrice: number;
 }
@@ -46,15 +46,15 @@ export interface IRevenueWithTime {
 }
 
 export interface IRevenueData {
-  billId: string;
-  createdAt: string;
-  movieName: string;
+  bill_id: string;
+  created_at: string;
+  movie_name: string;
   price: string;
   quantity: number;
   promotion: number;
-  promotionType: string;
-  roomName: string;
-  screenName: string;
+  promotion_type: string;
+  room_name: string;
+  screen_name: string;
   total: number;
   type: string;
   date: string;
@@ -72,8 +72,8 @@ export interface RevenueResponse extends BaseEntity {
 
 export interface IRevenueAllByMonth {
   date: string;
-  cinemaId: string;
-  cinemaName: string;
+  cinemaid: string;
+  cinema_name: string;
   total: number;
 }
 export interface RevenueAllByMonthResponse extends BaseEntity {
@@ -94,9 +94,9 @@ export interface RevenueResponseTime extends BaseEntity {
 
 export interface IRevenueByMovie {
   movie: MovieType;
-  totalFood: number;
-  totalTicket: number;
-  totalPrice: number;
+  total_food: number;
+  total_ticket: number;
+  total_price: number;
 }
 
 export interface RevenueResponseByMovie extends BaseEntity {

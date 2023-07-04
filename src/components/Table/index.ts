@@ -1,2 +1,2 @@
-export * from "./Table";
-export * from "./TableSink";
+export * from './Table';
+export * from './TableSink';

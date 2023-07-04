@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const SelectField = styled.div`
   display: flex;
@@ -14,13 +14,13 @@ export const Select = styled.select`
   line-height: 24px;
   padding: 12px 16px;
   margin-top: 8px;
-  background-color: ${({ error }: any) => error && "#fef1f2"};
+  background-color: ${({ error }: any) => error && '#fef1f2'};
 
   &:focus {
-    border-color: ${({ error }: any) => !error && "#0d75ff"};
+    border-color: ${({ error }: any) => !error && '#0d75ff'};
   }
 
-  border-color: ${({ error }: any) => error && "#dd4a48"};
+  border-color: ${({ error }: any) => error && '#dd4a48'};
 ` as any;
 export const Option = styled.option``;
 

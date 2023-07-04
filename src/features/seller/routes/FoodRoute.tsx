@@ -1,10 +1,10 @@
-import { Box, Flex, IconButton, Heading, Img, Table, Tr, Th, Td } from "@chakra-ui/react";
-import * as React from "react";
-import { HiMinusCircle, HiPlusCircle } from "react-icons/hi";
+import { Box, Flex, IconButton, Heading, Img, Table, Tr, Th, Td } from '@chakra-ui/react';
+import * as React from 'react';
+import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
 
 // import { Table, Tr, Th, Td } from '@/components';
-import { ComboItem } from "@/features/seller";
-import { formatNumber } from "@/utils/format";
+import { ComboItem } from '@/features/seller';
+import { formatNumber } from '@/utils/format';
 
 interface FoodRouteProps {
   listCombo: ComboItem[];
@@ -23,12 +23,12 @@ export const FoodRoute: React.FC<FoodRouteProps> = ({
     selectedCombos.reduce((sum, crItem) => sum + crItem.price * crItem.quantity, 0);
 
   const getQuantityItem = (item: ComboItem) => {
-    const crItem = selectedCombos.find((c) => c._id === item._id);
+    const crItem = selectedCombos.find((c) => c.id === item.id);
     return crItem ? crItem.quantity : 0;
   };
 
   const getTotalItem = (item: ComboItem) => {
-    const crItem = selectedCombos.find((c) => c._id === item._id);
+    const crItem = selectedCombos.find((c) => c.id === item.id);
     return crItem ? crItem.quantity * crItem.price : 0;
   };
 
@@ -45,7 +45,7 @@ export const FoodRoute: React.FC<FoodRouteProps> = ({
       </thead>
       <tbody>
         {listCombo?.map((combo) => (
-          <Tr key={combo._id}>
+          <Tr key={combo.id}>
             <Td paddingX={0}>
               <Img src={combo.image} htmlHeight="300px" htmlWidth="450px" alt={combo.name} />
             </Td>

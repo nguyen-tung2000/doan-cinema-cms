@@ -1,7 +1,7 @@
-import { Box, ListItem, List, Button, Stack } from "@chakra-ui/react";
-import * as React from "react";
+import { Box, ListItem, List, Button, Stack } from '@chakra-ui/react';
+import * as React from 'react';
 
-import { TicketType, SeatType, UserType } from "@/features/seller";
+import { TicketType, SeatType, UserType } from '@/features/seller';
 
 interface SeatListProps {
   seats: TicketType[];
@@ -39,11 +39,11 @@ export const SeatList: React.FC<SeatListProps> = ({
 
   const getColorScheme = (seat: any) => {
     if (seat.status == 1) {
-      return "red";
+      return 'red';
     }
 
     if (selectedSeats.includes(seat)) {
-      return "cyan";
+      return 'cyan';
     }
 
     return undefined;
@@ -64,7 +64,7 @@ export const SeatList: React.FC<SeatListProps> = ({
                     key={s.idSeat}
                     width="20px"
                     colorScheme={getColorScheme(s)}
-                    color={selectedSeats.includes(s) ? "white" : undefined}
+                    color={selectedSeats.includes(s) ? 'white' : undefined}
                     onClick={() => onSelectSeat(s)}
                     isDisabled={s.status === 1}
                   >

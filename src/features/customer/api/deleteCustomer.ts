@@ -1,9 +1,9 @@
-import { createStandaloneToast } from "@chakra-ui/toast";
-import { useMutation } from "react-query";
+import { createStandaloneToast } from '@chakra-ui/toast';
+import { useMutation } from 'react-query';
 
-import { CustomersResponse } from "@/features/auth";
-import { axios } from "@/lib/axios";
-import { MutationConfig, queryClient } from "@/lib/react-query";
+import { CustomersResponse } from '@/features/auth';
+import { axios } from '@/lib/axios';
+import { MutationConfig, queryClient } from '@/lib/react-query';
 
 export const deleteCustomer = ({ customerId }: { customerId: string }) => {
   return axios.delete(`/auth/delete/${customerId}`);
@@ -18,15 +18,15 @@ export const useDeleteCustomer = ({ config }: UseDeleteCustomertOptions = {}) =>
 
   return useMutation({
     onMutate: async (deleteCustomer) => {
-      await queryClient.cancelQueries("customers");
+      await queryClient.cancelQueries('customers');
 
-      const previousCustomers = queryClient.getQueryData<CustomersResponse>("customers");
+      const previousCustomers = queryClient.getQueryData<CustomersResponse>('customers');
 
-      queryClient.setQueryData("customers", {
+      queryClient.setQueryData('customers', {
         ...previousCustomers,
         values: {
           users: previousCustomers?.values.users.filter(
-            (customer: any) => customer._id !== deleteCustomer.customerId,
+            (customer: any) => customer.id !== deleteCustomer.customerId,
           ),
         },
       });
@@ -35,16 +35,16 @@ export const useDeleteCustomer = ({ config }: UseDeleteCustomertOptions = {}) =>
     },
     onError: (_, __, context: any) => {
       if (context?.previousCustomers) {
-        queryClient.setQueryData("customers", context.previousCustomers);
+        queryClient.setQueryData('customers', context.previousCustomers);
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries("customers");
+      queryClient.invalidateQueries('customers');
       toast({
-        title: "Xoá khách hàng thành công",
-        status: "success",
+        title: 'Xoá khách hàng thành công',
+        status: 'success',
         isClosable: true,
-        position: "top-right",
+        position: 'top-right',
       });
     },
     ...config,

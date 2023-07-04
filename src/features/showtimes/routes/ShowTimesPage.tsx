@@ -9,13 +9,13 @@ import {
   Tab,
   TabPanels,
   TabPanel,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
-import { SiteHeader } from "@/components";
-import { ROUTES } from "@/constants";
-import { ShowTimesList, ShowTimesCreate } from "@/features/showtimes";
-import { useAuth } from "@/lib/auth";
-import { Authorization, ROLES } from "@/lib/authorization";
+import { SiteHeader } from '@/components';
+import { ROUTES } from '@/constants';
+import { ShowTimesList, ShowTimesCreate } from '@/features/showtimes';
+import { useAuth } from '@/lib/auth';
+import { Authorization, ROLES } from '@/lib/authorization';
 
 export const ShowTimesPage = () => {
   const { user } = useAuth();
@@ -42,7 +42,7 @@ export const ShowTimesPage = () => {
             maxWidth="1000px"
             px={8}
             py={12}
-            shadow={[null, "md"]}
+            shadow={[null, 'md']}
             spacing={4}
             w="100%"
             alignItems="center"
@@ -55,7 +55,7 @@ export const ShowTimesPage = () => {
               </TabList>
               <TabPanels>
                 <TabPanel>
-                  <ShowTimesList cinemaId={user?.cinema._id || ""} />
+                  <ShowTimesList cinemaId={user?.cinema.id || ''} />
                 </TabPanel>
                 <TabPanel>
                   <ShowTimesCreate user={user} />

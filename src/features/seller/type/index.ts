@@ -1,5 +1,5 @@
-import { AuthUser as Staff } from "@/features/auth";
-import { ShowTimesDetail } from "@/features/showtimes";
+import { AuthUser as Staff } from '@/features/auth';
+import { ShowTimesDetail } from '@/features/showtimes';
 
 export interface SeatType {
   idSeat: string;
@@ -26,7 +26,7 @@ export interface TicketResponse {
 }
 
 export interface ComboItem {
-  _id: string;
+  id: string;
   name: string;
   quantity: number;
   image: string;
@@ -35,9 +35,9 @@ export interface ComboItem {
 }
 
 export enum UserType {
-  Adult = "Adult",
-  Student = "Student",
-  Member = "Member",
+  Adult = 'Adult',
+  Student = 'Student',
+  Member = 'Member',
 }
 
 interface IBill {
@@ -80,17 +80,14 @@ interface UserAddress {
   street: string;
 }
 
-interface UserProfile {
-  fullName: string;
-  dateOfBirth: string;
-  address: UserAddress;
-}
 export interface AuthUser {
-  _id: string;
+  id: string;
   email: string;
   createdAt: string;
   phoneNumber: string;
-  profile: UserProfile;
+  name: string;
+  date_of_birth: string;
+  address: UserAddress;
   point: number;
 }
 
@@ -101,7 +98,7 @@ export interface AuthResponse {
 }
 
 export interface IGift {
-  _id: string;
+  id: string;
   name: string;
   image: string;
   point: number;
@@ -121,7 +118,7 @@ export interface GiftResponse {
 }
 
 export interface ICoupon {
-  _id: string;
+  id: string;
   code: string;
   pointTotal: number;
   dateExpiry: string;

@@ -1,8 +1,8 @@
-import { useQuery } from "react-query";
+import { useQuery } from 'react-query';
 
-import { RevenueResponse } from "@/features/revenue";
-import { axios } from "@/lib/axios";
-import { QueryConfig } from "@/lib/react-query";
+import { RevenueResponse } from '@/features/revenue';
+import { axios } from '@/lib/axios';
+import { QueryConfig } from '@/lib/react-query';
 
 interface RevenuDTO {
   month: string;
@@ -32,7 +32,7 @@ type UseRevenueOptions = {
 export const useRevenueByMonthQuery = ({ config, cinemaId, month, year }: UseRevenueOptions) => {
   return useQuery({
     ...config,
-    queryKey: ["revenueByMonth", cinemaId, month, year],
+    queryKey: ['revenueByMonth', cinemaId, month, year],
     queryFn: () =>
       getRevenueByMonth({
         month,

@@ -1,43 +1,43 @@
 export interface MovieType {
   name: string;
-  moveDuration: number;
+  move_duration: number;
   image: string;
   trailer: string;
   description: string;
-  directorId: string;
+  director_id: string;
   cast: string;
-  screensId: string[];
-  categoryId: string[];
+  screens_id: string[];
+  categories_id: string[];
   age: number;
-  dateStart: string;
-  dateEnd: string;
+  date_start: string;
+  date_end: string;
 }
 
 export interface directorType {
-  createAt: string;
-  _id: string;
+  create_at: string;
+  id: string;
   name: string;
-  dateOfBirth: string;
+  date_of_birth: string;
   image: string;
-  joinDate: string;
+  join_date: string;
   address: string;
-  phoneNumber: string;
+  phone_number: string;
   email: string;
   introduce: string;
   male: boolean;
 }
 
 export interface screenType {
-  _id: string;
+  id: string;
   name: string;
-  weekdayPrice: number;
-  weekendPrice: number;
+  weekday_price: number;
+  weekend_price: number;
 }
 
 export interface MovieItemType {
-  _id: string;
+  id: string;
   name: string;
-  moveDuration: number;
+  move_duration: number;
   image: string;
   trailer: string;
   description: string;
@@ -46,8 +46,8 @@ export interface MovieItemType {
   age: number;
   categories: CategoryItem[];
   screens: screenType[];
-  dateStart: string;
-  dateEnd: string;
+  date_start: string;
+  date_end: string;
 }
 
 export interface MovieRespon {
@@ -73,7 +73,7 @@ export interface filterProps {
   limit: number;
 }
 export interface IMovieCMS {
-  movieGroupName: string;
+  movie_group_name: string;
   movies: MovieItemType[];
 }
 
@@ -84,7 +84,7 @@ export interface MovieCMSResponse {
 }
 
 export interface CategoryItem {
-  _id: string;
+  id: string;
   name: string;
   image: string;
 }

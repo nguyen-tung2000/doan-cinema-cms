@@ -5,11 +5,11 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   NumberInputProps,
-} from "@chakra-ui/number-input";
-import React from "react";
-import { UseFormRegisterReturn } from "react-hook-form";
+} from '@chakra-ui/number-input';
+import React from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
-import { FieldWrapper, FieldWrapperPassThroughProps } from ".";
+import { FieldWrapper, FieldWrapperPassThroughProps } from '.';
 
 interface InputNumberFieldProps extends NumberInputProps, FieldWrapperPassThroughProps {
   registration: Partial<UseFormRegisterReturn>;

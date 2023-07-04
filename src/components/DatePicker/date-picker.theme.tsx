@@ -1,34 +1,34 @@
-import { ComponentMultiStyleConfig, extendTheme } from "@chakra-ui/react";
+import { ComponentMultiStyleConfig, extendTheme } from '@chakra-ui/react';
 
 const Datepicker: ComponentMultiStyleConfig = {
   parts: [
-    "popContent",
-    "popBody",
-    "shortcutButtonGroup",
-    "shortcutButton",
-    "divider",
-    "navigationContainer",
-    "navigationButton",
-    "navigationLabel",
-    "calendarContainer",
-    "dayLabelContainer",
-    "dayLabel",
-    "calendarMatrixContainer",
-    "calendarMatrixDay",
-    "todayButtonGroup",
-    "todayButton",
+    'popContent',
+    'popBody',
+    'shortcutButtonGroup',
+    'shortcutButton',
+    'divider',
+    'navigationContainer',
+    'navigationButton',
+    'navigationLabel',
+    'calendarContainer',
+    'dayLabelContainer',
+    'dayLabel',
+    'calendarMatrixContainer',
+    'calendarMatrixDay',
+    'todayButtonGroup',
+    'todayButton',
   ],
 
-  baseStyle: ({ colorScheme = "blue", theme }) => {
+  baseStyle: ({ colorScheme = 'blue', theme }) => {
     return {
       popContent: {
         _focus: {
-          outline: "none",
+          outline: 'none',
         },
       },
 
       popBody: {
-        shadow: "lg",
+        shadow: 'lg',
       },
 
       shortcutButtonGroup: {
@@ -37,10 +37,10 @@ const Datepicker: ComponentMultiStyleConfig = {
       },
 
       shortcutButton: {
-        fontWeight: "normal",
+        fontWeight: 'normal',
 
         _focus: {
-          outline: "none",
+          outline: 'none',
         },
       },
 
@@ -49,71 +49,71 @@ const Datepicker: ComponentMultiStyleConfig = {
       },
 
       navigationContainer: {
-        alignItems: "baseline",
-        display: "flex",
-        justifyContent: "space-between",
+        alignItems: 'baseline',
+        display: 'flex',
+        justifyContent: 'space-between',
         marginBottom: 2,
       },
 
       navigationButton: {
-        backgroundColor: "white",
+        backgroundColor: 'white',
         borderColor: theme.colors.gray[200],
         borderWidth: 1,
-        shadow: "sm",
+        shadow: 'sm',
 
         _active: {
-          shadow: "none",
+          shadow: 'none',
         },
 
         _focus: {
-          outline: "none",
+          outline: 'none',
         },
 
         _hover: {
-          backgroundColor: "white",
-          shadow: "md",
+          backgroundColor: 'white',
+          shadow: 'md',
         },
       },
 
       navigationLabel: {
-        fontWeight: "bold",
+        fontWeight: 'bold',
       },
 
       calendarContainer: {
-        display: "flex",
-        flexDirection: "column",
+        display: 'flex',
+        flexDirection: 'column',
         marginBottom: 2,
       },
 
       dayLabelContainer: {
-        display: "flex",
+        display: 'flex',
       },
 
       dayLabel: {
-        alignItems: "center",
+        alignItems: 'center',
         color: theme.colors.gray[600],
-        display: "flex",
-        fontSize: "sm",
+        display: 'flex',
+        fontSize: 'sm',
         height: 10,
-        justifyContent: "center",
-        width: "100%",
+        justifyContent: 'center',
+        width: '100%',
       },
 
       calendarMatrixContainer: {
-        display: "flex",
+        display: 'flex',
       },
 
       calendarMatrixDay: {
-        alignItems: "center",
+        alignItems: 'center',
         borderRadius: 4,
-        display: "flex",
+        display: 'flex',
         height: 10,
-        justifyContent: "center",
-        width: "100%",
+        justifyContent: 'center',
+        width: '100%',
 
         _hover: {
           backgroundColor: theme.colors[colorScheme][50],
-          cursor: "pointer",
+          cursor: 'pointer',
         },
 
         '&[data-in-range="false"]': {
@@ -122,15 +122,15 @@ const Datepicker: ComponentMultiStyleConfig = {
 
         '&[data-selected="true"]': {
           backgroundColor: theme.colors[colorScheme][400],
-          color: "white",
-          shadow: "md",
+          color: 'white',
+          shadow: 'md',
 
           _hover: {
-            backgroundColor: "none",
+            backgroundColor: 'none',
           },
 
           '&[data-today="true"]': {
-            color: "white",
+            color: 'white',
           },
         },
 
@@ -154,24 +154,24 @@ const Datepicker: ComponentMultiStyleConfig = {
       },
 
       todayButtonGroup: {
-        justifyContent: "center",
-        spacing: "2",
-        variant: "ghost",
-        width: "100%",
+        justifyContent: 'center',
+        spacing: '2',
+        variant: 'ghost',
+        width: '100%',
       },
 
       todayButton: {
-        fontWeight: "normal",
+        fontWeight: 'normal',
 
         _focus: {
-          outline: "none",
+          outline: 'none',
         },
       },
     };
   },
 
   defaultProps: {
-    colorScheme: "blue",
+    colorScheme: 'blue',
   },
 };
 

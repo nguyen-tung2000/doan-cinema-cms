@@ -9,18 +9,18 @@ import {
   Button,
   useDisclosure,
   useColorModeValue,
-} from "@chakra-ui/react";
-import React, { useRef } from "react";
-import { MdSettings } from "react-icons/md";
-import * as z from "zod";
+} from '@chakra-ui/react';
+import React, { useRef } from 'react';
+import { MdSettings } from 'react-icons/md';
+import * as z from 'zod';
 
-import { useUpdateCinema } from "../api/updateCinema";
+import { useUpdateCinema } from '../api/updateCinema';
 
-import { Form, InputField, AddressField } from "@/components";
-import { UserAddress } from "@/features/auth";
+import { Form, InputField, AddressField } from '@/components';
+import { UserAddress } from '@/features/auth';
 
 type CinemaValues = {
-  _id: string;
+  id: string;
   name: string;
   address: {
     city: string;
@@ -31,12 +31,12 @@ type CinemaValues = {
 };
 
 const schema = z.object({
-  name: z.string().nonempty({ message: "Tên rạp là bắt buộc" }),
+  name: z.string().nonempty({ message: 'Tên rạp là bắt buộc' }),
   address: z.object({
-    city: z.string().nonempty({ message: "Thành phố là bắt buộc" }),
-    district: z.string().nonempty({ message: "Quận/Huyện là bắt buộc" }),
-    ward: z.string().nonempty({ message: "Phường/Xã là bắt buộc" }),
-    street: z.string().nonempty({ message: "Đường là bắt buộc" }),
+    city: z.string().nonempty({ message: 'Thành phố là bắt buộc' }),
+    district: z.string().nonempty({ message: 'Quận/Huyện là bắt buộc' }),
+    ward: z.string().nonempty({ message: 'Phường/Xã là bắt buộc' }),
+    street: z.string().nonempty({ message: 'Đường là bắt buộc' }),
   }),
 });
 
@@ -44,13 +44,13 @@ export const CinemaModalUpdate: React.FC<CinemaValues> = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef() as any;
   const cinemaUpdateMutation = useUpdateCinema();
-  const cl = useColorModeValue("white", "gray.900");
+  const cl = useColorModeValue('white', 'gray.900');
 
   const onUpdateCinema = async (data: CinemaValues) => {
     const { name, address } = data;
-    const newCity = address.city.split("-");
-    const newWard = address.ward.split("-");
-    const newDistrict = address.district.split("-");
+    const newCity = address.city.split('-');
+    const newWard = address.ward.split('-');
+    const newDistrict = address.district.split('-');
 
     const values = {
       name,
@@ -61,7 +61,7 @@ export const CinemaModalUpdate: React.FC<CinemaValues> = (props) => {
         ward: newWard.length < 2 ? newWard[0] : newWard[1],
       },
     };
-    await cinemaUpdateMutation.mutateAsync({ data: values, cinemaId: props._id });
+    await cinemaUpdateMutation.mutateAsync({ data: values, cinemaId: props.id });
   };
 
   return (
@@ -94,8 +94,8 @@ export const CinemaModalUpdate: React.FC<CinemaValues> = (props) => {
                   <InputField
                     type="text"
                     label="Tên Rạp Phim"
-                    error={formState.errors["name"]}
-                    registration={register("name")}
+                    error={formState.errors['name']}
+                    registration={register('name')}
                   />
                   <AddressField
                     register={register}
@@ -113,7 +113,7 @@ export const CinemaModalUpdate: React.FC<CinemaValues> = (props) => {
                     fontWeight="medium"
                     type="submit"
                     _hover={{
-                      backgroundColor: "cyan.700",
+                      backgroundColor: 'cyan.700',
                     }}
                     isLoading={cinemaUpdateMutation.isLoading}
                   >

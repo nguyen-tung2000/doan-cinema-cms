@@ -1,19 +1,19 @@
-import { Box, Button, Center, Divider, Flex, Stack, Spinner, useToast } from "@chakra-ui/react";
-import * as React from "react";
-import { useForm } from "react-hook-form";
+import { Box, Button, Center, Divider, Flex, Stack, Spinner, useToast } from '@chakra-ui/react';
+import * as React from 'react';
+import { useForm } from 'react-hook-form';
 
-import { SelectField, SingleSelect } from "@/components";
-import { AuthUser } from "@/features/auth";
+import { SelectField, SingleSelect } from '@/components';
+import { AuthUser } from '@/features/auth';
 import {
   useCreateShowTime,
   useMoviesCMS,
   TimeSlotCreate,
   TimeSlotList,
   TimeStamp,
-} from "@/features/showtimes";
-import { useRoomsByMovieStore } from "@/stores/timeSlot";
-import { formatDate } from "@/utils/format";
-import { isEmptyObject } from "@/utils/object";
+} from '@/features/showtimes';
+import { useRoomsByMovieStore } from '@/stores/timeSlot';
+import { formatDate } from '@/utils/format';
+import { isEmptyObject } from '@/utils/object';
 
 export type ShowTimesValues = {
   date?: string;
@@ -49,10 +49,10 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
   } = useForm<ShowTimesValues>({
     defaultValues: {
       date: formatDate(new Date()),
-      movieId: "",
-      dateStart: "",
-      dateEnd: "",
-      cinemaId: user?.cinema._id as string,
+      movieId: '',
+      dateStart: '',
+      dateEnd: '',
+      cinemaId: user?.cinema.id as string,
       showTimes: [],
     },
   });
@@ -61,8 +61,8 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
     if (isSubmitSuccessful) {
       reset({
         showTimes: [],
-        dateStart: "",
-        dateEnd: "",
+        dateStart: '',
+        dateEnd: '',
       });
     }
     // eslint-disable-next-line
@@ -75,12 +75,12 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
   };
 
   const onSubmit = handleSubmit(async (data) => {
-    if (data["showTimes"] === undefined || isEmptyObject(data.showTimes)) {
+    if (data['showTimes'] === undefined || isEmptyObject(data.showTimes)) {
       toast({
-        title: "Vui lòng chọn lịch chiếu",
-        position: "top-right",
+        title: 'Vui lòng chọn lịch chiếu',
+        position: 'top-right',
         isClosable: true,
-        status: "info",
+        status: 'info',
       });
       return;
     }
@@ -90,7 +90,7 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
 
     const newShowTimes = {
       ...data,
-      cinemaId: user?.cinema._id as string,
+      cinemaId: user?.cinema.id as string,
       showTimes: times,
     };
 
@@ -120,7 +120,7 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
             <Flex alignItems="center" justifyContent="space-between">
               <Stack direction="column" flex={1}>
                 <SingleSelect
-                  registration={register("date")}
+                  registration={register('date')}
                   label="Ngày tạo"
                   defaultValue={formatDate(new Date())}
                 />
@@ -128,13 +128,13 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
                   <SelectField
                     label="Phim"
                     placeholder="Chọn 1 bộ phim"
-                    registration={register("movieId")}
-                    error={errors["movieId"]}
+                    registration={register('movieId')}
+                    error={errors['movieId']}
                     options={moviesQuery.data?.values.map((movie) => ({
-                      title: movie.movieGroupName,
+                      title: movie.movie_group_name,
                       items: movie.movies.map((m) => ({
                         label: m.name,
-                        value: m._id,
+                        value: m.id,
                       })),
                     }))}
                     onChanging={onChangeMovie}
@@ -146,14 +146,14 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
               </Center>
               <Stack direction="column" flex={1}>
                 <SingleSelect
-                  registration={register("dateStart")}
+                  registration={register('dateStart')}
                   label="Từ"
                   setValues={setValue}
                   nameToSet="dateStart"
                   sizeOfTimeStamp={listRoomByMovie.length}
                 />
                 <SingleSelect
-                  registration={register("dateEnd")}
+                  registration={register('dateEnd')}
                   label="Đến"
                   setValues={setValue}
                   nameToSet="dateEnd"
@@ -175,7 +175,7 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
               fontWeight="medium"
               type="submit"
               _hover={{
-                backgroundColor: "cyan.700",
+                backgroundColor: 'cyan.700',
               }}
               maxWidth="200px"
               alignSelf="flex-end"

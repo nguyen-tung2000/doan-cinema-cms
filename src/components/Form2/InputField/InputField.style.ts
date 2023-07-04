@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const InputField = styled.div`
   display: flex;
@@ -14,12 +14,12 @@ export const Input = styled.input`
   line-height: 24px;
   padding: 12px 16px;
   margin-top: 8px;
-  background-color: ${({ error }: any) => error && "#fef1f2"};
+  background-color: ${({ error }: any) => error && '#fef1f2'};
 
   &:focus {
-    border-color: ${({ error }: any) => !error && "#0d75ff"};
+    border-color: ${({ error }: any) => !error && '#0d75ff'};
   }
-  border-color: ${({ error }: any) => error && "#dd4a48"};
+  border-color: ${({ error }: any) => error && '#dd4a48'};
 ` as any;
 export const Area = styled.textarea`
   border: 1px solid #e2e8f0;
@@ -30,12 +30,12 @@ export const Area = styled.textarea`
   padding: 12px 16px;
   margin-top: 8px;
   height: 120px;
-  background-color: ${({ error }: any) => error && "#fef1f2"};
+  background-color: ${({ error }: any) => error && '#fef1f2'};
 
   &:focus {
-    border-color: ${({ error }: any) => !error && "#0d75ff"};
+    border-color: ${({ error }: any) => !error && '#0d75ff'};
   }
-  border-color: ${({ error }: any) => error && "#dd4a48"};
+  border-color: ${({ error }: any) => error && '#dd4a48'};
 ` as any;
 export const FileUpload = styled.input`
   display: none;

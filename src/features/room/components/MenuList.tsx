@@ -12,11 +12,11 @@ import {
   AlertDialogOverlay,
   Button,
   useDisclosure,
-} from "@chakra-ui/react";
-import React, { useRef } from "react";
-import { FiMoreVertical, FiEdit2, FiTrash2 } from "react-icons/fi";
+} from '@chakra-ui/react';
+import React, { useRef } from 'react';
+import { FiMoreVertical, FiEdit2, FiTrash2 } from 'react-icons/fi';
 
-import { useDeleteRoom } from "../api/deleteRoom";
+import { useDeleteRoom } from '../api/deleteRoom';
 interface MenuListRoomProps {
   roomId: string;
 }

@@ -1,11 +1,11 @@
-import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/menu";
-import { IconButton } from "@chakra-ui/react";
-import * as React from "react";
-import { FiMoreHorizontal, FiEdit2, FiTrash2 } from "react-icons/fi";
+import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/menu';
+import { IconButton } from '@chakra-ui/react';
+import * as React from 'react';
+import { FiMoreHorizontal, FiEdit2, FiTrash2 } from 'react-icons/fi';
 
-import { STAFF_FORM } from "@/constants";
-import { StaffType } from "@/features/staff";
-import { useStaffStore } from "@/stores/staff";
+import { STAFF_FORM } from '@/constants';
+import { StaffType } from '@/features/staff';
+import { useStaffStore } from '@/stores/staff';
 
 interface StaffDropdownProps {
   staff: StaffType;
@@ -20,17 +20,17 @@ export const StaffDropdown: React.FC<StaffDropdownProps> = ({ staff, onDelete })
     setType({
       type: STAFF_FORM.EDIT,
       data: {
-        fullName: staff.profile.fullName,
+        name: staff.profile.name,
         email: staff.email,
-        phoneNumber: staff.phoneNumber,
+        phone_number: staff.phone_number,
         male: staff.profile.male,
-        cinemaId: staff.cinema,
+        cinema_id: staff.cinema,
         avatar: staff.profile.avatar,
-        dateOfBirth: staff.profile.dateOfBirth,
-        permissionId: staff.permission._id,
+        date_of_birth: staff.profile.date_of_birth,
+        permission_id: staff.permission_id,
       },
-      imageSource: staff.profile.avatar,
-      staffId: staff._id,
+      image_source: staff.profile.avatar,
+      staff_id: staff.id,
     });
   };
 

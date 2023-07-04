@@ -1,13 +1,13 @@
-import React, { ChangeEventHandler } from "react";
+import React, { ChangeEventHandler } from 'react';
 
-import * as S from "./CheckboxField.style";
+import * as S from './CheckboxField.style';
 
 interface CheckboxFieldProps {
   name: string;
   change: ChangeEventHandler<HTMLInputElement | undefined>;
   title: string;
   listCheckbox: {
-    _id: string;
+    id: string;
     name: string;
   }[];
   value?: string[];
@@ -27,7 +27,7 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
         <S.List>
           {listCheckbox.map((item, index) => (
             <S.Checkbox key={index}>
-              <input type="checkbox" name={name} value={item._id} onChange={change} />
+              <input type="checkbox" name={name} value={item.id} onChange={change} />
               {item.name}
             </S.Checkbox>
           ))}
@@ -37,15 +37,15 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
         <S.List>
           {listCheckbox.map((item, index) => (
             <React.Fragment key={index}>
-              {value.includes(item._id) && (
+              {value.includes(item.id) && (
                 <S.Checkbox>
-                  <input type="checkbox" name={name} value={item._id} onChange={change} checked />
+                  <input type="checkbox" name={name} value={item.id} onChange={change} checked />
                   {item.name}
                 </S.Checkbox>
               )}
-              {!value.includes(item._id) && (
+              {!value.includes(item.id) && (
                 <S.Checkbox>
-                  <input type="checkbox" name={name} value={item._id} onChange={change} />
+                  <input type="checkbox" name={name} value={item.id} onChange={change} />
                   {item.name}
                 </S.Checkbox>
               )}

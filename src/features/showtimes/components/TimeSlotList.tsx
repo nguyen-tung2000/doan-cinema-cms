@@ -1,19 +1,19 @@
-import { Flex, Spinner, Box, Heading, Stack, Badge, VStack } from "@chakra-ui/react";
-import { UseFormRegister } from "react-hook-form";
+import { Flex, Spinner, Box, Heading, Stack, Badge, VStack } from '@chakra-ui/react';
+import { UseFormRegister } from 'react-hook-form';
 
-import { Table, Tr, Th, Td, CheckBoxField, SingleSelect } from "@/components";
-import { Room, colorBadge } from "@/features/room";
-import { CheckBoxTimeGroup, ShowTimesValues } from "@/features/showtimes";
+import { Table, Tr, Th, Td, CheckBoxField, SingleSelect } from '@/components';
+import { Room, colorBadge } from '@/features/room';
+import { CheckBoxTimeGroup, ShowTimesValues } from '@/features/showtimes';
 
 interface TimeSlotListProps {
   register: UseFormRegister<ShowTimesValues>;
   rooms: Room[];
   checkedTimes: ({
-    _id,
+    id,
     roomName,
     screenName,
   }: {
-    _id: string;
+    id: string;
     roomName: string;
     screenName: string;
   }) => void;
@@ -57,7 +57,7 @@ export const TimeSlotList: React.FC<TimeSlotListProps> = (props) => {
         borderRadius={[0, 8]}
         px={8}
         py={12}
-        shadow={[null, "md"]}
+        shadow={[null, 'md']}
         spacing={4}
         w="100%"
       >
@@ -73,11 +73,11 @@ export const TimeSlotList: React.FC<TimeSlotListProps> = (props) => {
             </thead>
             <tbody>
               {rooms.map((room, index) => (
-                <Box as="tr" key={room._id}>
+                <Box as="tr" key={room.id}>
                   <Td>
                     <CheckBoxField
                       registration={register(`showTimes.${index}.roomId`)}
-                      value={room._id}
+                      value={room.id}
                       name={room.name}
                       colorScheme="cyan"
                       size="lg"
@@ -89,9 +89,9 @@ export const TimeSlotList: React.FC<TimeSlotListProps> = (props) => {
                   <Td>
                     <CheckBoxTimeGroup
                       registration={register(`showTimes.${index}.times`)}
-                      options={room.timeSlots.map(({ time, _id, disabled }) => ({
+                      options={room.timeSlots.map(({ time, id, disabled }) => ({
                         label: time,
-                        value: _id,
+                        value: id,
                         disable: disabled,
                       }))}
                       roomName={room.name}

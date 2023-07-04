@@ -1,3 +1,3 @@
-export * from "./CinemaItem";
-export * from "./CinemaModalCreate";
-export * from "./CinemaModalUpdate";
+export * from './CinemaItem';
+export * from './CinemaModalCreate';
+export * from './CinemaModalUpdate';

@@ -1,4 +1,4 @@
-import { CinemaType } from "@/features/cinema";
+import { CinemaType } from '@/features/cinema';
 
 export interface UserAddress {
   city: string;
@@ -7,33 +7,23 @@ export interface UserAddress {
   street: string;
 }
 
-export interface UserProfile {
-  fullName: string;
-  dateOfBirth: string;
+export interface AuthUser {
+  id: string;
+  email: string;
+  phone_number: string;
+  name: string;
+  date_of_birth: string;
   avatar: string;
   male: boolean;
   address: UserAddress;
   hobby: string;
-}
-
-interface UserPermission {
-  _id?: string;
-  name: string;
-  type: string;
-}
-
-export interface AuthUser {
-  _id: string;
-  email: string;
-  phoneNumber: string;
-  profile: UserProfile;
   createdAt: string;
-  permission: UserPermission;
+  permission_id: number;
   cinema: CinemaType;
   point?: number;
 }
 
-export type Customer = Omit<AuthUser, "permission" | "cinema">;
+export type Customer = Omit<AuthUser, 'permissionid' | 'cinema'>;
 
 export interface CustomersResponse {
   success: boolean;

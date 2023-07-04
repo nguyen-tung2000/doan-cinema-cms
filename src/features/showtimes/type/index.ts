@@ -1,8 +1,8 @@
-import { MovieType } from "@/features/manageMovie";
-import { ScreenType, Room, TimeSlot } from "@/features/room";
+import { MovieType } from '@/features/manageMovie';
+import { ScreenType, Room, TimeSlot } from '@/features/room';
 
 export interface showTime {
-  _id: string;
+  id: string;
   date: string;
   room: Room[];
 }
@@ -13,7 +13,7 @@ export interface ShowTimesResponse {
 }
 
 interface FormatMovie {
-  _id: string;
+  id: string;
   screen: ScreenType;
   movie: MovieType;
 }
@@ -47,13 +47,13 @@ export interface ShowTimesListByDayRangeResponse {
 }
 
 export interface ShowTimesDetail {
-  _id: string;
+  id: string;
   date: string;
   movie: MovieType;
   room: Room;
   timeSlot: TimeSlot;
   showTime: {
-    _id: string;
+    id: string;
     movie: MovieType;
   };
 }
@@ -64,7 +64,7 @@ export interface screenDetail {
 }
 
 export interface ShowTimesListByDate {
-  _id: string;
+  id: string;
   movie: MovieType;
   screen2D: screenDetail;
   screen3D: screenDetail;

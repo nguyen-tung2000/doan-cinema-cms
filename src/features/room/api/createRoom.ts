@@ -1,10 +1,10 @@
-import { createStandaloneToast } from "@chakra-ui/toast";
-import { useMutation } from "react-query";
+import { createStandaloneToast } from '@chakra-ui/toast';
+import { useMutation } from 'react-query';
 
-import { RoomRespone } from "../type";
+import { RoomRespone } from '../type';
 
-import { axios } from "@/lib/axios";
-import { MutationConfig, queryClient } from "@/lib/react-query";
+import { axios } from '@/lib/axios';
+import { MutationConfig, queryClient } from '@/lib/react-query';
 
 export type CreateRoomDTO = {
   cinemaId: string;
@@ -15,7 +15,7 @@ export type CreateRoomDTO = {
 };
 
 export const createRoom = (data: CreateRoomDTO): Promise<RoomRespone> => {
-  return axios.post("/room/add", data);
+  return axios.post('/room/add', data);
 };
 
 type UseCreateRoomOptions = {
@@ -26,11 +26,11 @@ export const useCreateRoom = ({ config }: UseCreateRoomOptions = {}) => {
   const toast = createStandaloneToast();
   return useMutation({
     onMutate: async (newRoom) => {
-      await queryClient.cancelQueries("rooms");
+      await queryClient.cancelQueries('rooms');
 
-      const previousRooms = queryClient.getQueryData<RoomRespone>("rooms");
+      const previousRooms = queryClient.getQueryData<RoomRespone>('rooms');
 
-      queryClient.setQueryData("rooms", {
+      queryClient.setQueryData('rooms', {
         ...previousRooms,
         values: { rooms: [...(previousRooms?.values.rooms || []), newRoom] },
       });
@@ -39,16 +39,16 @@ export const useCreateRoom = ({ config }: UseCreateRoomOptions = {}) => {
     },
     onError: (_, __, context: any) => {
       if (context?.previousRooms) {
-        queryClient.setQueryData("rooms", context.previousRooms);
+        queryClient.setQueryData('rooms', context.previousRooms);
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries("rooms");
+      queryClient.invalidateQueries('rooms');
       toast({
-        title: "Created Room",
-        status: "success",
+        title: 'Created Room',
+        status: 'success',
         isClosable: true,
-        position: "top-right",
+        position: 'top-right',
       });
     },
     ...config,

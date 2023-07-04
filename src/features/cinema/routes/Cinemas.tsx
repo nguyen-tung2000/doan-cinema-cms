@@ -1,11 +1,11 @@
-import { Box, Skeleton, Stack } from "@chakra-ui/react";
+import { Box, Skeleton, Stack } from '@chakra-ui/react';
 
-import { SiteHeader } from "@/components";
-import { ROUTES } from "@/constants";
-import { AuthUser } from "@/features/auth";
-import { CinemaItem, CinemaModalCreate, useCinemas } from "@/features/cinema";
-import { useAuth } from "@/lib/auth";
-import { Authorization, POLICIES } from "@/lib/authorization";
+import { SiteHeader } from '@/components';
+import { ROUTES } from '@/constants';
+import { AuthUser } from '@/features/auth';
+import { CinemaItem, CinemaModalCreate, useCinemas } from '@/features/cinema';
+import { useAuth } from '@/lib/auth';
+import { Authorization, POLICIES } from '@/lib/authorization';
 
 export const Cinemas = () => {
   const { isLoading, data } = useCinemas();
@@ -18,7 +18,7 @@ export const Cinemas = () => {
         menuHref={ROUTES.CINEMA_LIST}
         heading="Danh sách rạp"
         showButton={
-          <Authorization policyCheck={POLICIES["cinema:create"](user as AuthUser)}>
+          <Authorization policyCheck={POLICIES['cinema:create'](user as AuthUser)}>
             <CinemaModalCreate />
           </Authorization>
         }
@@ -32,7 +32,7 @@ export const Cinemas = () => {
             <Skeleton height="279px" borderRadius="8px" />
           </Stack>
         ) : (
-          data?.values?.cinemas.map((cinema) => <CinemaItem key={cinema.name} {...cinema} />)
+          data?.values?.map((cinema) => <CinemaItem key={cinema.name} {...cinema} />)
         )}
       </Box>
     </>
