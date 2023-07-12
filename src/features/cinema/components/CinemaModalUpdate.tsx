@@ -52,14 +52,13 @@ export const CinemaModalUpdate: React.FC<CinemaValues> = (props) => {
     const newWard = address.ward.split('-');
     const newDistrict = address.district.split('-');
 
+    const city = newCity.length < 2 ? newCity[0] : newCity[1];
+    const district = newDistrict.length < 2 ? newDistrict[0] : newDistrict[1];
+    const ward = newWard.length < 2 ? newWard[0] : newWard[1];
+
     const values = {
       name,
-      address: {
-        ...address,
-        city: newCity.length < 2 ? newCity[0] : newCity[1],
-        district: newDistrict.length < 2 ? newDistrict[0] : newDistrict[1],
-        ward: newWard.length < 2 ? newWard[0] : newWard[1],
-      },
+      address: `${address.street}, ${ward}, ${district}, ${city}`,
     };
     await cinemaUpdateMutation.mutateAsync({ data: values, cinemaId: props.id });
   };

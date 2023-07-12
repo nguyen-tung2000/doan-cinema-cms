@@ -6,7 +6,7 @@ import { axios } from '@/lib/axios';
 import { QueryConfig } from '@/lib/react-query';
 
 export const getStaffs = (): Promise<StaffRespon> => {
-  return axios.get(`/api/staff/all`);
+  return axios.get(`/staff/all`);
 };
 
 type UseRoomsOptions = {

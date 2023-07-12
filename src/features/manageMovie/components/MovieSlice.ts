@@ -8,7 +8,7 @@ const initialState = {
   isLoading: false,
 };
 
-export const getMovieList = createAsyncThunk('getMovieList', async (data: string, thunkAPI) => {
+export const getMovieList = createAsyncThunk('getMovieList', async (data: number, thunkAPI) => {
   try {
     const res = await getMovieAll(data);
     return res.values;

@@ -74,12 +74,7 @@ export const CinemaModalCreate: React.FC<any> = () => {
     const newDistrict = address.district.split('-');
     const values = {
       name,
-      address: {
-        ...address,
-        city: newCity[1],
-        district: newDistrict[1],
-        ward: newWard[1],
-      },
+      address: `${address.street}, ${newWard[1]}, ${newDistrict[1]}, ${newCity[1]}`,
     };
     await createCinema.mutateAsync(values);
     onClose();

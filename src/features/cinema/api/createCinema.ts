@@ -8,16 +8,11 @@ import { MutationConfig, queryClient } from '@/lib/react-query';
 
 export type CreateCommentDTO = {
   name: string;
-  address: {
-    city: string;
-    district: string;
-    ward: string;
-    street: string;
-  };
+  address: string;
 };
 
 export const createCinema = (data: CreateCommentDTO): Promise<CinemaRespone> => {
-  return axios.post('api/cinema/createCinema', data);
+  return axios.post('/cinema/createCinema', data);
 };
 
 type UseCreateCinematOptions = {

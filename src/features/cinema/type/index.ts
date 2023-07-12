@@ -1,14 +1,7 @@
 export interface CinemaType {
   id: string;
   name: string;
-  address: {
-    city: string;
-    district: string;
-    ward: string;
-    street: string;
-    lat?: string;
-    lng?: string;
-  };
+  address: string;
   created_at?: string;
 }
 

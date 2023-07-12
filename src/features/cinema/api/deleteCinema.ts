@@ -7,7 +7,7 @@ import { axios } from '@/lib/axios';
 import { MutationConfig, queryClient } from '@/lib/react-query';
 
 export const deleteCinema = ({ cinemaId }: { cinemaId: string }) => {
-  return axios.delete(`/cinema/delete/${cinemaId}`);
+  return axios.delete(`/cinema/deleteCinema/${cinemaId}`);
 };
 
 type UseDeleteCinematOptions = {

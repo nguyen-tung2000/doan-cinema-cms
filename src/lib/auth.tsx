@@ -13,8 +13,8 @@ async function handleUserResponse(data: UserResponse) {
 
 async function loadUser() {
   if (storage.getToken()) {
-    const { staff } = await getUser();
-    return staff;
+    const { values } = await getUser();
+    return values;
   }
   return null;
 }

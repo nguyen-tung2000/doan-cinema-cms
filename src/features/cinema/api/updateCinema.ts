@@ -9,18 +9,13 @@ import { MutationConfig, queryClient } from '@/lib/react-query';
 export type UpdateCommentDTO = {
   data: {
     name: string;
-    address: {
-      city: string;
-      district: string;
-      ward: string;
-      street: string;
-    };
+    address: string;
   };
   cinemaId: string;
 };
 
 export const updateCinema = ({ data, cinemaId }: UpdateCommentDTO): Promise<CinemaRespone> => {
-  return axios.put(`/cinema/update/${cinemaId}`, { ...data });
+  return axios.put(`/cinema/updateCinema/${cinemaId}`, { ...data });
 };
 
 type UseUpdateCinematOptions = {

@@ -70,7 +70,6 @@ export interface MoviesResponse {
 
 export interface filterProps {
   page: number;
-  limit: number;
 }
 export interface IMovieCMS {
   movie_group_name: string;

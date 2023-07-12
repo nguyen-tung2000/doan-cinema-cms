@@ -6,7 +6,7 @@ import { axios } from '@/lib/axios';
 import { QueryConfig } from '@/lib/react-query';
 
 export const getCinemas = (): Promise<CinemaRespone> => {
-  return axios.get(`/api/cinema/getAllCinema/`);
+  return axios.get(`/cinema/getAllCinema/`);
 };
 
 type UseCinemasOptions = {

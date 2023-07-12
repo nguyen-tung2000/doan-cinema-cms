@@ -19,7 +19,7 @@ export const TicketCard: React.FC<TicketCardProps> = (props) => {
   const { date, movieName, seatName, time, roomName, price, staff } = props;
   const { user } = useAuth();
 
-  const address = `${user?.cinema.address.street}, ${user?.cinema.address.ward}, ${user?.cinema.address.district}, ${user?.cinema.address.city}`;
+  const address = `${user?.cinema.address}`;
 
   return (
     <Box>

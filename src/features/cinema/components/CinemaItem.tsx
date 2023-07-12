@@ -39,6 +39,15 @@ export const CinemaItem: React.FC<CinemaType> = (props) => {
     await deleteCinemaMutation.mutateAsync({ cinemaId: props.id });
   };
 
+  const temp = props.address.split(',');
+
+  const newPropAddress = {
+    street: temp[0],
+    city: temp[1] || '',
+    district: temp[2],
+    ward: temp[3],
+  };
+
   return (
     <Box
       border="1px"
@@ -98,7 +107,7 @@ export const CinemaItem: React.FC<CinemaType> = (props) => {
           </Box>
           <Text fontSize="sm" fontWeight="medium">
             {` Xem Lịch chiếu và Mua vé ${props.name} - rạp Movieer toàn quốc dễ dàng - nhanh chóng
-            tại Movieer. Rạp Movieer ${props.name} nằm ở đường ${props.address.street} ${props.address.district} ${props.address.city}, là rạp chiếu phim đầu tiên của
+            tại Movieer. Rạp Movieer ${props.name} nằm ở đường ${props.address}, là rạp chiếu phim đầu tiên của
             Movieer Cinema được xây dựng với tiêu chuẩn Hollywood, có nhiều phòng chiếu ,
             chuẩn âm thanh Dolby 7.1. ${props.name} nằm ở khu vực rất thuận lợi cho các bạn sinh
             viên - học sinh lẫn nhân viên văn phòng. Bên trong khuôn viên còn thường xuyên tổ chức
@@ -108,7 +117,7 @@ export const CinemaItem: React.FC<CinemaType> = (props) => {
       </Flex>
       <Stack direction="row" spacing={4} mt="4" justifyContent="flex-end">
         <Authorization policyCheck={POLICIES['cinema:update'](user as AuthUser)}>
-          <CinemaModalUpdate {...props} />
+          <CinemaModalUpdate {...props} address={newPropAddress} />
         </Authorization>
         <Button
           as={Link}

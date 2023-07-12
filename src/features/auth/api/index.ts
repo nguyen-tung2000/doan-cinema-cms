@@ -1,11 +1,11 @@
 import { useQuery } from 'react-query';
 
-import { AuthResponse, Cities, District, UserAddress } from '@/features/auth';
+import { AuthResponse, Cities, District, RegisterResponse, UserAddress } from '@/features/auth';
 import { axios } from '@/lib/axios';
 import { QueryConfig } from '@/lib/react-query';
 
-export const getUser = (): Promise<AuthResponse> => {
-  return axios.get('/api/staff/getMe');
+export const getUser = (): Promise<RegisterResponse> => {
+  return axios.get('/staff/getMe');
 };
 
 export type LoginCredentialsDTO = {
@@ -14,7 +14,7 @@ export type LoginCredentialsDTO = {
 };
 
 export const loginWithEmailAndPassword = (data: LoginCredentialsDTO): Promise<AuthResponse> => {
-  return axios.post('/api/staff/login', data);
+  return axios.post('/staff/login', data);
 };
 
 export type RegisterCredentialsDTO = {

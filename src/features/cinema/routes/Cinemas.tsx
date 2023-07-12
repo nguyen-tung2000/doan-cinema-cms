@@ -24,7 +24,7 @@ export const Cinemas = () => {
         }
       />
       <Box px="3">
-        {isLoading ? (
+        {isLoading || !data?.values.length ? (
           <Stack>
             <Skeleton height="279px" borderRadius="8px" />
             <Skeleton height="279px" borderRadius="8px" />

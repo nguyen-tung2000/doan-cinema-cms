@@ -36,7 +36,6 @@ export const MovieResult = () => {
   const [movie, setMovie] = useState(false);
   const [filters, setFilters] = useState<filterProps>({
     page: 1,
-    limit: 3,
   });
   const location = useLocation();
   const dispatch = useDispatch();
@@ -62,15 +61,13 @@ export const MovieResult = () => {
   useEffect(() => {
     const _filter = {
       page: Number(query.page) || 1,
-      limit: Number(query.limit) || 3,
     };
     setFilters(_filter);
     const params = {
       page: _filter.page,
-      limit: _filter.limit,
     };
     const _getMovieList = async () => {
-      await dispatch(getMovieList(qs.stringify(params)));
+      await dispatch(getMovieList(params.page));
     };
     _getMovieList();
   }, [movie, query.page, query.limit, dispatch]);

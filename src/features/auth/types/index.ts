@@ -45,6 +45,13 @@ export interface AuthResponse {
   staff: AuthUser;
 }
 
+export interface RegisterResponse {
+  success: boolean;
+  message: string;
+  values: AuthUser;
+  errors?: any;
+}
+
 export interface Cities {
   name: string;
   code: number;
