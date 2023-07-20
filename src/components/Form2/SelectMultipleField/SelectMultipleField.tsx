@@ -12,7 +12,7 @@ import {
 import React, { useState } from 'react';
 const MultiSelectMenu = (props: MultiSelectMenuProps): JSX.Element => {
   const { name, options, buttonProps, defaultValue } = props;
-  const [selectedOptions, setSelectedOptions] = useState<string[]>(defaultValue || []);
+  const [selectedOptions, setSelectedOptions] = useState<number[]>(defaultValue || []);
   return (
     <Menu closeOnSelect={false}>
       {({ onClose }: any) => (
@@ -58,10 +58,10 @@ const MultiSelectMenu = (props: MultiSelectMenuProps): JSX.Element => {
               type="checkbox"
               /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore Arguments type is just wrong upstream.
-              onChange={(values: string[]) => {
+              onChange={(values: number[]) => {
                 // Filter out empty strings, because, well, this component seems to add
                 // an empty string out of nowhere.
-                setSelectedOptions(values.filter((_) => _.length));
+                setSelectedOptions(values.filter((_) => _));
                 props.onChange?.(values);
               }}
               /* eslint-enable @typescript-eslint/ban-ts-comment */
@@ -94,11 +94,11 @@ MultiSelectMenu.displayName = 'MultiSelectMenu';
 export type MultiSelectMenuProps = {
   name: string;
   options: {
-    id: string;
+    id: number;
     name: string;
   }[];
-  defaultValue?: string[];
-  onChange?: (selectedValues: string[]) => void;
+  defaultValue?: number[];
+  onChange?: (selectedValues: number[]) => void;
   buttonProps?: MenuButtonProps;
 };
 

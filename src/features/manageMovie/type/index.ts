@@ -1,71 +1,64 @@
 export interface MovieType {
   name: string;
-  move_duration: number;
+  time: number;
   image: string;
-  trailer: string;
+  trailler: string;
   description: string;
-  director_id: string;
-  cast: string;
-  screens_id: string[];
-  categories_id: string[];
+  director_id: number;
+  producer_id: number;
+  screens: number[];
+  categories: number[];
+  casts: number[];
   age: number;
-  date_start: string;
-  date_end: string;
+  price: number;
+  movie_start: string;
+  movie_end: string;
 }
 
 export interface directorType {
-  create_at: string;
-  id: string;
+  id: number;
   name: string;
-  date_of_birth: string;
-  image: string;
-  join_date: string;
-  address: string;
-  phone_number: string;
-  email: string;
-  introduce: string;
-  male: boolean;
 }
 
 export interface screenType {
-  id: string;
+  id: number;
   name: string;
-  weekday_price: number;
-  weekend_price: number;
 }
 
+export interface castType {
+  id: number;
+  name: string;
+}
 export interface MovieItemType {
   id: string;
   name: string;
-  move_duration: number;
+  time: number;
   image: string;
-  trailer: string;
+  trailler: string;
   description: string;
-  director: directorType;
-  cast: string;
+  director_id: number;
+  director_name: string;
+  producer_id: number;
+  producer_name: string;
+  casts: castType[];
   age: number;
+  price: number;
   categories: CategoryItem[];
   screens: screenType[];
-  date_start: string;
-  date_end: string;
+  movie_start: string;
+  movie_end: string;
 }
 
 export interface MovieRespon {
   success: boolean;
   message: string;
-  value: {
-    movie: MovieType[];
-  };
+  values: MovieType[];
   errors: MovieType;
 }
 export interface MoviesResponse {
   success: boolean;
   message: string;
-  values: {
-    movies: MovieItemType[];
-    hasMore: boolean;
-    pageNumber: number;
-  };
+  values: MovieItemType[];
 }
 
 export interface filterProps {
@@ -83,39 +76,45 @@ export interface MovieCMSResponse {
 }
 
 export interface CategoryItem {
-  id: string;
+  id: number;
   name: string;
-  image: string;
 }
 
 export interface CategoryRespon {
   success: boolean;
   message: string;
-  values: {
-    categories: CategoryItem[];
-  };
+  values: CategoryItem[];
 }
 
 export interface DirectorRespon {
   success: boolean;
   message: string;
-  values: {
-    directors: directorType[];
-  };
+  values: directorType[];
 }
 
 export interface ScreenRespon {
   success: boolean;
   message: string;
-  values: {
-    screens: screenType[];
-  };
+  values: screenType[];
+}
+export interface CastRespon {
+  success: boolean;
+  message: string;
+  values: castType[];
+}
+
+export interface producerType {
+  id: number;
+  name: string;
+}
+export interface producerRespon {
+  success: boolean;
+  message: string;
+  values: producerType[];
 }
 
 export interface getMovieRespon {
   success: boolean;
   message: string;
-  values: {
-    movie: MovieItemType;
-  };
+  values: MovieItemType;
 }

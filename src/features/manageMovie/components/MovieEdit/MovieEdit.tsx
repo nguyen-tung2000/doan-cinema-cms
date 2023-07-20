@@ -4,8 +4,23 @@ import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'r
 import { Controller, useForm } from 'react-hook-form';
 import { useHistory, useLocation } from 'react-router';
 
-import { getCategoryAll, getDirectorAll, getScreenAll, updateMovie } from '../..';
-import { CategoryItem, MovieItemType, MovieType, directorType, screenType } from '../../type';
+import {
+  getCastAll,
+  getCategoryAll,
+  getDirectorAll,
+  getProducerAll,
+  getScreenAll,
+  updateMovie,
+} from '../..';
+import {
+  CategoryItem,
+  MovieItemType,
+  MovieType,
+  castType,
+  directorType,
+  producerType,
+  screenType,
+} from '../../type';
 import * as S from '../MovieResult/MovieResult.style';
 
 import x2 from '@/assets/icon/x2.svg';
@@ -28,14 +43,21 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
   setMovie,
   movie,
 }) => {
-  const [screenValue] = useState<string[]>(() => {
+  const [screenValue] = useState<number[]>(() => {
     const idScreens = [];
     for (const i in movieValue.screens) {
       idScreens.push(movieValue.screens[i].id);
     }
     return idScreens;
   });
-  const [categoryValue] = useState<string[]>(() => {
+  const [castValue] = useState<number[]>(() => {
+    const idCasts = [];
+    for (const i in movieValue.casts) {
+      idCasts.push(movieValue.casts[i].id);
+    }
+    return idCasts;
+  });
+  const [categoryValue] = useState<number[]>(() => {
     const idCategory = [];
     for (const i in movieValue.categories) {
       idCategory.push(movieValue.categories[i].id);
@@ -46,6 +68,8 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
   const [categoryList, setCategoryList] = useState<CategoryItem[]>([]);
   const [directorList, setDirectorList] = useState<directorType[]>([]);
   const [screenList, setScreenList] = useState<screenType[]>([]);
+  const [castList, setCastList] = useState<castType[]>([]);
+  const [producerList, setProducerList] = useState<producerType[]>([]);
   const {
     control,
     handleSubmit,
@@ -55,17 +79,19 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
   } = useForm({
     defaultValues: {
       name: movieValue.name,
-      moveDuration: Number(movieValue.move_duration),
-      categoryId: categoryValue,
-      directorId: movieValue.director.id,
-      cast: movieValue.cast,
+      time: Number(movieValue.time),
+      categories: categoryValue,
+      director_id: movieValue.director_id,
+      producer_id: movieValue.producer_id,
+      casts: castValue,
       description: movieValue.description,
-      screensId: screenValue,
+      screens: screenValue,
       image: movieValue.image,
-      trailer: movieValue.trailer,
+      trailler: movieValue.trailler,
       age: Number(movieValue.age),
-      dateStart: movieValue.date_start,
-      dateEnd: movieValue.date_end,
+      movie_start: movieValue.movie_start,
+      movie_end: movieValue.movie_end,
+      price: movieValue.price,
     },
   });
   const location = useLocation();
@@ -74,27 +100,29 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
   const handleValue = async (data: MovieType) => {
     const body = {
       name: data.name,
-      move_duration: Number(data.move_duration),
+      time: Number(data.time),
       image: data.image,
-      trailer: data.trailer,
+      trailler: data.trailler,
       description: data.description,
       director_id: data.director_id,
-      cast: data.cast,
-      age: Number(data.age),
-      screens_id: data.screens_id,
-      categories_id: data.categories_id,
-      date_start: data.date_start,
-      date_end: data.date_end,
+      casts: data.casts,
+      age: data.age,
+      producer_id: data.producer_id,
+      price: data.price,
+      screens: data.screens,
+      categories: data.categories,
+      movie_start: data.movie_start,
+      movie_end: data.movie_end,
     };
     console.log('body', body);
     try {
       const res = await updateMovie(query.id, body);
       if (res.success === false) {
-        if (res.errors.date_start) {
-          Toast(res.errors.date_start, 'error');
+        if (res.errors.movie_start) {
+          Toast(res.errors.movie_start, 'error');
         }
-        if (res.errors.date_end) {
-          Toast(res.errors.date_end, 'error');
+        if (res.errors.movie_end) {
+          Toast(res.errors.movie_end, 'error');
         }
       } else {
         Toast(res.message);
@@ -106,16 +134,23 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
       console.log(error);
     }
   };
+  console.log(movieValue);
 
   useEffect(() => {
     getCategoryAll()
-      .then((res) => setCategoryList(res.values.categories))
+      .then((res) => setCategoryList(res.values))
       .catch(console.log);
     getDirectorAll()
-      .then((res) => setDirectorList(res.values.directors))
+      .then((res) => setDirectorList(res.values))
       .catch(console.log);
     getScreenAll()
-      .then((res) => setScreenList(res.values.screens))
+      .then((res) => setScreenList(res.values))
+      .catch(console.log);
+    getCastAll()
+      .then((res) => setCastList(res.values))
+      .catch(console.log);
+    getProducerAll()
+      .then((res) => setProducerList(res.values))
       .catch(console.log);
   }, []);
 
@@ -163,7 +198,7 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
             </S.MovieFormController>
             <S.MovieFormController>
               <Controller
-                name="moveDuration"
+                name="time"
                 rules={rules.time}
                 control={control}
                 render={({ field }) => (
@@ -172,7 +207,7 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
                     title="Thời lượng"
                     error={errors}
                     change={field.onChange}
-                    value={getValues('moveDuration')}
+                    value={getValues('time')}
                   />
                 )}
               />
@@ -180,7 +215,7 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
             </S.MovieFormController>
             <S.MovieFormController>
               <Controller
-                name="directorId"
+                name="director_id"
                 rules={rules.daodien}
                 control={control}
                 render={({ field }) => (
@@ -189,8 +224,8 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
                     error={errors}
                     change={field.onChange}
                     title="Đạo diễn"
-                    name="directorId"
-                    value={getValues('directorId')}
+                    name="director_id"
+                    value={getValues('director_id')}
                   />
                 )}
               />
@@ -198,20 +233,37 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
             </S.MovieFormController>
             <S.MovieFormController>
               <Controller
-                name="cast"
-                rules={rules.dienvien}
+                name="producer_id"
+                rules={rules.daodien}
                 control={control}
                 render={({ field }) => (
-                  <InputField
-                    name="cast"
+                  <SelectField
+                    List={producerList}
                     error={errors}
-                    title="Diễn viên"
                     change={field.onChange}
-                    value={getValues('cast')}
+                    title="Nhà sản xuất"
+                    name="producer_id"
+                    value={getValues('producer_id')}
                   />
                 )}
               />
-              <ErrorMessage name="cast" errors={errors} />
+              <ErrorMessage name="directorId" errors={errors} />
+            </S.MovieFormController>
+            <S.MovieFormController>
+              <Controller
+                name="casts"
+                rules={rules.loaiman}
+                control={control}
+                render={({ field }) => (
+                  <MultiSelectMenu
+                    defaultValue={getValues('casts')}
+                    options={castList}
+                    onChange={field.onChange}
+                    name="Diễn viên"
+                  />
+                )}
+              />
+              <ErrorMessage name="loaiman" errors={errors} />
             </S.MovieFormController>
             <S.MovieFormController>
               <Controller
@@ -232,12 +284,12 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
             </S.MovieFormController>
             <S.MovieFormController>
               <Controller
-                name="categoryId"
+                name="categories"
                 rules={rules.theloai}
                 control={control}
                 render={({ field }) => (
                   <MultiSelectMenu
-                    defaultValue={getValues('categoryId')}
+                    defaultValue={getValues('categories')}
                     options={categoryList}
                     onChange={field.onChange}
                     name="Thể loại"
@@ -248,12 +300,12 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
             </S.MovieFormController>
             <S.MovieFormController>
               <Controller
-                name="screensId"
+                name="screens"
                 rules={rules.loaiman}
                 control={control}
                 render={({ field }) => (
                   <MultiSelectMenu
-                    defaultValue={getValues('screensId')}
+                    defaultValue={getValues('screens')}
                     options={screenList}
                     onChange={field.onChange}
                     name="Loại màn hình"
@@ -261,6 +313,23 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
                 )}
               />
               <ErrorMessage name="loaiman" errors={errors} />
+            </S.MovieFormController>
+            <S.MovieFormController>
+              <Controller
+                name="price"
+                rules={rules.age}
+                control={control}
+                render={({ field }) => (
+                  <InputField
+                    name="price"
+                    title="Giá vé"
+                    error={errors}
+                    change={field.onChange}
+                    value={getValues('price')}
+                  />
+                )}
+              />
+              <ErrorMessage name="age" errors={errors} />
             </S.MovieFormController>
             <S.MovieFormController>
               <Controller
@@ -284,15 +353,15 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
           <S.MovieForm>
             <S.MovieFormController2>
               <SingleSelect
-                registration={register('dateStart')}
-                defaultValue={getValues('dateStart')}
+                registration={register('movie_start')}
+                defaultValue={getValues('movie_start')}
                 label="Ngày bắt đầu"
               />
             </S.MovieFormController2>
             <S.MovieFormController2>
               <SingleSelect
-                registration={register('dateEnd')}
-                defaultValue={getValues('dateEnd')}
+                registration={register('movie_end')}
+                defaultValue={getValues('movie_end')}
                 label="Ngày kết thúc"
               />
             </S.MovieFormController2>
@@ -318,12 +387,12 @@ export const MovieEdit: React.FC<MovieEditProps> = ({
             </S.MovieFormController2>
             <S.MovieFormController2>
               <Controller
-                name="trailer"
+                name="trailler"
                 rules={rules.trailer}
                 control={control}
                 render={({ field }) => (
                   <InputField
-                    url={getValues('trailer')}
+                    url={getValues('trailler')}
                     name="trailer"
                     type="file"
                     error={errors}

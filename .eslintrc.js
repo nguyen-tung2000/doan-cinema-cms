@@ -65,7 +65,7 @@ module.exports = {
         "jsx-a11y/no-noninteractive-element-to-interactive-role": "off",
         "no-unused-vars": "off",
 
-        "@typescript-eslint/no-unused-vars": ["error"],
+        "@typescript-eslint/no-unused-vars": ["warn"],
 
         "@typescript-eslint/explicit-function-return-type": ["off"],
         "@typescript-eslint/explicit-module-boundary-types": ["off"],

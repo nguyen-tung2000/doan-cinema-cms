@@ -6,7 +6,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 
-import { CategoryItem, MovieType, filterProps } from '../../type';
+import { CategoryItem, MovieType, castType, filterProps, producerType } from '../../type';
 import { MoviePagination } from '../MoviePagination/MoviePagination';
 import { getMovieList } from '../MovieSlice';
 
@@ -25,6 +25,8 @@ import {
   createMovie,
   directorType,
   screenType,
+  getCastAll,
+  getProducerAll,
 } from '@/features/manageMovie';
 import { storage } from '@/lib/firebase';
 import { rules } from '@/utils/rules';
@@ -43,6 +45,8 @@ export const MovieResult = () => {
   const [categoryList, setCategoryList] = useState<CategoryItem[]>([]);
   const [directorList, setDirectorList] = useState<directorType[]>([]);
   const [screenList, setScreenList] = useState<screenType[]>([]);
+  const [castList, setCastList] = useState<castType[]>([]);
+  const [producerList, setProducerList] = useState<producerType[]>([]);
   const update = useSelector(
     (state: {
       movie: {
@@ -81,27 +85,28 @@ export const MovieResult = () => {
   const handleValue = async (data: MovieType) => {
     const body = {
       name: data.name,
-      move_duration: Number(data.move_duration),
+      time: Number(data.time),
       image: data.image,
-      trailer: data.trailer,
+      trailler: data.trailler,
       description: data.description,
       director_id: data.director_id,
-      cast: data.cast,
+      producer_id: data.producer_id,
+      casts: data.casts,
       age: Number(data.age),
-      screens_id: data.screens_id,
-      categories_id: data.categories_id,
-      date_start: data.date_start,
-      date_end: data.date_end,
+      price: data.price,
+      screens: data.screens,
+      categories: data.categories,
+      movie_start: data.movie_start,
+      movie_end: data.movie_end,
     };
-    console.log('body', body);
     try {
       const res = await createMovie(body);
       if (res.success === false) {
-        if (res.errors.date_start) {
-          Toast(res.errors.date_start, 'error');
+        if (res.errors.movie_start) {
+          Toast(res.errors.movie_start, 'error');
         }
-        if (res.errors.date_end) {
-          Toast(res.errors.date_end, 'error');
+        if (res.errors.movie_end) {
+          Toast(res.errors.movie_end, 'error');
         }
       } else {
         Toast(res.message);
@@ -126,20 +131,29 @@ export const MovieResult = () => {
       const storageRef = ref(storage, `videos/${fileName.name}`);
       const uploadTask = uploadBytesResumable(storageRef, fileName);
       await uploadBytes(storageRef, fileName);
-      getDownloadURL(uploadTask.snapshot.ref).then((url: string) => setValue(url));
+      getDownloadURL(uploadTask.snapshot.ref).then((url: string) => {
+        console.log(url);
+        setValue(url);
+      });
     }
   };
 
   const handleAdd = async () => {
     setOpenAdd(true);
     getCategoryAll()
-      .then((res) => setCategoryList(res.values.categories))
+      .then((res) => setCategoryList(res.values))
       .catch(console.log);
     getDirectorAll()
-      .then((res) => setDirectorList(res.values.directors))
+      .then((res) => setDirectorList(res.values))
       .catch(console.log);
     getScreenAll()
-      .then((res) => setScreenList(res.values.screens))
+      .then((res) => setScreenList(res.values))
+      .catch(console.log);
+    getCastAll()
+      .then((res) => setCastList(res.values))
+      .catch(console.log);
+    getProducerAll()
+      .then((res) => setProducerList(res.values))
       .catch(console.log);
   };
 
@@ -195,23 +209,23 @@ export const MovieResult = () => {
                 </S.MovieFormController>
                 <S.MovieFormController>
                   <Controller
-                    name="moveDuration"
+                    name="time"
                     rules={rules.time}
                     control={control}
                     render={({ field }) => (
                       <InputField
-                        name="moveDuration"
+                        name="time"
                         title="Thời lượng"
                         change={field.onChange}
                         error={errors}
                       />
                     )}
                   />
-                  <ErrorMessage name="moveDuration" errors={errors} />
+                  <ErrorMessage name="time" errors={errors} />
                 </S.MovieFormController>
                 <S.MovieFormController>
                   <Controller
-                    name="directorId"
+                    name="director_id"
                     rules={rules.daodien}
                     control={control}
                     render={({ field }) => (
@@ -219,28 +233,44 @@ export const MovieResult = () => {
                         List={directorList}
                         change={field.onChange}
                         title="Đạo diễn"
-                        name="directorId"
+                        name="director_id"
                         error={errors}
                       />
                     )}
                   />
-                  <ErrorMessage name="directorId" errors={errors} />
+                  <ErrorMessage name="director_id" errors={errors} />
                 </S.MovieFormController>
                 <S.MovieFormController>
                   <Controller
-                    name="cast"
-                    rules={rules.dienvien}
+                    name="producer_id"
+                    rules={rules.daodien}
                     control={control}
                     render={({ field }) => (
-                      <InputField
-                        name="cast"
-                        title="Diễn viên"
+                      <SelectField
+                        List={producerList}
                         change={field.onChange}
+                        title="Nhà sản xuất"
+                        name="producer_id"
                         error={errors}
                       />
                     )}
                   />
-                  <ErrorMessage name="cast" errors={errors} />
+                  <ErrorMessage name="director_id" errors={errors} />
+                </S.MovieFormController>
+                <S.MovieFormController>
+                  <Controller
+                    name="casts"
+                    rules={rules.theloai}
+                    control={control}
+                    render={({ field }) => (
+                      <MultiSelectMenu
+                        options={castList}
+                        onChange={field.onChange}
+                        name="Diễn viên"
+                      />
+                    )}
+                  />
+                  <ErrorMessage name="categories" errors={errors} />
                 </S.MovieFormController>
                 <S.MovieFormController>
                   <Controller
@@ -260,7 +290,7 @@ export const MovieResult = () => {
                 </S.MovieFormController>
                 <S.MovieFormController>
                   <Controller
-                    name="categoryId"
+                    name="categories"
                     rules={rules.theloai}
                     control={control}
                     render={({ field }) => (
@@ -271,11 +301,11 @@ export const MovieResult = () => {
                       />
                     )}
                   />
-                  <ErrorMessage name="categoryId" errors={errors} />
+                  <ErrorMessage name="categories" errors={errors} />
                 </S.MovieFormController>
                 <S.MovieFormController>
                   <Controller
-                    name="screensId"
+                    name="screens"
                     rules={rules.loaiman}
                     control={control}
                     render={({ field }) => (
@@ -286,7 +316,23 @@ export const MovieResult = () => {
                       />
                     )}
                   />
-                  <ErrorMessage name="screensId" errors={errors} />
+                  <ErrorMessage name="screens" errors={errors} />
+                </S.MovieFormController>
+                <S.MovieFormController>
+                  <Controller
+                    name="price"
+                    rules={rules.time}
+                    control={control}
+                    render={({ field }) => (
+                      <InputField
+                        name="price"
+                        title="Giá vé"
+                        change={field.onChange}
+                        error={errors}
+                      />
+                    )}
+                  />
+                  <ErrorMessage name="price" errors={errors} />
                 </S.MovieFormController>
                 <S.MovieFormController>
                   <Controller
@@ -308,10 +354,10 @@ export const MovieResult = () => {
               </S.MovieForm>
               <S.MovieForm>
                 <S.MovieFormController2>
-                  <SingleSelect registration={register('dateStart')} label="Ngày bắt đầu" />
+                  <SingleSelect registration={register('movie_start')} label="Ngày bắt đầu" />
                 </S.MovieFormController2>
                 <S.MovieFormController2>
-                  <SingleSelect registration={register('dateEnd')} label="Ngày kết thúc" />
+                  <SingleSelect registration={register('movie_end')} label="Ngày kết thúc" />
                 </S.MovieFormController2>
               </S.MovieForm>
               <S.MovieForm>
@@ -335,13 +381,13 @@ export const MovieResult = () => {
                 </S.MovieFormController2>
                 <S.MovieFormController2>
                   <Controller
-                    name="trailer"
+                    name="trailler"
                     rules={rules.trailer}
                     control={control}
                     render={({ field }) => (
                       <InputField
-                        url={getValues('trailer')}
-                        name="trailer"
+                        url={getValues('trailler')}
+                        name="trailler"
                         error={errors}
                         type="file"
                         title="Trailer URL"
@@ -349,7 +395,7 @@ export const MovieResult = () => {
                       />
                     )}
                   />
-                  <ErrorMessage name="trailer" errors={errors} />
+                  <ErrorMessage name="trailler" errors={errors} />
                 </S.MovieFormController2>
               </S.MovieForm>
             </S.Div>

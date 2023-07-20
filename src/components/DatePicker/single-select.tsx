@@ -85,7 +85,7 @@ export const SingleSelect: React.FC<RangeSelectProps> = (props) => {
       return;
     }
 
-    const parts = inputValue.split('/');
+    const parts = inputValue.split('-');
     const partsAsNumber = parts.map((p) => parseInt(p, 10));
 
     // Make sure the month is within the valid range
@@ -120,12 +120,12 @@ export const SingleSelect: React.FC<RangeSelectProps> = (props) => {
       parts[2] = `${Math.round(getYear(viewing) / 1000) * 1000 + partsAsNumber[2]}`;
     }
 
-    const parsed = parse(parts.join('/'), 'MM/dd/yyyy', new Date());
+    const parsed = parse(parts.join('-'), 'yyyy-MM-dd', new Date());
 
     if (isValid(parsed)) {
       select(parsed, true);
     } else if (selected.length > 0) {
-      setInputValue(format(selected[0], 'MM/dd/yyyy'));
+      setInputValue(format(selected[0], 'yyyy-MM-dd'));
     } else {
       setInputValue('');
     }
@@ -133,7 +133,7 @@ export const SingleSelect: React.FC<RangeSelectProps> = (props) => {
 
   const setDate = (value: Date, valueString?: string) => {
     if (setValues) {
-      const valueFormat = !valueString ? format(value, 'MM/dd/yyyy') : valueString;
+      const valueFormat = !valueString ? format(value, 'yyyy-MM-dd') : valueString;
       if (sizeOfTimeStamp && sizeOfTimeStamp > 0) {
         for (let i = 0; i < (sizeOfTimeStamp as number); i++) {
           if (nameToSet == 'dateStart') {
@@ -152,7 +152,7 @@ export const SingleSelect: React.FC<RangeSelectProps> = (props) => {
   useEffect(() => {
     setInputValue(defaultValue ? (defaultValue as string) : '');
     if (selected.length > 0) {
-      setInputValue(format(selected[0], 'MM/dd/yyyy'));
+      setInputValue(format(selected[0], 'yyyy-MM-dd'));
     }
     setViewing(selected.length > 0 ? selected[0] : new Date());
     if (selected.length > 0) {

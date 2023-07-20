@@ -30,10 +30,9 @@ export const MovieItem: React.FC<MovieItemProps> = ({ setMovie, movie }) => {
   const [idMovie, setIdMovie] = useState<string>('');
   const [movieValue, setMovieValue] = useState<MovieItemType | undefined>();
   const [listMovie, setMovieList] = useState<MovieItemType[]>([]);
-  const update = useSelector((state: any) => state.movie.list.movies);
+  const update = useSelector((state: any) => state.movie.list);
   const [screenValue, setScreenValue] = useState<string[]>([]);
   const [categoryValue, setCategoryValue] = useState<string[]>([]);
-  console.log(categoryValue);
   const history = useHistory();
   const location = useLocation();
   const query = useMemo(() => qs.parse(location.search), [location.search]);
@@ -85,7 +84,7 @@ export const MovieItem: React.FC<MovieItemProps> = ({ setMovie, movie }) => {
     };
     history.push(`/app/managemovie?${qs.stringify(params)}`);
     await getMovie(id)
-      .then((res) => setMovieValue(res.values.movie))
+      .then((res) => setMovieValue(res.values))
       .catch(console.log);
   };
 
@@ -109,11 +108,11 @@ export const MovieItem: React.FC<MovieItemProps> = ({ setMovie, movie }) => {
                 <S.MovieTitle>{movie.name}</S.MovieTitle>
                 <S.MovieTime>
                   <img src={clock} alt="" />
-                  {movie.move_duration}
+                  {movie.time}
                 </S.MovieTime>
                 <S.MovieListSpan>
                   <S.MovieSpan>Đạo diễn:</S.MovieSpan>
-                  <S.MovieSpan>{movie.director.name}</S.MovieSpan>
+                  <S.MovieSpan>{movie.director_name}</S.MovieSpan>
                 </S.MovieListSpan>
                 <S.MovieListSpan>
                   {movie.categories.length > 0 && (
@@ -127,7 +126,9 @@ export const MovieItem: React.FC<MovieItemProps> = ({ setMovie, movie }) => {
                 </S.MovieListSpan>
                 <S.MovieListSpan>
                   <S.MovieSpan>Diễn viên:</S.MovieSpan>
-                  <S.MovieSpan>{movie.cast}</S.MovieSpan>
+                  {movie?.casts.map((cast, index) => (
+                    <S.MovieSpan key={index}>{cast.name}</S.MovieSpan>
+                  ))}
                 </S.MovieListSpan>
                 {movie.age < 13 ? (
                   <></>
@@ -169,7 +170,7 @@ export const MovieItem: React.FC<MovieItemProps> = ({ setMovie, movie }) => {
               {openTrailer && (
                 <S.MovieVideoTrailer>
                   <S.MovieVideoDiv>
-                    <S.MovieVideo src={movie.trailer} frameBorder="0" allowFullScreen />
+                    <S.MovieVideo src={movie.trailler} frameBorder="0" allowFullScreen />
                     <img src={x} alt="" onClick={() => setOpenTrailer(false)} role="button" />
                   </S.MovieVideoDiv>
                 </S.MovieVideoTrailer>

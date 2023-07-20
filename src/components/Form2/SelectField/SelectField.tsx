@@ -5,11 +5,11 @@ interface SelectFieldProps {
   name: string;
   title: string;
   List: {
-    id: string;
+    id: number;
     name: string;
   }[];
   change: ChangeEventHandler<HTMLSelectElement | undefined>;
-  value?: string;
+  value?: number;
   error: any;
 }
 
