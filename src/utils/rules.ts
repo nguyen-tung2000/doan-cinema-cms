@@ -77,4 +77,19 @@ export const rules = {
       message: 'Trailer là bắt buộc nhập',
     },
   },
+  producer: {
+    required: {
+      value: true,
+      message: 'Image là bắt buộc nhập',
+    },
+  },
+  giave: {
+    required: {
+      value: true,
+      message: 'Giá vé là bắt buộc nhập',
+    },
+    validate: {
+      number: (value: any) => /^[0-9]*$/.test(value) || 'Vui lòng nhập đúng định dạng là số',
+    },
+  },
 };

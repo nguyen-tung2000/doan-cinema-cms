@@ -22,7 +22,7 @@ export const createMovie = (data: MovieType): Promise<MovieRespon> => {
 };
 
 export const deleteMovie = (id: string): Promise<MovieRespon> => {
-  return axios.delete(`/movie/delete/${id}`);
+  return axios.delete(`/movie/deleteMovie/${id}`);
 };
 
 export const getDirectorAll = (): Promise<DirectorRespon> => {

@@ -102,6 +102,9 @@ export const MovieResult = () => {
     try {
       const res = await createMovie(body);
       if (res.success === false) {
+        if (res.errors.name) {
+          Toast(res.errors.name, 'error');
+        }
         if (res.errors.movie_start) {
           Toast(res.errors.movie_start, 'error');
         }
@@ -243,7 +246,7 @@ export const MovieResult = () => {
                 <S.MovieFormController>
                   <Controller
                     name="producer_id"
-                    rules={rules.daodien}
+                    rules={rules.producer}
                     control={control}
                     render={({ field }) => (
                       <SelectField
@@ -260,7 +263,7 @@ export const MovieResult = () => {
                 <S.MovieFormController>
                   <Controller
                     name="casts"
-                    rules={rules.theloai}
+                    rules={rules.dienvien}
                     control={control}
                     render={({ field }) => (
                       <MultiSelectMenu
@@ -321,7 +324,7 @@ export const MovieResult = () => {
                 <S.MovieFormController>
                   <Controller
                     name="price"
-                    rules={rules.time}
+                    rules={rules.giave}
                     control={control}
                     render={({ field }) => (
                       <InputField
