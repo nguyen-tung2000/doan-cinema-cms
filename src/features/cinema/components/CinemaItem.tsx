@@ -106,9 +106,9 @@ export const CinemaItem: React.FC<CinemaType> = (props) => {
             </Text>
           </Box>
           <Text fontSize="sm" fontWeight="medium">
-            {` Xem Lịch chiếu và Mua vé ${props.name} - rạp Movieer toàn quốc dễ dàng - nhanh chóng
+            {` Xem Lịch chiếu và Mua vé ${props.name} - rạp Dream Cinema toàn quốc dễ dàng - nhanh chóng
             tại Movieer. Rạp Movieer ${props.name} nằm ở đường ${props.address}, là rạp chiếu phim đầu tiên của
-            Movieer Cinema được xây dựng với tiêu chuẩn Hollywood, có nhiều phòng chiếu ,
+            Dream Cinema được xây dựng với tiêu chuẩn Hollywood, có nhiều phòng chiếu ,
             chuẩn âm thanh Dolby 7.1. ${props.name} nằm ở khu vực rất thuận lợi cho các bạn sinh
             viên - học sinh lẫn nhân viên văn phòng. Bên trong khuôn viên còn thường xuyên tổ chức
             các sự kiện ra mắt phim và hội chợ hết sức thú vị.`}
