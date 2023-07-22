@@ -33,7 +33,7 @@ interface SeatsRouteProps {
   selectedSeats: SeatType[];
   selectedCombos: ComboItem[];
   selectedGifts: IGift[];
-  screenId: string;
+  screenId: number;
   setSelectedSeats: (seats: SeatType[]) => void;
   setModal: (modalType: string) => void;
   getScreen: (screenId: string) => void;

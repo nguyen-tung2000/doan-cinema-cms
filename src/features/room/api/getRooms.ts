@@ -6,7 +6,7 @@ import { axios } from '@/lib/axios';
 import { QueryConfig } from '@/lib/react-query';
 
 export const getRooms = (): Promise<RoomRespone> => {
-  return axios.get(`/room/all`);
+  return axios.get(`/room/getRoomByCinema`);
 };
 
 type UseRoomsOptions = {

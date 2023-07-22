@@ -11,7 +11,7 @@ import {
   TimeSlotList,
   TimeStamp,
 } from '@/features/showtimes';
-import { useRoomsByMovieStore } from '@/stores/timeSlot';
+// import { useRoomsByMovieStore } from '@/stores/timeSlot';
 import { formatDate } from '@/utils/format';
 import { isEmptyObject } from '@/utils/object';
 
@@ -32,13 +32,13 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
   const toast = useToast();
   const moviesQuery = useMoviesCMS();
   const createShowTimeMutation = useCreateShowTime();
-  const {
-    listRoomByMovie,
-    fetchRooms,
-    checkedTimes,
-    reset: resetMovies,
-    loading,
-  } = useRoomsByMovieStore();
+  // const {
+  //   listRoomByMovie,
+  //   fetchRooms,
+  //   checkedTimes,
+  //   reset: resetMovies,
+  //   loading,
+  // } = useRoomsByMovieStore();
   const {
     register,
     setValue,
@@ -70,8 +70,8 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
 
   const onChangeMovie = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
-
-    return value ? fetchRooms(value) : resetMovies();
+    return value ? value : '';
+    // return value ? fetchRooms(value) : resetMovies();
   };
 
   const onSubmit = handleSubmit(async (data) => {
@@ -95,7 +95,7 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
     };
 
     await createShowTimeMutation.mutateAsync({ data: newShowTimes });
-    resetMovies();
+    // resetMovies();
   });
 
   const spiner = (
@@ -150,24 +150,24 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
                   label="Từ"
                   setValues={setValue}
                   nameToSet="dateStart"
-                  sizeOfTimeStamp={listRoomByMovie.length}
+                  sizeOfTimeStamp={0}
                 />
                 <SingleSelect
                   registration={register('dateEnd')}
                   label="Đến"
                   setValues={setValue}
                   nameToSet="dateEnd"
-                  sizeOfTimeStamp={listRoomByMovie.length}
+                  sizeOfTimeStamp={0}
                 />
               </Stack>
             </Flex>
 
-            <TimeSlotList
+            {/* <TimeSlotList
               register={register}
               rooms={listRoomByMovie}
               checkedTimes={checkedTimes}
               isLoading={loading}
-            />
+            /> */}
 
             <Button
               backgroundColor="cyan.400"

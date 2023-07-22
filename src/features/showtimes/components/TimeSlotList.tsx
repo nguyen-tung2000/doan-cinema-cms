@@ -84,10 +84,10 @@ export const TimeSlotList: React.FC<TimeSlotListProps> = (props) => {
                     />
                   </Td>
                   <Td>
-                    <Badge colorScheme={colorBadge[room.screen.name]}>{room.screen.name}</Badge>
+                    <Badge colorScheme={colorBadge[room.screen_name]}>{room.screen_name}</Badge>
                   </Td>
                   <Td>
-                    <CheckBoxTimeGroup
+                    {/* <CheckBoxTimeGroup
                       registration={register(`showTimes.${index}.times`)}
                       options={room.timeSlots.map(({ time, id, disabled }) => ({
                         label: time,
@@ -97,7 +97,7 @@ export const TimeSlotList: React.FC<TimeSlotListProps> = (props) => {
                       roomName={room.name}
                       screenName={room.screen.name}
                       onCheck={checkedTimes}
-                    />
+                    /> */}
                   </Td>
                   <Td>
                     <VStack spacing={4} align="stretch">

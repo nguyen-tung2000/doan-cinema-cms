@@ -7,15 +7,19 @@ import { axios } from '@/lib/axios';
 import { MutationConfig, queryClient } from '@/lib/react-query';
 
 export type CreateRoomDTO = {
-  cinemaId: string;
   name: string;
-  rowNumber: number;
-  seatsInRow: number;
-  screenId: string;
+  rows: number;
+  seats_per_row: number;
+  vip_seat_start: number;
+  vip_seat_end: number;
+  number_seat_couple: number;
+  couple_row: number;
+  screen_id: string;
 };
 
 export const createRoom = (data: CreateRoomDTO): Promise<RoomRespone> => {
-  return axios.post('/room/add', data);
+  console.log(data);
+  return axios.post('/room/addRoom', data);
 };
 
 type UseCreateRoomOptions = {
@@ -32,7 +36,7 @@ export const useCreateRoom = ({ config }: UseCreateRoomOptions = {}) => {
 
       queryClient.setQueryData('rooms', {
         ...previousRooms,
-        values: { rooms: [...(previousRooms?.values.rooms || []), newRoom] },
+        values: { rooms: [...(previousRooms?.values || []), newRoom] },
       });
 
       return { previousRooms };

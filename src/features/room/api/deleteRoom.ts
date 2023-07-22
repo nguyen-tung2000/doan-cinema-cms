@@ -7,7 +7,7 @@ import { axios } from '@/lib/axios';
 import { MutationConfig, queryClient } from '@/lib/react-query';
 
 export const deleteRoom = ({ roomId }: { roomId: string }) => {
-  return axios.delete(`/room/delete/${roomId}`);
+  return axios.delete(`/room/deleteRoom/${roomId}`);
 };
 
 type UseDeleteRoomtOptions = {
@@ -26,7 +26,7 @@ export const useDeleteRoom = ({ config }: UseDeleteRoomtOptions = {}) => {
       queryClient.setQueryData('rooms', {
         ...previousRooms,
         values: {
-          rooms: previousRooms?.values.rooms.filter((room) => room.id !== deleteRoom.roomId),
+          rooms: previousRooms?.values.filter((room) => room.id !== deleteRoom.roomId),
         },
       });
 

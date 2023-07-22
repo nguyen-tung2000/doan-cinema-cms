@@ -38,9 +38,9 @@ export const MenuListRoom: React.FC<MenuListRoomProps> = ({ roomId }) => {
         variant="outline"
       />
       <MenuList>
-        <MenuItem icon={<FiEdit2 />} command="⌘T">
+        {/* <MenuItem icon={<FiEdit2 />} command="⌘T">
           Chỉnh sửa
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem icon={<FiTrash2 />} command="⌘N" onClick={onOpen}>
           Xoá phòng
           <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>

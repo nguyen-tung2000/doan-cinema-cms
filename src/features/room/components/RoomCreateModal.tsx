@@ -21,16 +21,24 @@ import { useAuth } from '@/lib/auth';
 
 type RoomValues = {
   name: string;
-  rowNumber: string;
-  seatsInRow: string;
-  screenId: string;
+  rows: string;
+  seats_per_row: string;
+  vip_seat_start: string;
+  vip_seat_end: string;
+  couple_row: string;
+  number_seat_couple: string;
+  screen_id: string;
 };
 
 const schema = z.object({
   name: z.string().nonempty({ message: 'Tên phòng là bắt buộc' }),
-  rowNumber: z.string().nonempty().max(2),
-  seatsInRow: z.string().nonempty().max(2),
-  screenId: z.string(),
+  rows: z.string().nonempty().max(2),
+  seats_per_row: z.string().nonempty().max(2),
+  vip_seat_start: z.string().nonempty().max(2),
+  vip_seat_end: z.string().nonempty().max(2),
+  couple_row: z.string().nonempty().max(1),
+  number_seat_couple: z.string().nonempty().max(1),
+  screen_id: z.string(),
 });
 
 export const RoomCreateModal = () => {
@@ -65,14 +73,20 @@ export const RoomCreateModal = () => {
         <ModalContent>
           <Form<RoomValues, typeof schema>
             onSubmit={async (data) => {
-              const cinemaId = user?.cinema.id as string;
-              const rowNumber = parseInt(data.rowNumber, 10);
-              const seatsInRow = parseInt(data.seatsInRow, 10);
+              const rows = parseInt(data.rows, 10);
+              const seats_per_row = parseInt(data.seats_per_row, 10);
+              const vip_seat_start = parseInt(data.vip_seat_start, 10);
+              const vip_seat_end = parseInt(data.vip_seat_end, 10);
+              const couple_row = parseInt(data.couple_row, 10);
+              const number_seat_couple = parseInt(data.number_seat_couple, 10);
               await RoomCreateMutation.mutateAsync({
                 ...data,
-                cinemaId,
-                rowNumber,
-                seatsInRow,
+                rows,
+                seats_per_row,
+                vip_seat_start,
+                vip_seat_end,
+                couple_row,
+                number_seat_couple,
               });
               onClose();
             }}
@@ -91,13 +105,13 @@ export const RoomCreateModal = () => {
                   />
                   <SelectField
                     label="Màn hình"
-                    registration={register('screenId')}
-                    error={formState.errors['screenId']}
+                    registration={register('screen_id')}
+                    error={formState.errors['screen_id']}
                     options={[
                       {
                         title: '',
                         items: screensQuery.data
-                          ? screensQuery.data?.values.screens.map(({ id, name }) => ({
+                          ? screensQuery.data?.values.map(({ id, name }) => ({
                               label: name,
                               value: id,
                             }))
@@ -110,16 +124,48 @@ export const RoomCreateModal = () => {
                     max={20}
                     min={10}
                     defaultValue={15}
-                    error={formState.errors['rowNumber']}
-                    registration={register('rowNumber')}
+                    error={formState.errors['rows']}
+                    registration={register('rows')}
                   />
                   <InputNumberField
                     label="Số ghế mỗi hàng"
                     max={15}
                     min={8}
                     defaultValue={10}
-                    error={formState.errors['seatsInRow']}
-                    registration={register('seatsInRow')}
+                    error={formState.errors['seats_per_row']}
+                    registration={register('seats_per_row')}
+                  />
+                  <InputNumberField
+                    label="Hàng ghế vip đầu tiên"
+                    max={10}
+                    min={3}
+                    defaultValue={6}
+                    error={formState.errors['seats_per_row']}
+                    registration={register('vip_seat_start')}
+                  />
+                  <InputNumberField
+                    label="Hàng ghế vip cuối cùng"
+                    max={15}
+                    min={8}
+                    defaultValue={10}
+                    error={formState.errors['seats_per_row']}
+                    registration={register('vip_seat_end')}
+                  />
+                  <InputNumberField
+                    label="Hàng ghê couple"
+                    max={1}
+                    min={0}
+                    defaultValue={1}
+                    error={formState.errors['seats_per_row']}
+                    registration={register('couple_row')}
+                  />
+                  <InputNumberField
+                    label="Số ghế couple"
+                    max={8}
+                    min={2}
+                    defaultValue={4}
+                    error={formState.errors['seats_per_row']}
+                    registration={register('number_seat_couple')}
                   />
                 </ModalBody>
                 <ModalFooter>

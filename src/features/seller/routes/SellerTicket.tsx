@@ -125,7 +125,7 @@ export const SellerTicket = () => {
                     selectedGifts={selectedGifts}
                     member={member}
                     memberPoint={point}
-                    screenId={ticketsByShowTimesQuery.data.values.showTimeDetail.room.screen.id}
+                    screenId={ticketsByShowTimesQuery.data.values.showTimeDetail.room.screen_id}
                     setSelectedSeats={setSelectedSeats}
                     setModal={setModal}
                     fetchGifts={fetchGifts}
