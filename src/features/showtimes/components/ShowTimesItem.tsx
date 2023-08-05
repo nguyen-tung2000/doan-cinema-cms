@@ -90,14 +90,14 @@ const ListTime = ({ screens, date, isMineCinema }: IListTime) => {
           <Button
             as={isMineCinema ? Link : undefined}
             to={(location: Location) =>
-              isDisableTime(showtime.timeSlot.time)
+              isDisableTime(showtime.timeSlot.slot)
                 ? location.pathname
                 : `/app/seller/bookTicket/${showtime.id}`
             }
             variant="outline"
-            isDisabled={isDisableTime(showtime.timeSlot.time)}
+            isDisabled={isDisableTime(showtime.timeSlot.slot)}
           >
-            {showtime.timeSlot.time}
+            {showtime.timeSlot.slot}
           </Button>
         </WrapItem>
       ))}

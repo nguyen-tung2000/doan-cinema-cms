@@ -19,7 +19,7 @@ export interface AuthUser {
   hobby: string;
   createdAt: string;
   permission_id: number;
-  cinema: CinemaType;
+  cinema_id: number;
   point?: number;
 }
 

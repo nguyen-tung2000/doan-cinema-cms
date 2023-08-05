@@ -6,8 +6,8 @@ import { axios } from '@/lib/axios';
 import { MutationConfig, queryClient } from '@/lib/react-query';
 import { Toast } from '@/utils/Toast';
 
-export const deleteStaff = ({ staffId }: { staffId: string }) => {
-  return axios.delete(`/staff/delete/${staffId}`);
+export const deleteStaff = ({ staff_id }: { staff_id: number }) => {
+  return axios.delete(`/staff/delete/${staff_id}`);
 };
 
 type UseStaffDelete = {
@@ -24,7 +24,9 @@ export const useDeleteStaff = ({ config }: UseStaffDelete = {}) => {
       queryClient.setQueryData('staffs', {
         ...previousStaffs,
         values: {
-          staffs: previousStaffs?.values.staffs.filter((staff) => staff.id !== deleteStaff.staffId),
+          staffs: previousStaffs?.values.staffs.filter(
+            (staff) => staff.id !== deleteStaff.staff_id,
+          ),
         },
       });
 

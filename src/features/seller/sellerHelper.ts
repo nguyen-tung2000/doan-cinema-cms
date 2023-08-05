@@ -29,7 +29,7 @@ export const mapToShowtimeDetails = (showtime: ShowTimesDetail) => {
     movieName: showTime.movie.name,
     moviePoster: showTime.movie.image,
     movieLimitAge: showTime.movie.age,
-    time: timeSlot.time,
+    time: timeSlot.slot,
   };
 };
 

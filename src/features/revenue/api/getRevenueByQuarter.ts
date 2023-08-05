@@ -24,15 +24,15 @@ export const getAllRevenueByQuarter = (): Promise<RevenueResponse> => {
 
 type UseRevenueOptions = {
   config?: QueryConfig<typeof getRevenueByMonth>;
-  cinemaId: string;
+  cinema_id: number;
   month: string;
   year: string;
 };
 
-export const useRevenueByMonthQuery = ({ config, cinemaId, month, year }: UseRevenueOptions) => {
+export const useRevenueByMonthQuery = ({ config, cinema_id, month, year }: UseRevenueOptions) => {
   return useQuery({
     ...config,
-    queryKey: ['revenueByMonth', cinemaId, month, year],
+    queryKey: ['revenueByMonth', cinema_id, month, year],
     queryFn: () =>
       getRevenueByMonth({
         month,

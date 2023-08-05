@@ -35,7 +35,7 @@ export type StaffValues = {
   male: boolean | string;
   date_of_birth: string;
   permission_id: number;
-  cinema_id: string;
+  cinema_id: number;
 };
 
 const schema = z.object({
@@ -46,7 +46,7 @@ const schema = z.object({
   avatar: z.string(),
   male: z.string().nonempty({ message: 'Giới tính là bắt buộc' }),
   permission_id: z.number().gte(1).lte(3),
-  cinema_id: z.string().nonempty({ message: 'Rạp là bắt buộc' }),
+  cinema_id: z.number(),
 });
 
 export const StaffFormModal = () => {

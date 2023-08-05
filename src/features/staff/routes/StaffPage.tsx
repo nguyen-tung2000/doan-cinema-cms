@@ -22,18 +22,18 @@ export const StaffPage = () => {
   const deleteFoodMutation = useDeleteStaff();
   const { onOpen, setType } = useStaffStore();
   const [warningDialogVisible, setWarningDialogVisible] = React.useState(false);
-  const [staffId, setStaffId] = React.useState('');
+  const [staffId, setStaffId] = React.useState(-1);
 
   const bg = useColorModeValue('gray.900', 'white');
   const color = useColorModeValue('white', 'gray.900');
 
-  const onDelete = (id: string) => {
+  const onDelete = (id: number) => {
     setWarningDialogVisible(true);
     setStaffId(id);
   };
 
-  const onConfirmDeleteStaff = (staffId: string) => {
-    deleteFoodMutation.mutateAsync({ staffId });
+  const onConfirmDeleteStaff = (staff_id: number) => {
+    deleteFoodMutation.mutateAsync({ staff_id });
 
     hideWarningDialog();
   };
@@ -81,8 +81,7 @@ export const StaffPage = () => {
                     : 'Nhân viên'}
                 </Badge>
               </Td>
-              <Td>{staff?.created_at && formatDate(new Date(staff.created_at))}</Td>
-              <Td>{staff.profile?.name}</Td>
+              <Td>{staff.name}</Td>
               <Td>{staff?.email}</Td>
               <Td>
                 <StaffDropdown staff={staff} onDelete={() => onDelete(staff.id)} />
@@ -127,13 +126,13 @@ export const StaffPage = () => {
                     phone_number: '',
                     name: '',
                     male: true,
-                    cinema_id: '',
+                    cinema_id: -1,
                     date_of_birth: '',
                     permission_id: 3,
                     avatar: '',
                   },
                   image_source: '',
-                  staff_id: '',
+                  staff_id: -1,
                 });
               }}
             >

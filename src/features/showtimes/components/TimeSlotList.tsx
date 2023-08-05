@@ -95,7 +95,7 @@ export const TimeSlotList: React.FC<TimeSlotListProps> = (props) => {
                         disable: disabled,
                       }))}
                       roomName={room.name}
-                      screenName={room.screen.name}
+                      screenName={room.screen_name}
                       onCheck={checkedTimes}
                     /> */}
                   </Td>

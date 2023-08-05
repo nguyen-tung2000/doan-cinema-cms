@@ -12,11 +12,11 @@ export type UpdateStaffDTO = {
     name: string;
     male: boolean;
     avatar: string;
-    cinema_id: string | undefined;
+    cinema_id: number | undefined;
     date_of_birth: string;
     permission_id: number | undefined;
   };
-  staff_id: string | undefined;
+  staff_id: number | string | undefined;
 };
 
 export const editStaff = ({ data, staff_id }: UpdateStaffDTO): Promise<StaffRespon> => {

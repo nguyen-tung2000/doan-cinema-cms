@@ -12,10 +12,10 @@ import {
 import { formatNumber, convertToMoney } from '@/utils/format';
 
 interface RevenueByQuarterFormProps {
-  cinemaId: string;
+  cinema_id: number;
 }
 
-export const RevenueByQuarterForm: React.FC<RevenueByQuarterFormProps> = ({ cinemaId }) => {
+export const RevenueByQuarterForm: React.FC<RevenueByQuarterFormProps> = ({ cinema_id }) => {
   const [dataDTO, setDataDTO] = React.useState({ month: '', year: '' });
 
   const columns = React.useMemo(
@@ -96,7 +96,7 @@ export const RevenueByQuarterForm: React.FC<RevenueByQuarterFormProps> = ({ cine
     [],
   );
   const revenueByMonthQuery = useRevenueByMonthQuery({
-    cinemaId,
+    cinema_id,
     month: dataDTO.month,
     year: dataDTO.year,
     config: {

@@ -19,7 +19,7 @@ export const TicketCard: React.FC<TicketCardProps> = (props) => {
   const { date, movieName, seatName, time, roomName, price, staff } = props;
   const { user } = useAuth();
 
-  const address = `${user?.cinema.address}`;
+  const address = `${user?.cinema_id}`;
 
   return (
     <Box>
@@ -27,7 +27,7 @@ export const TicketCard: React.FC<TicketCardProps> = (props) => {
         Vé xem phim
       </Heading>
       <Text textTransform="uppercase" fontSize="15px" paddingTop={4}>
-        {`CONG TY TNHH DREAM CINEMAS VIETNAM - CHI NHANH ${user?.cinema.name} `}
+        {`CONG TY TNHH DREAM CINEMAS VIETNAM - CHI NHANH ${user?.cinema_id} `}
       </Text>
       <Text
         textTransform="uppercase"
@@ -46,7 +46,7 @@ export const TicketCard: React.FC<TicketCardProps> = (props) => {
         borderColor="gray.900"
       >
         <Heading as="h5" fontSize="15px" textTransform="uppercase">
-          Movierr {user?.cinema.name}
+          Movierr {user?.cinema_id}
         </Heading>
         <Text>{new Date().toUTCString()}</Text>
         <Text>PDS : SCAN</Text>

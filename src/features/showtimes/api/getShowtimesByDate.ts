@@ -7,17 +7,17 @@ import { QueryConfig } from '@/lib/react-query';
 
 interface ShowTimesDTO {
   date: string;
-  cinemaId: string;
+  cinema_id: number;
 }
 
 export const getShowTimesByDate = ({
   date,
-  cinemaId,
+  cinema_id,
 }: ShowTimesDTO): Promise<ShowTimesListByDateResponse> => {
   return axios.get(`/showTime/get-list-showtime-by-date`, {
     params: {
       date,
-      cinemaId,
+      cinema_id,
     },
   });
 };

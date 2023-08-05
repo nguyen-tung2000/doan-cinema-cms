@@ -56,5 +56,5 @@ export const updateMovie = (
 };
 
 export const getMovieAllCMS = (): Promise<MovieCMSResponse> => {
-  return axios.get('/movie/get/movie-play-cms');
+  return axios.get('/movie/getAllMovieCMS');
 };

@@ -13,18 +13,18 @@ import {
 import { formatDate, formatNumber, convertToMoney } from '@/utils/format';
 
 type RevenueValues = {
-  cinemaId: string;
+  cinema_id: number;
   date: string;
 };
 
 interface RevenueByDateFormProps {
-  cinemaId: string;
+  cinema_id: number;
   userName: string;
   roleType: number;
 }
 
 export const RevenueByDateForm: React.FC<RevenueByDateFormProps> = ({
-  cinemaId,
+  cinema_id,
   userName,
   roleType,
 }) => {
@@ -124,7 +124,7 @@ export const RevenueByDateForm: React.FC<RevenueByDateFormProps> = ({
     [],
   );
   const useRevenueByDateQuery = useGetRevenueByDate({
-    cinemaId,
+    cinema_id,
     date: date,
     config: {
       refetchInterval: 10000,

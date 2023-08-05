@@ -4,12 +4,15 @@ import { useForm } from 'react-hook-form';
 
 import { SelectField, SingleSelect } from '@/components';
 import { AuthUser } from '@/features/auth';
+import { useRooms } from '@/features/room';
 import {
   useCreateShowTime,
   useMoviesCMS,
   TimeSlotCreate,
   TimeSlotList,
   TimeStamp,
+  get21Day,
+  ShowtimeType,
 } from '@/features/showtimes';
 // import { useRoomsByMovieStore } from '@/stores/timeSlot';
 import { formatDate } from '@/utils/format';
@@ -20,7 +23,7 @@ export type ShowTimesValues = {
   dateStart: string;
   dateEnd: string;
   movieId: string;
-  cinemaId: string;
+  cinema_id: number;
   showTimes: TimeStamp[];
 };
 
@@ -32,6 +35,8 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
   const toast = useToast();
   const moviesQuery = useMoviesCMS();
   const createShowTimeMutation = useCreateShowTime();
+  const roomQuery = useRooms();
+  const [listDay, setListDay] = React.useState<ShowtimeType[]>([]);
   // const {
   //   listRoomByMovie,
   //   fetchRooms,
@@ -52,11 +57,17 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
       movieId: '',
       dateStart: '',
       dateEnd: '',
-      cinemaId: user?.cinema.id as string,
+      cinema_id: user?.cinema_id,
       showTimes: [],
     },
   });
-
+  React.useEffect(() => {
+    get21Day()
+      .then((res) => {
+        setListDay(res.values);
+      })
+      .catch(console.log);
+  });
   React.useEffect(() => {
     if (isSubmitSuccessful) {
       reset({
@@ -90,11 +101,11 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
 
     const newShowTimes = {
       ...data,
-      cinemaId: user?.cinema.id as string,
+      cinema_id: user?.cinema_id,
       showTimes: times,
     };
 
-    await createShowTimeMutation.mutateAsync({ data: newShowTimes });
+    // await createShowTimeMutation.mutateAsync({ data: newShowTimes });
     // resetMovies();
   });
 
@@ -119,10 +130,19 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
           <Stack spacing={4} direction="column">
             <Flex alignItems="center" justifyContent="space-between">
               <Stack direction="column" flex={1}>
-                <SingleSelect
-                  registration={register('date')}
-                  label="Ngày tạo"
-                  defaultValue={formatDate(new Date())}
+                <SelectField
+                  label="Ngày chiếu"
+                  placeholder="Chọn ngày chiếu"
+                  registration={register('movieId')}
+                  error={errors['movieId']}
+                  options={moviesQuery.data?.values.map((movie) => ({
+                    title: movie.movie_group_name,
+                    items: movie.movies.map((m) => ({
+                      label: m.name,
+                      value: m.id,
+                    })),
+                  }))}
+                  onChanging={onChangeMovie}
                 />
                 {moviesQuery.data && (
                   <SelectField

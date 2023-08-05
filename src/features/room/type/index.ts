@@ -1,8 +1,7 @@
 import { CinemaType } from '@/features/cinema';
 export interface TimeSlot {
   id: string;
-  time: string;
-  disabled: boolean;
+  slot: string;
 }
 export interface ShowtimeType {
   id: number;

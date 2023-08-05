@@ -21,7 +21,7 @@ export const ShowTimesPage = () => {
   const { user } = useAuth();
 
   return (
-    <Box overflowX="scroll">
+    <Box>
       <Authorization
         forbiddenFallback={<div>Only manager can view this.</div>}
         allowedRoles={[ROLES.MANAGER]}
@@ -36,7 +36,7 @@ export const ShowTimesPage = () => {
           </BreadcrumbItem>
         </SiteHeader>
 
-        <Flex justifyContent="flex-start">
+        <Flex justifyContent="center">
           <Stack
             backgroundColor="white"
             maxWidth="1000px"
@@ -50,12 +50,12 @@ export const ShowTimesPage = () => {
           >
             <Tabs variant="enclosed" width="full">
               <TabList>
-                <Tab>Doanh sách lịch chiếu</Tab>
+                <Tab>Danh sách lịch chiếu</Tab>
                 <Tab>Tạo lịch chiếu </Tab>
               </TabList>
               <TabPanels>
                 <TabPanel>
-                  <ShowTimesList cinemaId={user?.cinema.id || ''} />
+                  <ShowTimesList cinema_id={user?.cinema_id || 0} />
                 </TabPanel>
                 <TabPanel>
                   <ShowTimesCreate user={user} />

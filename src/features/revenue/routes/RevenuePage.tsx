@@ -51,14 +51,14 @@ export const RevenuePage = () => {
                 </TabPanel>
                 <TabPanel>
                   <RevenueByDateForm
-                    cinemaId={user?.cinema.id || ''}
+                    cinema_id={user?.cinema_id || 0}
                     userName={user?.name || ''}
                     roleType={user?.permission_id || 3}
                   />
                 </TabPanel>
 
                 <TabPanel>
-                  <RevenueByQuarterForm cinemaId={user?.cinema.id || ''} />
+                  <RevenueByQuarterForm cinema_id={user?.cinema_id || 0} />
                 </TabPanel>
               </TabPanels>
             </Tabs>

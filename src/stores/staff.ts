@@ -4,7 +4,7 @@ import { StaffValues } from '@/features/staff';
 
 type StaffDTO = {
   type: string;
-  staff_id: string;
+  staff_id: number;
   data: StaffValues;
   image_source: string;
 };
@@ -12,7 +12,7 @@ type StaffDTO = {
 type useStaffStoreType = {
   type: string;
   isOpen: boolean;
-  staff_id: string;
+  staff_id: number;
   data: StaffValues;
   image_source: string;
   onOpen: () => void;
@@ -26,7 +26,7 @@ export const useStaffStore = create<useStaffStoreType>((set) => ({
   isOpen: false,
   data: {} as StaffValues,
   image_source: '',
-  staff_id: '',
+  staff_id: 0,
   onOpen: () =>
     set(() => ({
       isOpen: true,

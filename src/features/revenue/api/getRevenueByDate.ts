@@ -5,14 +5,14 @@ import { axios } from '@/lib/axios';
 import { QueryConfig } from '@/lib/react-query';
 
 interface RevenuDTO {
-  cinemaId: string;
+  cinema_id: number;
   date: string;
 }
 
-export const getRevenueByDate = ({ cinemaId, date }: RevenuDTO): Promise<RevenueResponse> => {
+export const getRevenueByDate = ({ cinema_id, date }: RevenuDTO): Promise<RevenueResponse> => {
   return axios.get(`/cinema/get/thong-ke-doanh-thu-theo-ngay`, {
     params: {
-      cinemaId,
+      cinema_id,
       date,
     },
   });
@@ -20,17 +20,17 @@ export const getRevenueByDate = ({ cinemaId, date }: RevenuDTO): Promise<Revenue
 
 type UseRevenueOptions = {
   config?: QueryConfig<typeof getRevenueByDate>;
-  cinemaId: string;
+  cinema_id: number;
   date: string;
 };
 
-export const useGetRevenueByDate = ({ config, cinemaId, date }: UseRevenueOptions) => {
+export const useGetRevenueByDate = ({ config, cinema_id, date }: UseRevenueOptions) => {
   return useQuery({
     ...config,
     queryKey: ['revenueByDate', date],
     queryFn: () =>
       getRevenueByDate({
-        cinemaId,
+        cinema_id,
         date,
       }),
   });

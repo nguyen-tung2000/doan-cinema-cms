@@ -1,8 +1,31 @@
-import { Badge, Box, Button, Flex, Stack, Heading, Spinner } from '@chakra-ui/react';
-import React from 'react';
+import {
+  Badge,
+  Box,
+  Button,
+  Flex,
+  Stack,
+  Heading,
+  Spinner,
+  Text,
+  List,
+  ListItem,
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Grid,
+  GridItem,
+  Image,
+} from '@chakra-ui/react';
+import React, { useEffect } from 'react';
 
 import { TableSink } from '@/components';
-import { useShowTimes } from '@/features/showtimes';
+import {
+  getListShowtimeMovieRoomCMS,
+  showtimeMovieRoomList,
+  useShowTimes,
+} from '@/features/showtimes';
 import {
   getCurrentMonday,
   getCurrentSunday,
@@ -14,10 +37,10 @@ import {
 } from '@/utils/format';
 
 interface ShowTimeListProps {
-  cinemaId: string;
+  cinema_id: number;
 }
 
-export const ShowTimesList: React.FC<ShowTimeListProps> = ({ cinemaId }) => {
+export const ShowTimesList: React.FC<ShowTimeListProps> = ({ cinema_id }) => {
   const [currentMonSun, setCurrentMonSun] = React.useState({
     mon: getCurrentMonday(),
     sun: getCurrentSunday(),
@@ -25,13 +48,17 @@ export const ShowTimesList: React.FC<ShowTimeListProps> = ({ cinemaId }) => {
   const [dataShowTimes, setDataShowTimes] = React.useState({
     dateStart: currentMonSun.mon,
     dateEnd: currentMonSun.sun,
-    cinemaId,
+    cinema_id,
   });
-
-  const showTimesQuery = useShowTimes({
-    data: dataShowTimes,
-  });
-
+  const [showtimeLists, setShowtimeLists] = React.useState<showtimeMovieRoomList[]>([]);
+  // const showTimesQuery = useShowTimes({
+  //   data: dataShowTimes,
+  // });
+  useEffect(() => {
+    getListShowtimeMovieRoomCMS().then((res) => {
+      setShowtimeLists(res.values);
+    });
+  }, []);
   const onPrevWeek = () => {
     setCurrentMonSun({
       ...currentMonSun,
@@ -59,61 +86,7 @@ export const ShowTimesList: React.FC<ShowTimeListProps> = ({ cinemaId }) => {
       dateEnd: getNextSunday(currentMonSun.sun),
     });
   };
-
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: 'Thông tin lịch chiếu',
-        Footer: 'Thông tin lịch chiếu',
-        columns: [
-          {
-            Header: 'Thứ',
-            accessor: (originalRow: any) => {
-              return getDay(originalRow.date);
-            },
-          },
-          {
-            Header: 'Ngày',
-            accessor: 'date',
-          },
-          {
-            Header: 'Phim',
-            accessor: 'movie',
-            aggregate: 'uniqueCount',
-
-            Aggregated: ({ value }: any) => (
-              <Badge colorScheme="green" variant="outline">{`${value} phim`}</Badge>
-            ),
-          },
-          {
-            Header: 'Phòng',
-            accessor: 'room',
-            aggregate: 'uniqueCount',
-            Aggregated: ({ value }: any) => (
-              <Badge colorScheme="green" variant="outline">{`${value} phòng`}</Badge>
-            ),
-          },
-          {
-            Header: 'Màn hình',
-            accessor: 'screen',
-            aggregate: 'uniqueCount',
-            Aggregated: ({ value }: any) => (
-              <Badge colorScheme="green">{`${value} màn hình`}</Badge>
-            ),
-          },
-          {
-            Header: 'Suất',
-            aggregate: 'uniqueCount',
-            accessor: 'time',
-            Aggregated: ({ value }: any) => <Badge colorScheme="green">{`${value} suất`}</Badge>,
-          },
-        ],
-      },
-    ],
-    [],
-  );
-
-  const rows = React.useMemo(() => showTimesQuery.data?.showTimes, [showTimesQuery.data]);
+  // const rows = React.useMemo(() => showTimesQuery.data?.showTimes, [showTimesQuery.data]);
 
   const spinner = (
     <Flex justifyContent="center">
@@ -144,20 +117,6 @@ export const ShowTimesList: React.FC<ShowTimeListProps> = ({ cinemaId }) => {
       <Heading as="h2" size="lg">
         Danh sách lịch chiếu - suất chiếu
       </Heading>
-      <Flex justifyContent="space-between" alignItems="center" mt={2}>
-        <Heading as="h5" size="md">
-          {`${currentMonSun.mon} - ${currentMonSun.sun}`}
-        </Heading>
-        <Stack spacing={3} direction="row">
-          <Button colorScheme="cyan" variant="outline" onClick={onPrevWeek}>
-            Trước
-          </Button>
-          <Button color="white" variant="solid" colorScheme="cyan" onClick={onNextWeek}>
-            Sau
-          </Button>
-        </Stack>
-      </Flex>
-
       <Flex justifyContent="center">
         <Stack
           backgroundColor="white"
@@ -169,15 +128,54 @@ export const ShowTimesList: React.FC<ShowTimeListProps> = ({ cinemaId }) => {
           spacing={4}
           w="100%"
         >
-          <Box overflowX="scroll">
-            {showTimesQuery.isLoading ? (
-              spinner
-            ) : !showTimesQuery.data?.showTimes?.length ? (
-              noData
-            ) : (
-              <TableSink columnsTable={columns} rowsTable={rows} isGroupBy />
-            )}
-          </Box>
+          <Accordion defaultIndex={[0]} allowMultiple>
+            {showtimeLists.map((item) => (
+              <AccordionItem key={item.room}>
+                <h2>
+                  <AccordionButton>
+                    <Box as="span" flex="1" textAlign="left">
+                      Room {item.room}
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                  {item.lists.map((ele, index) => (
+                    <AccordionItem key={item.room}>
+                      <h2>
+                        <AccordionButton>
+                          <Box as="span" flex="1" textAlign="left">
+                            {ele.day}
+                          </Box>
+                          <AccordionIcon />
+                        </AccordionButton>
+                      </h2>
+                      <AccordionPanel pb={4}>
+                        <Grid templateColumns="repeat(4, 1fr)" gap={6} key={index}>
+                          {ele.showtimes.map((ele1, index) => (
+                            <GridItem key={index}>
+                              <div className="flex items-center">
+                                <Image
+                                  src={ele1.movie.image}
+                                  alt="Dan Abramov"
+                                  width="150px"
+                                  height="175px"
+                                />
+                                <div className="flex flex-col" style={{ textAlign: 'center' }}>
+                                  <div>{ele1.slot}</div>
+                                  <div>{ele1.movie.name}</div>
+                                </div>
+                              </div>
+                            </GridItem>
+                          ))}
+                        </Grid>
+                      </AccordionPanel>
+                    </AccordionItem>
+                  ))}
+                </AccordionPanel>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </Stack>
       </Flex>
     </Box>

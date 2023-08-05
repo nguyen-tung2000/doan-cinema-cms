@@ -10,7 +10,7 @@ import {
   eachDayOfInterval,
 } from 'date-fns';
 
-export const formatDate = (date: number | Date) => format(date, 'MM/dd/yyyy');
+export const formatDate = (date: number | Date) => format(date, 'yyyy-MM-dd');
 
 export const getDay = (date: string | Date) => {
   let day;

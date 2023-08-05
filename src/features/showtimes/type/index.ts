@@ -76,3 +76,28 @@ export interface ShowTimesListByDateResponse {
   success: boolean;
   showTimes: ShowTimesListByDate[];
 }
+
+export interface showtimeMovieRoomList {
+  room: string;
+  lists: {
+    day: string;
+    showtimes: {
+      slot: string;
+      movie: {
+        id: number;
+        name: string;
+        image: string;
+      };
+    }[];
+  }[];
+}
+
+export interface showtimeMovieRoomListRes {
+  success: boolean;
+  message: string;
+  values: showtimeMovieRoomList[];
+}
+export interface ShowtimeType {
+  id: number;
+  time: string;
+}

@@ -98,7 +98,7 @@ export const Password = ({ onClose, isOpen, type }: PasswordProps) => {
           permission_id: user?.permission_id,
           male,
           avatar: imageSource,
-          cinema_id: user?.cinema.id,
+          cinema_id: user?.cinema_id,
         },
         staff_id: user?.id,
       });

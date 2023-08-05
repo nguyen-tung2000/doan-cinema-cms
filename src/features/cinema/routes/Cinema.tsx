@@ -20,7 +20,7 @@ import { ShowTimesListV2 } from '@/features/showtimes';
 export const Cinema = () => {
   const { rangeDate, startDay } = getRangeDate();
   const [activeDate, setActiveDate] = React.useState<string>(format(startDay, 'MM/dd/yyyy'));
-  const { id: cinemaId }: { id: string } = useParams();
+  const { id: cinema_id }: { id: string } = useParams();
 
   return (
     <>
@@ -40,7 +40,7 @@ export const Cinema = () => {
                 rangeDate={rangeDate}
                 activeDate={activeDate}
                 setActiveDate={setActiveDate}
-                cinemaId={cinemaId}
+                cinema_id={Number(cinema_id)}
                 isMineCinema={false}
               />
             </Flex>

@@ -11,7 +11,7 @@ export type CreateTimeSlotDTO = {
 };
 
 export const createTimeSlot = (data: CreateTimeSlotDTO): Promise<TimSlotRespone> => {
-  return axios.post('/timeSlot/add', data);
+  return axios.post('/timeslot/addTimeslot', data);
 };
 
 type UseCreateTimeSlotOptions = {

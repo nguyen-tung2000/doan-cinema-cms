@@ -34,7 +34,7 @@ export const SellerPage = () => {
             rangeDate={rangeDate}
             activeDate={activeDate}
             setActiveDate={setActiveDate}
-            cinemaId={user?.cinema.id || ''}
+            cinema_id={user?.cinema_id || 0}
             isMineCinema
           />
         </Flex>

@@ -1,16 +1,13 @@
 export interface StaffType {
-  id: string;
+  id: number;
   email: string;
   phone_number: string;
   permission_id: number;
-  cinema: string;
-  created_at: string;
-  profile: {
-    name: string;
-    date_of_birth: string;
-    male: boolean;
-    avatar: string;
-  };
+  cinema_id: number;
+  name: string;
+  date_of_birth: string;
+  male: boolean;
+  avatar: string;
 }
 
 export interface StaffRespon {

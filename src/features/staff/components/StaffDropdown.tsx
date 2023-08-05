@@ -20,16 +20,16 @@ export const StaffDropdown: React.FC<StaffDropdownProps> = ({ staff, onDelete })
     setType({
       type: STAFF_FORM.EDIT,
       data: {
-        name: staff.profile.name,
+        name: staff.name,
         email: staff.email,
         phone_number: staff.phone_number,
-        male: staff.profile.male,
-        cinema_id: staff.cinema,
-        avatar: staff.profile.avatar,
-        date_of_birth: staff.profile.date_of_birth,
+        male: staff.male,
+        cinema_id: staff.cinema_id,
+        avatar: staff.avatar,
+        date_of_birth: staff.date_of_birth,
         permission_id: staff.permission_id,
       },
-      image_source: staff.profile.avatar,
+      image_source: staff.avatar,
       staff_id: staff.id,
     });
   };

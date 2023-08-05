@@ -9,7 +9,7 @@ interface ShowTimesListV2Props {
   rangeDate: Date[];
   activeDate: string;
   setActiveDate: (value: string) => void;
-  cinemaId: string;
+  cinema_id: number;
   isMineCinema: boolean;
 }
 
@@ -17,11 +17,11 @@ export const ShowTimesListV2: React.FC<ShowTimesListV2Props> = ({
   rangeDate,
   activeDate,
   setActiveDate,
-  cinemaId,
+  cinema_id,
   isMineCinema,
 }) => {
   const showTimesByDateQuery = useShowTimesByDate({
-    data: { date: activeDate, cinemaId },
+    data: { date: activeDate, cinema_id },
   });
 
   return (

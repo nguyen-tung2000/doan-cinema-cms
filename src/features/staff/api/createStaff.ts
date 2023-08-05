@@ -14,7 +14,7 @@ export type CreateStaffDTO = {
   avatar: string;
   date_of_birth: string;
   permission_id: number;
-  cinema_id: string;
+  cinema_id: number;
 };
 
 export const createStaff = (data: CreateStaffDTO): Promise<StaffRespon> => {
