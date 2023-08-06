@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 
-import { ShowTimesListByDayRangeResponse, ShowtimeType } from '..';
+import { RoomShowtimeRes, ShowTimesListByDayRangeResponse, ShowtimeType } from '..';
 
 import { axios } from '@/lib/axios';
 import { QueryConfig } from '@/lib/react-query';
@@ -34,4 +34,13 @@ export const useShowTimes = ({ config, data }: UseShowTimesOptions) => {
 };
 export const get21Day = (): Promise<ShowtimeListRes> => {
   return axios.get('showtime/get21Day');
+};
+
+export const getRoomShowtimeCMS = (
+  movie_id: number | string,
+  showtime_id: number | string,
+): Promise<RoomShowtimeRes> => {
+  return axios.get(
+    `movieRoomDetail/getRoomShowtimeCMS?movie_id=${movie_id}&showtime_id=${showtime_id}`,
+  );
 };

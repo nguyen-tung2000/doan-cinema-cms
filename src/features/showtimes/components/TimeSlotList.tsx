@@ -1,27 +1,18 @@
 import { Flex, Spinner, Box, Heading, Stack, Badge, VStack } from '@chakra-ui/react';
+import React from 'react';
 import { UseFormRegister } from 'react-hook-form';
 
 import { Table, Tr, Th, Td, CheckBoxField, SingleSelect } from '@/components';
-import { Room, colorBadge } from '@/features/room';
-import { CheckBoxTimeGroup, ShowTimesValues } from '@/features/showtimes';
+import { colorBadge } from '@/features/room';
+import { CheckBoxTimeGroup, RoomShowtimeType, ShowTimesValues } from '@/features/showtimes';
 
 interface TimeSlotListProps {
   register: UseFormRegister<ShowTimesValues>;
-  rooms: Room[];
-  checkedTimes: ({
-    id,
-    roomName,
-    screenName,
-  }: {
-    id: string;
-    roomName: string;
-    screenName: string;
-  }) => void;
+  rooms: RoomShowtimeType[];
   isLoading: boolean;
 }
-
 export const TimeSlotList: React.FC<TimeSlotListProps> = (props) => {
-  const { register, rooms, checkedTimes, isLoading } = props;
+  const { register, rooms, isLoading } = props;
 
   if (isLoading) {
     return (
@@ -49,7 +40,6 @@ export const TimeSlotList: React.FC<TimeSlotListProps> = (props) => {
         </Heading>
       </Box>
     );
-
   return (
     <Flex justifyContent="center">
       <Stack
@@ -73,53 +63,32 @@ export const TimeSlotList: React.FC<TimeSlotListProps> = (props) => {
             </thead>
             <tbody>
               {rooms.map((room, index) => (
-                <Box as="tr" key={room.id}>
+                <Box as="tr" key={room.room.id}>
                   <Td>
                     <CheckBoxField
-                      registration={register(`showTimes.${index}.roomId`)}
-                      value={room.id}
-                      name={room.name}
+                      registration={register(`showTimes.${index}.room_id`)}
+                      value={room.room.id}
+                      name={room.room.name}
                       colorScheme="cyan"
                       size="lg"
                     />
                   </Td>
                   <Td>
-                    <Badge colorScheme={colorBadge[room.screen_name]}>{room.screen_name}</Badge>
+                    <Badge colorScheme={colorBadge[room.room.screen_name]}>
+                      {room.room.screen_name}
+                    </Badge>
                   </Td>
                   <Td>
-                    {/* <CheckBoxTimeGroup
-                      registration={register(`showTimes.${index}.times`)}
-                      options={room.timeSlots.map(({ time, id, disabled }) => ({
-                        label: time,
-                        value: id,
-                        disable: disabled,
+                    <CheckBoxTimeGroup
+                      registration={register(`showTimes.${index}.slots`)}
+                      options={room.slots.map((item) => ({
+                        label: item.slot,
+                        value: item.id,
                       }))}
-                      roomName={room.name}
-                      screenName={room.screen_name}
-                      onCheck={checkedTimes}
-                    /> */}
+                      onCheck={(e) => e.target.value}
+                    />
                   </Td>
-                  <Td>
-                    <VStack spacing={4} align="stretch">
-                      <Flex flex="1" alignItems="center">
-                        <Heading as="h6" size="xs" flex="1">
-                          Từ
-                        </Heading>
-
-                        <Box>
-                          <SingleSelect registration={register(`showTimes.${index}.dateStart`)} />
-                        </Box>
-                      </Flex>
-                      <Flex flex="1" alignItems="center">
-                        <Heading as="h6" size="xs" flex="1">
-                          Đến
-                        </Heading>
-                        <Box>
-                          <SingleSelect registration={register(`showTimes.${index}.dateEnd`)} />
-                        </Box>
-                      </Flex>
-                    </VStack>
-                  </Td>
+                  <Td></Td>
                 </Box>
               ))}
             </tbody>

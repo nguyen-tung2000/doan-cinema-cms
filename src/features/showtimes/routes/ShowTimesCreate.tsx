@@ -2,7 +2,7 @@ import { Box, Button, Center, Divider, Flex, Stack, Spinner, useToast } from '@c
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
 
-import { SelectField, SingleSelect } from '@/components';
+import { SelectField, SingleSelect, SelectOneField } from '@/components';
 import { AuthUser } from '@/features/auth';
 import { useRooms } from '@/features/room';
 import {
@@ -13,17 +13,16 @@ import {
   TimeStamp,
   get21Day,
   ShowtimeType,
+  RoomShowtimeType,
+  getRoomShowtimeCMS,
 } from '@/features/showtimes';
 // import { useRoomsByMovieStore } from '@/stores/timeSlot';
 import { formatDate } from '@/utils/format';
 import { isEmptyObject } from '@/utils/object';
 
 export type ShowTimesValues = {
-  date?: string;
-  dateStart: string;
-  dateEnd: string;
-  movieId: string;
-  cinema_id: number;
+  showtime_id: number;
+  movie_id: string;
   showTimes: TimeStamp[];
 };
 
@@ -37,43 +36,36 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
   const createShowTimeMutation = useCreateShowTime();
   const roomQuery = useRooms();
   const [listDay, setListDay] = React.useState<ShowtimeType[]>([]);
-  // const {
-  //   listRoomByMovie,
-  //   fetchRooms,
-  //   checkedTimes,
-  //   reset: resetMovies,
-  //   loading,
-  // } = useRoomsByMovieStore();
+  const [listRoom, setListRoom] = React.useState<RoomShowtimeType[]>([]);
+  const [loading, setLoading] = React.useState<boolean>(true);
   const {
     register,
     setValue,
     handleSubmit,
     reset,
+    getValues,
     formState,
     formState: { errors, isSubmitSuccessful },
   } = useForm<ShowTimesValues>({
     defaultValues: {
-      date: formatDate(new Date()),
-      movieId: '',
-      dateStart: '',
-      dateEnd: '',
-      cinema_id: user?.cinema_id,
+      showtime_id: listDay[0]?.id,
+      movie_id: moviesQuery.data?.values[0].movies[0].id,
       showTimes: [],
     },
   });
+
   React.useEffect(() => {
     get21Day()
       .then((res) => {
         setListDay(res.values);
+        setValue('showtime_id', res.values[0].id);
       })
       .catch(console.log);
-  });
+  }, []);
   React.useEffect(() => {
     if (isSubmitSuccessful) {
       reset({
         showTimes: [],
-        dateStart: '',
-        dateEnd: '',
       });
     }
     // eslint-disable-next-line
@@ -81,11 +73,24 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
 
   const onChangeMovie = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
+    getRoomShowtimeCMS(value, getValues('showtime_id'))
+      .then((res) => {
+        setListRoom(res.values);
+      })
+      .then(() => {
+        setLoading(false);
+      })
+      .catch(console.log);
     return value ? value : '';
     // return value ? fetchRooms(value) : resetMovies();
   };
+  const onChangeShowtime = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = event.target.value;
+    return value ? value : -1;
+  };
 
   const onSubmit = handleSubmit(async (data) => {
+    console.log(data);
     if (data['showTimes'] === undefined || isEmptyObject(data.showTimes)) {
       toast({
         title: 'Vui lòng chọn lịch chiếu',
@@ -95,26 +100,24 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
       });
       return;
     }
-    const times = data.showTimes.filter(
-      (t) => Boolean(t.roomId) !== false && Boolean(t.times) !== false,
-    );
+    // const times = data.showTimes.filter(
+    //   (t) => Boolean(t.roomId) !== false && Boolean(t.times) !== false,
+    // );
 
-    const newShowTimes = {
-      ...data,
-      cinema_id: user?.cinema_id,
-      showTimes: times,
-    };
+    // const newShowTimes = {
+    //   ...data,
+    //   cinema_id: user?.cinema_id,
+    //   showTimes: times,
+    // };
 
     // await createShowTimeMutation.mutateAsync({ data: newShowTimes });
     // resetMovies();
   });
-
   const spiner = (
     <Flex justifyContent="center">
       <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="blue.500" size="xl" />
     </Flex>
   );
-
   const formData = (
     <>
       <TimeSlotCreate />
@@ -130,26 +133,29 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
           <Stack spacing={4} direction="column">
             <Flex alignItems="center" justifyContent="space-between">
               <Stack direction="column" flex={1}>
-                <SelectField
+                <SelectOneField
                   label="Ngày chiếu"
                   placeholder="Chọn ngày chiếu"
-                  registration={register('movieId')}
-                  error={errors['movieId']}
-                  options={moviesQuery.data?.values.map((movie) => ({
-                    title: movie.movie_group_name,
-                    items: movie.movies.map((m) => ({
-                      label: m.name,
-                      value: m.id,
-                    })),
+                  registration={register('showtime_id')}
+                  error={errors['showtime_id']}
+                  title="Chọn ngày chiếu"
+                  options={listDay.map((item) => ({
+                    label: item.time,
+                    value: item.id,
                   }))}
-                  onChanging={onChangeMovie}
+                  onChanging={onChangeShowtime}
                 />
+              </Stack>
+              <Center flexShrink={0} mx={3} height="50px">
+                <Divider orientation="vertical" />
+              </Center>
+              <Stack direction="column" flex={1}>
                 {moviesQuery.data && (
                   <SelectField
                     label="Phim"
                     placeholder="Chọn 1 bộ phim"
-                    registration={register('movieId')}
-                    error={errors['movieId']}
+                    registration={register('movie_id')}
+                    error={errors['movie_id']}
                     options={moviesQuery.data?.values.map((movie) => ({
                       title: movie.movie_group_name,
                       items: movie.movies.map((m) => ({
@@ -161,33 +167,9 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
                   />
                 )}
               </Stack>
-              <Center flexShrink={0} mx={3} height="50px">
-                <Divider orientation="vertical" />
-              </Center>
-              <Stack direction="column" flex={1}>
-                <SingleSelect
-                  registration={register('dateStart')}
-                  label="Từ"
-                  setValues={setValue}
-                  nameToSet="dateStart"
-                  sizeOfTimeStamp={0}
-                />
-                <SingleSelect
-                  registration={register('dateEnd')}
-                  label="Đến"
-                  setValues={setValue}
-                  nameToSet="dateEnd"
-                  sizeOfTimeStamp={0}
-                />
-              </Stack>
             </Flex>
 
-            {/* <TimeSlotList
-              register={register}
-              rooms={listRoomByMovie}
-              checkedTimes={checkedTimes}
-              isLoading={loading}
-            /> */}
+            <TimeSlotList register={register} rooms={listRoom} isLoading={loading} />
 
             <Button
               backgroundColor="cyan.400"

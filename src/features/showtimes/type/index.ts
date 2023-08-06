@@ -1,6 +1,5 @@
 import { MovieType } from '@/features/manageMovie';
 import { ScreenType, Room, TimeSlot } from '@/features/room';
-
 export interface showTime {
   id: string;
   date: string;
@@ -18,6 +17,20 @@ interface FormatMovie {
   movie: MovieType;
 }
 
+export interface RoomTValue {
+  id: string;
+  name: string;
+  rows: number;
+  seats_per_row: number;
+  vip_seat_start: number;
+  vip_seat_end: number;
+  number_seat_couple: number;
+  couple_row: number;
+  screen_id: number;
+  screen_name: string;
+  cinema_id: number;
+}
+
 export interface FormatMovieResponse {
   success: boolean;
   message: string;
@@ -27,10 +40,8 @@ export interface FormatMovieResponse {
 }
 
 export interface TimeStamp {
-  roomId: string;
-  times: string[];
-  dateStart: string;
-  dateEnd: string;
+  room_id: number;
+  slots: number[];
 }
 
 export interface ShowTimesListByDayRange {
@@ -100,4 +111,17 @@ export interface showtimeMovieRoomListRes {
 export interface ShowtimeType {
   id: number;
   time: string;
+}
+export interface RoomShowtimeType {
+  room: RoomTValue;
+  slots: {
+    id: number;
+    slot: string;
+  }[];
+}
+
+export interface RoomShowtimeRes {
+  success: boolean;
+  message: string;
+  values: RoomShowtimeType[];
 }

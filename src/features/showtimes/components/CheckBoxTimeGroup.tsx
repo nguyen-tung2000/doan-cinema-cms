@@ -7,28 +7,17 @@ import { FieldWrapper, FieldWrapperPassThroughProps } from '../../../components/
 type Option = {
   label: React.ReactNode;
   value: string | number;
-  disable: boolean;
 };
 interface CheckBoxTimeGroupProps extends FieldWrapperPassThroughProps {
   defaultValue?: string[];
   registration: Partial<UseFormRegisterReturn>;
   options: Option[];
-  roomName: string;
-  screenName: string;
-  onCheck: ({
-    id,
-    roomName,
-    screenName,
-  }: {
-    id: string;
-    roomName: string;
-    screenName: string;
-  }) => void;
+  onCheck: (e: any) => void;
 }
 
 export const CheckBoxTimeGroup: React.FC<CheckBoxTimeGroupProps> = (props) => {
-  const { label, options, error, defaultValue, roomName, screenName, registration, onCheck } =
-    props;
+  const { label, options, error, defaultValue, registration, onCheck } = props;
+  console.log(defaultValue);
 
   return (
     <FieldWrapper label={label} error={error} fieldset={true}>
@@ -36,12 +25,12 @@ export const CheckBoxTimeGroup: React.FC<CheckBoxTimeGroupProps> = (props) => {
         <SimpleGrid columns={[2, null, 3]} spacing="5px">
           {options.map((o) => (
             <Checkbox
+              isChecked={true}
               value={o.value}
               {...registration}
               key={o.value}
-              isDisabled={o.disable}
-              onChange={() => {
-                onCheck({ id: o.value as string, roomName, screenName });
+              onChange={(e) => {
+                onCheck(e);
               }}
             >
               {o.label}
