@@ -13,10 +13,11 @@ interface CheckBoxTimeGroupProps extends FieldWrapperPassThroughProps {
   registration: Partial<UseFormRegisterReturn>;
   options: Option[];
   onCheck: (e: any) => void;
+  values: string[] | number[];
 }
 
 export const CheckBoxTimeGroup: React.FC<CheckBoxTimeGroupProps> = (props) => {
-  const { label, options, error, defaultValue, registration, onCheck } = props;
+  const { label, options, error, defaultValue, registration, onCheck, values } = props;
   console.log(defaultValue);
 
   return (
@@ -25,13 +26,13 @@ export const CheckBoxTimeGroup: React.FC<CheckBoxTimeGroupProps> = (props) => {
         <SimpleGrid columns={[2, null, 3]} spacing="5px">
           {options.map((o) => (
             <Checkbox
-              isChecked={true}
               value={o.value}
               {...registration}
               key={o.value}
               onChange={(e) => {
                 onCheck(e);
               }}
+              checked={values.includes(o.value as never)}
             >
               {o.label}
             </Checkbox>

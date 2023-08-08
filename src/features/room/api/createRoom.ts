@@ -18,7 +18,6 @@ export type CreateRoomDTO = {
 };
 
 export const createRoom = (data: CreateRoomDTO): Promise<RoomRespone> => {
-  console.log(data);
   return axios.post('/room/addRoom', data);
 };
 

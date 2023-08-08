@@ -1,10 +1,21 @@
-import { Flex, Spinner, Box, Heading, Stack, Badge, VStack } from '@chakra-ui/react';
-import React from 'react';
+import {
+  Flex,
+  Spinner,
+  Box,
+  Heading,
+  Stack,
+  Badge,
+  VStack,
+  Checkbox,
+  CheckboxGroup,
+  SimpleGrid,
+} from '@chakra-ui/react';
+import React, { useState } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 
-import { Table, Tr, Th, Td, CheckBoxField, SingleSelect } from '@/components';
+import { Table, Tr, Th, Td, CheckBoxField, SingleSelect, FieldWrapper } from '@/components';
 import { colorBadge } from '@/features/room';
-import { CheckBoxTimeGroup, RoomShowtimeType, ShowTimesValues } from '@/features/showtimes';
+import { RoomShowtimeType, ShowTimesValues } from '@/features/showtimes';
 
 interface TimeSlotListProps {
   register: UseFormRegister<ShowTimesValues>;
@@ -58,7 +69,6 @@ export const TimeSlotList: React.FC<TimeSlotListProps> = (props) => {
                 <Th>Phòng</Th>
                 <Th>Màn hình</Th>
                 <Th>Suất chiếu</Th>
-                <Th>Ngày</Th>
               </Tr>
             </thead>
             <tbody>
@@ -79,16 +89,16 @@ export const TimeSlotList: React.FC<TimeSlotListProps> = (props) => {
                     </Badge>
                   </Td>
                   <Td>
-                    <CheckBoxTimeGroup
-                      registration={register(`showTimes.${index}.slots`)}
-                      options={room.slots.map((item) => ({
-                        label: item.slot,
-                        value: item.id,
-                      }))}
-                      onCheck={(e) => e.target.value}
-                    />
+                    <CheckboxGroup colorScheme="cyan">
+                      <SimpleGrid columns={[2, null, 3]} spacing="5px">
+                        {room.slots.map((o, index1) => (
+                          <Checkbox {...register(`showTimes.${index}.slots.${index1}`)} key={o.id}>
+                            {o.slot}
+                          </Checkbox>
+                        ))}
+                      </SimpleGrid>
+                    </CheckboxGroup>
                   </Td>
-                  <Td></Td>
                 </Box>
               ))}
             </tbody>

@@ -82,26 +82,26 @@ const LinkItems = () => {
       icon: AiOutlineSchedule,
       to: '/app/showtimes',
     },
-    checkAccess({ allowedRoles: [ROLES.MANAGER] }) && {
-      name: 'Nhân viên',
-      icon: FiUser,
-      to: '/app/users',
-    },
-    checkAccess({ allowedRoles: [ROLES.MANAGER] }) && {
-      name: 'Khách hàng',
-      icon: FiUsers,
-      to: '/app/customers',
-    },
-    checkAccess({ allowedRoles: [ROLES.MANAGER, ROLES.USER] }) && {
-      name: 'Bán vé',
-      icon: FiStar,
-      to: '/app/seller',
-    },
-    checkAccess({ allowedRoles: [ROLES.MANAGER, ROLES.USER] }) && {
-      name: 'Bắp nước',
-      icon: GiPopcorn,
-      to: '/app/foods',
-    },
+    // checkAccess({ allowedRoles: [ROLES.MANAGER] }) && {
+    //   name: 'Nhân viên',
+    //   icon: FiUser,
+    //   to: '/app/users',
+    // },
+    // checkAccess({ allowedRoles: [ROLES.MANAGER] }) && {
+    //   name: 'Khách hàng',
+    //   icon: FiUsers,
+    //   to: '/app/customers',
+    // },
+    // checkAccess({ allowedRoles: [ROLES.MANAGER, ROLES.USER] }) && {
+    //   name: 'Bán vé',
+    //   icon: FiStar,
+    //   to: '/app/seller',
+    // },
+    // checkAccess({ allowedRoles: [ROLES.MANAGER, ROLES.USER] }) && {
+    //   name: 'Bắp nước',
+    //   icon: GiPopcorn,
+    //   to: '/app/foods',
+    // },
   ].filter(Boolean) as LinkItemProps[];
 
   return (

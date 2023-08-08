@@ -15,8 +15,9 @@ import {
   ShowtimeType,
   RoomShowtimeType,
   getRoomShowtimeCMS,
+  createShowtime,
 } from '@/features/showtimes';
-// import { useRoomsByMovieStore } from '@/stores/timeSlot';
+import { ConvertFormShowtime } from '@/utils/convertFormShowtime';
 import { formatDate } from '@/utils/format';
 import { isEmptyObject } from '@/utils/object';
 
@@ -34,7 +35,6 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
   const toast = useToast();
   const moviesQuery = useMoviesCMS();
   const createShowTimeMutation = useCreateShowTime();
-  const roomQuery = useRooms();
   const [listDay, setListDay] = React.useState<ShowtimeType[]>([]);
   const [listRoom, setListRoom] = React.useState<RoomShowtimeType[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
@@ -49,7 +49,7 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
   } = useForm<ShowTimesValues>({
     defaultValues: {
       showtime_id: listDay[0]?.id,
-      movie_id: moviesQuery.data?.values[0].movies[0].id,
+      movie_id: '',
       showTimes: [],
     },
   });
@@ -82,7 +82,6 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
       })
       .catch(console.log);
     return value ? value : '';
-    // return value ? fetchRooms(value) : resetMovies();
   };
   const onChangeShowtime = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
@@ -90,8 +89,8 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
   };
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
-    if (data['showTimes'] === undefined || isEmptyObject(data.showTimes)) {
+    const newData = ConvertFormShowtime(listRoom, data);
+    if (!newData.showTimes[0]) {
       toast({
         title: 'Vui lòng chọn lịch chiếu',
         position: 'top-right',
@@ -100,18 +99,27 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
       });
       return;
     }
-    // const times = data.showTimes.filter(
-    //   (t) => Boolean(t.roomId) !== false && Boolean(t.times) !== false,
-    // );
-
-    // const newShowTimes = {
-    //   ...data,
-    //   cinema_id: user?.cinema_id,
-    //   showTimes: times,
-    // };
-
-    // await createShowTimeMutation.mutateAsync({ data: newShowTimes });
-    // resetMovies();
+    createShowtime({ data: newData }).then((res) => {
+      if (res.success === false) {
+        toast({
+          title: res.message,
+          position: 'top-right',
+          isClosable: true,
+          status: 'error',
+        });
+      } else {
+        setValue('movie_id', '');
+        setValue('showtime_id', -1);
+        setValue('showTimes', []);
+        setListRoom([]);
+        toast({
+          title: res.message,
+          position: 'top-right',
+          isClosable: true,
+          status: 'success',
+        });
+      }
+    });
   });
   const spiner = (
     <Flex justifyContent="center">

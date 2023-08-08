@@ -1,16 +1,19 @@
 import { createStandaloneToast } from '@chakra-ui/toast';
 import { useMutation } from 'react-query';
 
-import { ShowTimesResponse, TimeStamp, showtimeMovieRoomListRes } from '@/features/showtimes';
+import {
+  STRes,
+  ShowTimesResponse,
+  TimeStamp,
+  showtimeMovieRoomListRes,
+} from '@/features/showtimes';
 import { axios } from '@/lib/axios';
 import { MutationConfig, queryClient } from '@/lib/react-query';
 
 export type CreateShowTimesDTO = {
   data: {
-    dateStart: string;
-    dateEnd: string;
-    movieId: string;
-    cinemaId: string;
+    showtime_id: number | string;
+    movie_id: number | string;
     showTimes: TimeStamp[];
   };
 };
@@ -18,7 +21,9 @@ export type CreateShowTimesDTO = {
 export const createShowTimes = ({ data }: CreateShowTimesDTO): Promise<ShowTimesResponse> => {
   return axios.post('/showTime/add', data);
 };
-
+export const createShowtime = ({ data }: CreateShowTimesDTO): Promise<STRes> => {
+  return axios.post('/movieRoomDetail/addShowtimeMovieRooms', data);
+};
 export const getListShowtimeMovieRoomCMS = (): Promise<showtimeMovieRoomListRes> => {
   return axios.get('/movieRoomDetail/getShowtimeMovieRoomByCinemaCMS');
 };

@@ -11,6 +11,11 @@ export interface ShowTimesResponse {
   showTimes: showTime[];
 }
 
+export interface STRes {
+  success: boolean;
+  message: string;
+}
+
 interface FormatMovie {
   id: string;
   screen: ScreenType;
@@ -40,8 +45,8 @@ export interface FormatMovieResponse {
 }
 
 export interface TimeStamp {
-  room_id: number;
-  slots: number[];
+  room_id: number | string;
+  slots: (number | false)[];
 }
 
 export interface ShowTimesListByDayRange {
