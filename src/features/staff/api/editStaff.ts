@@ -19,8 +19,8 @@ export type UpdateStaffDTO = {
   staff_id: number | string | undefined;
 };
 
-export const editStaff = ({ data, staff_id }: UpdateStaffDTO): Promise<StaffRespon> => {
-  return axios.put(`/staff/update/${staff_id}`, data);
+export const editStaff = ({ data }: UpdateStaffDTO): Promise<StaffRespon> => {
+  return axios.put(`/staff/updateStaff`, data);
 };
 
 type UseUpdateStaffOptions = {

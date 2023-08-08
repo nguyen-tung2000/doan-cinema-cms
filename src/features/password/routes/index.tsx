@@ -26,9 +26,9 @@ import { storage } from '@/lib/firebase';
 import { Toast } from '@/utils/Toast';
 
 const schemaPassword = z.object({
-  old_password: z.string().nonempty({ message: 'Vui lòng nhập mật khẩu cũ' }),
-  new_password: z.string().nonempty({ message: 'Vui lòng nhập mật khẩu mới' }),
-  confirm_password: z.string().nonempty({ message: 'Vui lòng nhập lại mật khẩu' }),
+  oldPassword: z.string().nonempty({ message: 'Vui lòng nhập mật khẩu cũ' }),
+  newPassword: z.string().nonempty({ message: 'Vui lòng nhập mật khẩu mới' }),
+  confirmPassword: z.string().nonempty({ message: 'Vui lòng nhập lại mật khẩu' }),
 });
 
 const schemaProfile = z.object({
@@ -62,7 +62,7 @@ export const Password = ({ onClose, isOpen, type }: PasswordProps) => {
       newPassword: '',
       confirmPassword: '',
       name: user?.name,
-      phoneNumber: user?.phone_number,
+      phone_number: user?.phone_number,
       email: user?.email,
       date_of_birth: user?.date_of_birth,
       male: user?.male,
@@ -88,7 +88,6 @@ export const Password = ({ onClose, isOpen, type }: PasswordProps) => {
       }
     }
   };
-
   const onProfile: SubmitHandler<StaffValues> = async (data: StaffValues) => {
     const male = data.male == 'Male' ? true : false;
     if (imageSource) {
@@ -203,8 +202,8 @@ export const Password = ({ onClose, isOpen, type }: PasswordProps) => {
               <InputField
                 type="text"
                 label="Số điện thoại"
-                registration={register('phoneNumber')}
-                error={errors['phoneNumber']}
+                registration={register('phone_number')}
+                error={errors['phone_number']}
               />
               <InputField
                 type="text"
