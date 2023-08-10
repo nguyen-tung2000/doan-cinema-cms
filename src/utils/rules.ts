@@ -15,7 +15,9 @@ export const rules = {
       message: 'Thời lượng là bắt buộc nhập',
     },
     validate: {
-      number: (value: any) => /^[0-9]*$/.test(value) || 'Vui lòng nhập đúng định dạng là số',
+      number: (value: any) =>
+        /^(?:[0-9]|[1-9][0-9]|1[0-9]{2}|23[0-9])$/.test(value) ||
+        'Vui lòng nhập đúng định dạng là số và nhở hơn 240',
     },
   },
   age: {

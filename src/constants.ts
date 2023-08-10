@@ -1,6 +1,6 @@
 export const ROUTES = {
   AUTH: '/auth/*',
-  DASHBOARD: '/app/dashboard',
+  DASHBOARD: '/',
   CINEMA_LIST: '/app/cinema/list',
   CINEMA_DETAIL: '/app/cinema/list/:id',
   CUSTOMERS: '/app/customers',

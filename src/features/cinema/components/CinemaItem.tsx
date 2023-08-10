@@ -119,15 +119,6 @@ export const CinemaItem: React.FC<CinemaType> = (props) => {
         <Authorization policyCheck={POLICIES['cinema:update'](user as AuthUser)}>
           <CinemaModalUpdate {...props} address={newPropAddress} />
         </Authorization>
-        <Button
-          as={Link}
-          to={`${url}/${props.id}`}
-          leftIcon={<MdInfo />}
-          colorScheme="cyan"
-          variant="outline"
-        >
-          Chi tiết
-        </Button>
       </Stack>
     </Box>
   );

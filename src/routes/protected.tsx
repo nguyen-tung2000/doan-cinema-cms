@@ -28,7 +28,7 @@ const App = ({ routes }: any) => {
 
   useEffect(() => {
     if (location.pathname === '/app') {
-      history.push('/app/dashboard');
+      history.push('/app');
     }
   }, [history, location.pathname]);
 
@@ -53,7 +53,7 @@ const App = ({ routes }: any) => {
 
 export const protectedRoutes = [
   {
-    path: '/app',
+    path: '/',
     component: App,
     routes: [
       { path: ROUTES.CINEMA_DETAIL, component: Cinema },

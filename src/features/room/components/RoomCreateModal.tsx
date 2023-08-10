@@ -122,8 +122,8 @@ export const RoomCreateModal = () => {
                   <InputNumberField
                     label="Số hàng ghế"
                     max={20}
-                    min={10}
-                    defaultValue={15}
+                    min={8}
+                    defaultValue={10}
                     error={formState.errors['rows']}
                     registration={register('rows')}
                   />

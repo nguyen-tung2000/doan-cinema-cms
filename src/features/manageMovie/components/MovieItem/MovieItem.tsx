@@ -146,15 +146,17 @@ export const MovieItem: React.FC<MovieItemProps> = ({ setMovie, movie }) => {
                   {movie.screens.length > 0 && (
                     <>
                       <S.MovieSpan>Loại màn:</S.MovieSpan>
-                      <S.MovieSpan>
-                        {screenValue.length > 0 && <span>{screenValue.toString()}</span>}
-                      </S.MovieSpan>
+                      <S.MovieSpan>{movie.screens.map((scr) => `${scr.name}, `)}</S.MovieSpan>
                     </>
                   )}
                 </S.MovieListSpan>
                 <S.MovieListSpan>
                   <S.MovieSpan>Nội dung:</S.MovieSpan>
-                  <S.MovieSpan>{movie.description}</S.MovieSpan>
+                  <S.MovieSpan>
+                    {movie.description.length > 255
+                      ? `${movie.description.substring(0, 255)} ...`
+                      : movie.description}
+                  </S.MovieSpan>
                 </S.MovieListSpan>
                 <S.MovieListBtn>
                   <S.MovieBtnEdit onClick={() => handleEdit(movie.id)}>
