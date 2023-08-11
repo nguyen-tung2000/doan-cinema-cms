@@ -22,7 +22,7 @@ import { formatDate } from '@/utils/format';
 import { isEmptyObject } from '@/utils/object';
 
 export type ShowTimesValues = {
-  showtime_id: number;
+  showtime_id: number | string;
   movie_id: string;
   showTimes: TimeStamp[];
 };
@@ -75,10 +75,18 @@ export const ShowTimesCreate: React.FC<ShowTimesCreateProps> = ({ user }) => {
     const value = event.target.value;
     getRoomShowtimeCMS(value, getValues('showtime_id'))
       .then((res) => {
-        setListRoom(res.values);
-      })
-      .then(() => {
-        setLoading(false);
+        if (res.success) {
+          setListRoom(res.values);
+          setLoading(false);
+        } else {
+          setListRoom([]);
+          toast({
+            title: res.message,
+            position: 'top-right',
+            isClosable: true,
+            status: 'error',
+          });
+        }
       })
       .catch(console.log);
     return value ? value : '';
