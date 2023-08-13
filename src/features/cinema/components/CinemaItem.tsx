@@ -43,9 +43,9 @@ export const CinemaItem: React.FC<CinemaType> = (props) => {
 
   const newPropAddress = {
     street: temp[0],
-    city: temp[1] || '',
+    ward: temp[1] || '',
     district: temp[2],
-    ward: temp[3],
+    city: temp[3],
   };
 
   return (
